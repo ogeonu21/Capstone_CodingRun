@@ -6,17 +6,22 @@ using UnityEngine.PlayerLoop;
 public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
-    [Range(1, 10)]
-    public int loadNum = 3;
+
+    [Range(1, 10)] public int loadNum = 3;
+
+    public int delayDistance = 5;
+
     public Transform player;
-    [SerializeField]
-    private Queue<GameObject> roadPool = new Queue<GameObject>();
+
+    public float moveSpeed = 5f;
+
+    [SerializeField] private Queue<GameObject> roadPool = new Queue<GameObject>();
+
     public List<GameObject> mapPrefs = new List<GameObject>();
+
+    [SerializeField] public Vector3 startPos = new Vector3(0f, 0f, 0f);
+
     private List<Quiz> quizList;
-    [SerializeField]
-    private GameObject currentMap;
-    [SerializeField]
-    private GameObject nextMap;
     private Quiz currentQuiz;
 
     public bool checkCorrect() {
@@ -29,6 +34,9 @@ public class MapManager : MonoBehaviour
         return new Quiz();
     }
 
+    /// <summary>
+    /// Initialize road's ObejctPool.
+    /// </summary>
     public void InitObjectPool() {
         if (mapPrefs == null) {
             Debug.LogError("mapPref is null!");
@@ -43,6 +51,7 @@ public class MapManager : MonoBehaviour
 
         Debug.Log("RoadPool is initialized!");
     }
+
     /// <summary>
     /// returns GameObejct's Vector3 size data.
     /// </summary>
@@ -60,53 +69,56 @@ public class MapManager : MonoBehaviour
         return collider.bounds.size;
     }
 
+    /// <summary>
+    /// Update infinite scroll map
+    /// </summary>
     private void UpdateRoad() {
     
-    GameObject firstRoad = roadPool.Peek(); //queue의 첫번째 요소 잠시 가져오기 (dequeue아님)
-    
-    if (player.transform.position.z > firstRoad.transform.position.z + GetObjectSize(firstRoad).z) //플레이어가 어느정도 왔을때
+        GameObject firstRoad = roadPool.Peek(); //queue의 첫번째 요소 잠시 가져오기 (dequeue아님)
+        
+        if (player.transform.position.z > firstRoad.transform.position.z + GetObjectSize(firstRoad).z + delayDistance) //플레이어가 어느정도 왔을때
+        {
+            roadPool.Dequeue(); // 첫 번째 Road 제거
+            float newZ = roadPool.Peek().transform.position.z + GetObjectSize(firstRoad).z * roadPool.Count;
+            
+            firstRoad.transform.position = new Vector3(firstRoad.transform.position.x, firstRoad.transform.position.y, newZ);
+            firstRoad.SetActive(true);
+            roadPool.Enqueue(firstRoad); // 다시 큐에 추가
+        }
+    }
+
+    /// <summary>
+    /// Moves Road.
+    /// </summary>
+    private void MoveRoads()
     {
-        roadPool.Dequeue(); // 첫 번째 Road 제거
-        float newZ = roadPool.Peek().transform.position.z + GetObjectSize(firstRoad).z;
-        
-        firstRoad.transform.position = new Vector3(firstRoad.transform.position.x, firstRoad.transform.position.y, newZ);
-        firstRoad.SetActive(true);
-        roadPool.Enqueue(firstRoad); // 다시 큐에 추가
+        foreach (GameObject road in roadPool)
+        {
+            road.transform.position -= new Vector3(0, 0, moveSpeed * Time.deltaTime);
+        }
+    }
 
-        Debug.Log("Recycling Road: " + firstRoad.name);
-    }
-}
-
-private void MoveRoads()
-{
-    foreach (GameObject road in roadPool)
-    {
-        road.transform.position -= new Vector3(0, 0, 5 * Time.deltaTime);
-    }
-}
-private void SetRoads() {
-    if (roadPool.Count < loadNum) {
-        Debug.LogError("Not enough roads in the pool!");
-        return;
-    }
-    
-    float currentZ = roadPool.Peek().transform.position.z; // 첫 번째 로드의 초기 위치 기준
-    
-    for (int i = 0; i < loadNum; i++) {
-        GameObject road = roadPool.Dequeue(); // 큐에서 로드를 꺼냄
-        Debug.Log(road.name);
-        road.SetActive(true); // 활성화
-        float roadLength = GetObjectSize(road).z; // 로드의 길이 가져오기
-        Debug.Log("roadLength : " + roadLength);
-        road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y, currentZ);
+    /// <summary>
+    /// Arrange Roads in the roadPool queue.
+    /// </summary>
+    private void SetRoads() {
+        if (roadPool.Count < loadNum) {
+            Debug.LogError("Not enough roads in the pool!");
+            return;
+        }
         
+        float currentZ = roadPool.Peek().transform.position.z;
         
-        roadPool.Enqueue(road); // 다시 큐에 추가
-        currentZ += roadLength; // 다음 로드의 위치를 현재 로드의 끝부분으로 설정
-        Debug.Log(currentZ);
-    }
-}
+        for (int i = 0; i < loadNum; i++) {
+            GameObject road = roadPool.Dequeue();
+            road.SetActive(true);
+            float roadLength = GetObjectSize(road).z; // Road의 길이
+            road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y, currentZ);
 
+            roadPool.Enqueue(road);
+            currentZ += roadLength; // 다음 로드의 위치를 현재 로드의 끝부분으로 설정
+        }
+    }
 
     void Start()
     {   
@@ -121,7 +133,8 @@ private void SetRoads() {
             DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
-        }
+        } 
+        //Singleton setting
     }
 
     void Update()
