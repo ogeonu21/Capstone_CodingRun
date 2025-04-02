@@ -7,29 +7,32 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
 
-    [Range(1, 10)] public int loadNum = 3;
-
-    public int delayDistance = 5;
-
+    [Header("Player Setting")]
+    [Space(5)]
     public Transform player;
-
     public float moveSpeed = 5f;
 
-    [SerializeField] private Queue<GameObject> roadPool = new Queue<GameObject>();
 
+    [Header("Map Setting")]
+    [Space(5)]
     public List<GameObject> mapPrefs = new List<GameObject>();
+    [Range(1, 10)] public int loadNum = 3;
+    public int delayDistance = 5;
+    public Vector3 startPos = new Vector3(0f, 0f, 0f);
+    public Transform roads;
+    
 
-    [SerializeField] public Vector3 startPos = new Vector3(0f, 0f, 0f);
+    private Queue<GameObject> roadPool = new Queue<GameObject>();
 
     private List<Quiz> quizList;
     private Quiz currentQuiz;
 
-    public bool checkCorrect() {
+    private bool checkCorrect() {
         //OnTriggerEnter가 발생했을때, 플레이어와 충돌한 선택지의 answer값이 정답인지 체크하는 함수.
         return true;
     }
 
-    public Quiz RandomQuiz() {
+    private Quiz RandomQuiz() {
         //Quiz 리스트에서 랜덤으로 하나의 Quiz 뽑아서 dequeue (같은 문제가 뽑히지 않도록 삭제) 한 후, 그 값을 return하는 함수.    
         return new Quiz();
     }
@@ -37,14 +40,14 @@ public class MapManager : MonoBehaviour
     /// <summary>
     /// Initialize road's ObejctPool.
     /// </summary>
-    public void InitObjectPool() {
+    private void InitObjectPool() {
         if (mapPrefs == null) {
             Debug.LogError("mapPref is null!");
             return;
         }
 
         for (int i = 0; i < loadNum; i++) {
-            GameObject road = Instantiate(mapPrefs[0]);
+            GameObject road = Instantiate(mapPrefs[0], roads);
             road.SetActive(false);
             roadPool.Enqueue(road);
         }
@@ -107,7 +110,7 @@ public class MapManager : MonoBehaviour
             return;
         }
         
-        float currentZ = roadPool.Peek().transform.position.z;
+        float currentZ = startPos.z + roadPool.Peek().transform.position.z;
         
         for (int i = 0; i < loadNum; i++) {
             GameObject road = roadPool.Dequeue();

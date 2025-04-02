@@ -4,26 +4,15 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    private Vector3[] spawnPoint;
-    private float objectSpeed;
-    private float coinTimer;
-    private float waitingCoinTime;
-
-    [SerializeField]
+    private Vector3[] spawnPoint = new Vector3[3];
+    public float objectSpeed = 5f;
+    private float coinTimer = 0f;
+    public float waitingCoinTime = 0.8f;
     public GameObject testPrefab1;
+    public Transform items;
 
     void Awake()
     {
-        
-        objectSpeed = 5.0f;
-        coinTimer = 0.0f;
-        waitingCoinTime = 0.8f;
-
-
-        spawnPoint = new Vector3[3];
-
-
-        //ÀÓ½Ã spawnPoint ¼³Á¤
         spawnPoint[0] = new Vector3(-4.9f, 1f, 14f);
         spawnPoint[1] = new Vector3(0f, 1f, 14f);
         spawnPoint[2] = new Vector3(4.9f, 1f, 14f);
@@ -36,18 +25,18 @@ public class StageManager : MonoBehaviour
 
     void Update()
     {
-        //0.8ÃÊ ÁÖ±â·Î ÄÚÀÎ »ý¼º
+        //0.8ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         coinTimer += Time.deltaTime;
         if (coinTimer > waitingCoinTime) {
-            SpawnCoin();
+            SpawnItem(testPrefab1);
             coinTimer = 0.0f;
         }
         
     }
 
-    private void SpawnCoin()
+    private void SpawnItem(GameObject obj)
     {
-        GameObject spawnObject = Instantiate(testPrefab1, spawnPoint[Random.Range(0, 3)], Quaternion.identity);
+        GameObject spawnObject = Instantiate(obj, spawnPoint[Random.Range(0, 3)], Quaternion.identity, items);
         spawnObject.GetComponent<Rigidbody>().velocity = Vector3.back * objectSpeed;
     }
 }
