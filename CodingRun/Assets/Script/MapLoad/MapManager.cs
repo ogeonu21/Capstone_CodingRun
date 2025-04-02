@@ -23,6 +23,11 @@ public class MapManager : MonoBehaviour
     
 
     private Queue<GameObject> roadPool = new Queue<GameObject>();
+    private bool isGameStart = false;
+    public bool IsGameStart {
+        get {return isGameStart;}
+    }
+    
 
     private List<Quiz> quizList;
     private Quiz currentQuiz;
@@ -123,6 +128,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void StartGame() {
+        UpdateRoad();
+        MoveRoads();
+    }
+
     void Start()
     {   
         InitObjectPool(); //Road 오브젝트 풀 로드
@@ -142,7 +152,7 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
-        UpdateRoad();
-        MoveRoads();
+        isGameStart = true;
+        if (isGameStart) StartGame();
     }
 }
