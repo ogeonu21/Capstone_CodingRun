@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour
     public static MapManager instance;
     [Range(1, 10)]
     public int loadNum = 3;
+    public Transform player;
     [SerializeField]
     private Queue<GameObject> roadPool = new Queue<GameObject>();
     public List<GameObject> mapPrefs = new List<GameObject>();
@@ -36,7 +37,7 @@ public class MapManager : MonoBehaviour
 
         for (int i = 0; i < loadNum; i++) {
             GameObject road = Instantiate(mapPrefs[0]);
-            road.SetActive(true);
+            road.SetActive(false);
             roadPool.Enqueue(road);
         }
 
@@ -60,9 +61,30 @@ public class MapManager : MonoBehaviour
         return collider.bounds.size;
     }
 
-    private void InitMap() {
+    private void UpdateRoad()
+{
+    GameObject firstRoad = roadPool.Peek(); //queue의 첫번째 요소 잠시 가져오기 (dequeue아님)
+    
+    if (player.transform.position.z > firstRoad.transform.position.z + GetObjectSize(firstRoad).z) //플레이어가 어느정도
+    {
+        roadPool.Dequeue(); // 첫 번째 Road 제거
+        float newZ = roadPool.Peek().transform.position.z + GetObjectSize(firstRoad).z;
         
+        firstRoad.transform.position = new Vector3(firstRoad.transform.position.x, firstRoad.transform.position.y, newZ);
+        firstRoad.SetActive(true);
+        roadPool.Enqueue(firstRoad); // 다시 큐에 추가
+
+        Debug.Log("Recycling Road: " + firstRoad.name);
     }
+}
+
+private void MoveRoads()
+{
+    foreach (GameObject road in roadPool)
+    {
+        road.transform.position -= new Vector3(0, 0, 5 * Time.deltaTime);
+    }
+}
 
     void Start()
     {   
@@ -77,5 +99,11 @@ public class MapManager : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
+    }
+
+    void Update()
+    {
+        UpdateRoad();
+        MoveRoads();
     }
 }
