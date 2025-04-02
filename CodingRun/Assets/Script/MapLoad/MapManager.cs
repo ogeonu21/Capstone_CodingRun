@@ -51,7 +51,6 @@ public class MapManager : MonoBehaviour
     private Vector3 GetObjectSize(GameObject obj) {
         Collider collider = obj.GetComponent<Collider>();
         if (collider == null) {
-            Debug.Log("Failed to find Collider Component. trying to find in child Object...");
             collider = obj.GetComponentInChildren<Collider>();
             if (collider == null) {
                 Debug.LogError("collider is null! check the component!");
@@ -61,11 +60,11 @@ public class MapManager : MonoBehaviour
         return collider.bounds.size;
     }
 
-    private void UpdateRoad()
-{
+    private void UpdateRoad() {
+    
     GameObject firstRoad = roadPool.Peek(); //queue의 첫번째 요소 잠시 가져오기 (dequeue아님)
     
-    if (player.transform.position.z > firstRoad.transform.position.z + GetObjectSize(firstRoad).z) //플레이어가 어느정도
+    if (player.transform.position.z > firstRoad.transform.position.z + GetObjectSize(firstRoad).z) //플레이어가 어느정도 왔을때
     {
         roadPool.Dequeue(); // 첫 번째 Road 제거
         float newZ = roadPool.Peek().transform.position.z + GetObjectSize(firstRoad).z;
@@ -85,10 +84,34 @@ private void MoveRoads()
         road.transform.position -= new Vector3(0, 0, 5 * Time.deltaTime);
     }
 }
+private void SetRoads() {
+    if (roadPool.Count < loadNum) {
+        Debug.LogError("Not enough roads in the pool!");
+        return;
+    }
+    
+    float currentZ = roadPool.Peek().transform.position.z; // 첫 번째 로드의 초기 위치 기준
+    
+    for (int i = 0; i < loadNum; i++) {
+        GameObject road = roadPool.Dequeue(); // 큐에서 로드를 꺼냄
+        Debug.Log(road.name);
+        road.SetActive(true); // 활성화
+        float roadLength = GetObjectSize(road).z; // 로드의 길이 가져오기
+        Debug.Log("roadLength : " + roadLength);
+        road.transform.position = new Vector3(road.transform.position.x, road.transform.position.y, currentZ);
+        
+        
+        roadPool.Enqueue(road); // 다시 큐에 추가
+        currentZ += roadLength; // 다음 로드의 위치를 현재 로드의 끝부분으로 설정
+        Debug.Log(currentZ);
+    }
+}
+
 
     void Start()
     {   
         InitObjectPool(); //Road 오브젝트 풀 로드
+        SetRoads();
     }
 
     void Awake()
