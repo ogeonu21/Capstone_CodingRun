@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float laneDistance = 5.0f; // ÁÂÁß¿ì ·¹ÀÎ °£ °£°Ý & ÀÌµ¿°Å¸® 5¾¿ÀÌµ¿
-    private int currentLane = 1;      // 0 = ¿ÞÂÊ, 1 = Áß¾Ó, 2 = ¿À¸¥ÂÊ
+    public float laneDistance = 5.0f; // ì¢Œì¤‘ìš° ë ˆì¸ ê°„ ê°„ê²© & ì´ë™ê±°ë¦¬ 5ì”©ì´ë™
+    private int currentLane = 1;      // 0 = ì™¼ìª½, 1 = ì¤‘ì•™, 2 = ì˜¤ë¥¸ìª½
 
-    private Vector2 touchStart; //ÅÍÄ¡ ½ÃÀÛ ÁöÁ¡
-    private bool isSwiping = false; //½º¿ÍÇÎ ¿©ºÎ
+    private Vector2 touchStart; //í„°ì¹˜ ì‹œìž‘ ì§€ì 
+    private bool isSwiping = false; //ìŠ¤ì™€ì´í•‘ ì—¬ë¶€
 
     void Update()
     {
@@ -19,42 +19,43 @@ public class Player : MonoBehaviour
     void MoveToLane()
     {
         Vector3 targetPos = transform.position;
-        targetPos.x = (currentLane - 1) * laneDistance; //ÇÃ·¹ÀÌ¾î x°ª ¿ÞÂÊ(-1)=-1*5   °¡¿îµ¥(1)=0*5  ¿À¸¥ÂÊ(1)=1*5
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f); //ºÎµå·¯¿î ¿òÁ÷ÀÓ,10fÁ¶Á¤½Ã ·¹ÀÎ->·¹ÀÎÀÌµ¿½Ã°£ Á¶Àý °¡´É(Å©¸é Å¬¼ö·Ï ºü¸§)
+        targetPos.x = (currentLane - 1) * laneDistance; //í”Œë ˆì´ì–´ xê°’ ì™¼ìª½(-1)=-1*5   ê°€ìš´ë°(1)=0*5  ì˜¤ë¥¸ìª½(1)=1*5
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f); //ë¶€ë“œëŸ¬ìš´ ì›€ì§ìž„,10fì¡°ì •ì‹œ ë ˆì¸->ë ˆì¸ì´ë™ì‹œê°„ ì¡°ì ˆ ê°€ëŠ¥(í¬ë©´ í´ìˆ˜ë¡ ë¹ ë¦„)
     }
 
     void HandleSwipeOrKey()
     {
-        // ¸ð¹ÙÀÏ ½º¿ÍÀÌÇÁ
-        if (Input.touchCount == 1)     //¼Õ°¡¶ô 1°³¸¸ ÅÍÄ¡ÁßÀÏ‹š
+        // ëª¨ë°”ì¼ ìŠ¤ì™€ì´í”„
+        if (Input.touchCount == 1)     //ì†ê°€ë½ 1ê°œë§Œ í„°ì¹˜ì¤‘ì¼ë•Œ
         {
-            Touch touch = Input.GetTouch(0);    //Ã¹ ¹øÂ° ÅÍÄ¡ Á¤º¸ È£Ãâ
+            Touch touch = Input.GetTouch(0);    //ì²« ë²ˆì§¸ í„°ì¹˜ ì •ë³´ í˜¸ì¶œ
 
-            if (touch.phase == TouchPhase.Began)    //ÅÍÄ¡ÇßÀ»¶§
+            if (touch.phase == TouchPhase.Began)    //í„°ì¹˜í–ˆì„ë•Œ
             {
-                touchStart = touch.position;    //ÅÍÄ¡ ½ÃÀÛ x°ª ÀúÀå
-                isSwiping = true;               //½º¿ÍÀÌÇÎ »óÅÂ·Î ÀüÈ¯
+                touchStart = touch.position;    //í„°ì¹˜ ì‹œìž‘ xê°’ ì €ìž¥
+                isSwiping = true;               //ìŠ¤ì™€ì´í•‘ ìƒíƒœë¡œ ì „í™˜
             }
-            else if (touch.phase == TouchPhase.Ended && isSwiping)  //½º¿ÍÀÌÇÎÁß & ½º¿ÍÀÌÇÎ Á¾·á½Ã
+            else if (touch.phase == TouchPhase.Ended && isSwiping)  //ìŠ¤ì™€ì´í•‘ì¤‘ & ìŠ¤ì™€ì´í•‘ ì¢…ë£Œì‹œ
             {
-                float deltaX = touch.position.x - touchStart.x; ÅÍÄ¡ ½ÃÀÛ x°ª°ú ÅÍÄ¡°¡ ³¡³­ x°ª Â÷ÀÌ °è»ê
+                // í„°ì¹˜ ì‹œìž‘ xê°’ê³¼ í„°ì¹˜ê°€ ëë‚œ xê°’ ì°¨ì´ ê³„ì‚°
+                float deltaX = touch.position.x - touchStart.x;
 
-                if (Mathf.Abs(deltaX) > 50f)    //x°ªÀÇ Â÷ÀÌ°¡ 50fÀ» ³Ñ±â¸é ½º¿ÍÀÌÇÎÀ¸·Î ÀÎÁ¤
+                if (Mathf.Abs(deltaX) > 50f)    //xê°’ì˜ ì°¨ì´ê°€ 50fì„ ë„˜ê¸°ë©´ ìŠ¤ì™€ì´í•‘ìœ¼ë¡œ ì¸ì •
                 {
-                    if (deltaX > 0 && currentLane < 2) currentLane++;   //¿À¸¥ÂÊ ÀÌµ¿
-                    else if (deltaX < 0 && currentLane > 0) currentLane--;  //¿ÞÂÊ ÀÌµ¿ (·¹ÀÎ¹üÀ§¸¦ ÃÊ°úÇÏÁö ¾Êµµ·Ï)
+                    if (deltaX > 0 && currentLane < 2) currentLane++;   //ì˜¤ë¥¸ìª½ ì´ë™
+                    else if (deltaX < 0 && currentLane > 0) currentLane--;  //ì™¼ìª½ ì´ë™ (ë ˆì¸ë²”ìœ„ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šë„ë¡)
                 }
 
-                isSwiping = false;  //ÇÑ¹øÀÇ ½º¿ÍÀÌÇÎ ³¡³µÀ¸´Ï »óÅÂ ÃÊ±âÈ­
+                isSwiping = false;  //í•œë²ˆì˜ ìŠ¤ì™€ì´í•‘ ëë‚¬ìœ¼ë‹ˆ ìƒíƒœ ì´ˆê¸°í™”
             }
         }
 
-        // PC Å°º¸µå Å×½ºÆ®¿ë ÀÔ·Â
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0) //¿ÞÂÊ È­»ìÇ¥
+        // PC í‚¤ë³´ë“œ í…ŒìŠ¤íŠ¸ìš© ìž…ë ¥
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0) //ì™¼ìª½ í™”ì‚´í‘œ
         {
             currentLane--;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)   //¿À¸¥ÂÊ È­»ìÇ¥
+        else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)   //ì˜¤ë¥¸ìª½ í™”ì‚´í‘œ
         {
             currentLane++;
         }
