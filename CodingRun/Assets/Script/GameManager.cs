@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     // 전역 변수: 현재 점수
-    public int Score { get; set; }
+    public float Score { get; set; }
 
     // 현재까지의 최고 점수 (읽기 전용)
-    public int HighScore { get; private set; }
+    public float HighScore { get; private set; }
 
     // Awake 함수: 싱글톤 초기화 및 중복 제거, 씬 전환 시 파괴되지 않게 설정
     private void Awake()
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // PlayerPrefs를 통해 이전에 저장된 최고 점수가 있으면 로드 (없으면 0으로 초기화)
-        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
     // HighScore 저장 기능: 현재 점수가 기존 최고 점수보다 높으면 저장
@@ -40,10 +40,9 @@ public class GameManager : MonoBehaviour
         if (Score > HighScore)
         {
             HighScore = Score;
-            PlayerPrefs.SetInt("HighScore", HighScore);
+            PlayerPrefs.SetFloat("HighScore", HighScore);
             PlayerPrefs.Save(); // 저장된 값을 디스크에 기록
             Debug.Log("새로운 최고 점수 저장: " + HighScore);
         }
     }
 }
-
