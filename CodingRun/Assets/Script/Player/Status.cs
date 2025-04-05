@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
-    [Header("½ºÅ×ÀÌÅÍ½º")]
+    [Header("ìŠ¤í…Œì´í„°ìŠ¤")]
     public int maxHP = 100;
     public int currentHP;
 
@@ -23,21 +23,21 @@ public class Status : MonoBehaviour
         HandleHPDecay();
     }
 
-    void HandleHPDecay()    //2ÃÊ¸¶´Ù Ã¼·Â 1¾¿ °¨¼Ò
+    void HandleHPDecay()    //2ì´ˆë§ˆë‹¤ ì²´ë ¥ 1ì”© ê°ì†Œ
     {
         hpDecayTimer += Time.deltaTime;
         if (hpDecayTimer >= hpDecayInterval)
         {
-            TakeDamage(1); // Ã¼·Â 1¾¿ °¨¼Ò
+            TakeDamage(1); // ì²´ë ¥ 1ì”© ê°ì†Œ
             hpDecayTimer = 0f;
         }
     }
 
-    public void TakeDamage(int amount)  //µ¥¹ÌÁö ÇÔ¼ö
+    public void TakeDamage(int amount)  //ë°ë¯¸ì§€ í•¨ìˆ˜
     {
         currentHP -= amount;
-        currentHP = Mathf.Max(currentHP, 0); // Ã¼·ÂÀÌ À½¼ö°¡ µÇÁö ¾Ê°Ô
-        Debug.Log($"ÇÇÇØ ¹ŞÀ½! -{amount} ¡æ ÇöÀç HP: {currentHP}");
+        currentHP = Mathf.Max(currentHP, 0); // ì²´ë ¥ì´ ìŒìˆ˜ê°€ ë˜ì§€ ì•Šê²Œ
+        Debug.Log($"í”¼í•´ ë°›ìŒ! -{amount} â†’ í˜„ì¬ HP: {currentHP}");
 
         if (currentHP <= 0)
         {
@@ -45,23 +45,23 @@ public class Status : MonoBehaviour
         }
     }
 
-    /*public void Heal(int amount)  //Ã¼·Â È¸º¹ ÇÔ¼ö
+    /*public void Heal(int amount)  //ì²´ë ¥ íšŒë³µ í•¨ìˆ˜
     {
         currentHP += amount;
-        currentHP = Mathf.Min(currentHP, maxHP); // Ã¼·ÂÀÌ ÃÖ´ë°ª ³ÑÁö ¾Ê°Ô
-        Debug.Log($"HP È¸º¹! +{amount} ¡æ ÇöÀç HP: {currentHP}");
+        currentHP = Mathf.Min(currentHP, maxHP); // ì²´ë ¥ì´ ìµœëŒ€ê°’ ë„˜ì§€ ì•Šê²Œ
+        Debug.Log($"HP íšŒë³µ! +{amount} â†’ í˜„ì¬ HP: {currentHP}");
     }*/
 
-    private void Die()  //HP=0¸é »ç¸ÁÃ³¸® & Á¶ÀÛ ºñÈ°¼ºÈ­
+    private void Die()  //HP=0ë©´ ì‚¬ë§ì²˜ë¦¬ & ì¡°ì‘ ë¹„í™œì„±í™”
     {
-        Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á! °ÔÀÓ ¿À¹ö Ã³¸® ÁøÇà");
-        //GameManager.Instance.GameOver(); // °ÔÀÓ Á¾·á Ã³¸®
-        // ÇÃ·¹ÀÌ¾î Á¶ÀÛ ºñÈ°¼ºÈ­
+        Debug.Log("í”Œë ˆì´ì–´ ì‚¬ë§! ê²Œì„ ì˜¤ë²„ ì²˜ë¦¬ ì§„í–‰");
+        //GameManager.Instance.GameOver(); // ê²Œì„ ì¢…ë£Œ ì²˜ë¦¬
+        // í”Œë ˆì´ì–´ ì¡°ì‘ ë¹„í™œì„±í™”
         GetComponent<Player>().enabled = false;
     }
 
-    private void OnTriggerEnter(Collider other) //Ãæµ¹ ÆÇÁ¤ ÇÔ¼ö(³»ºÎ±¸ÇöX)
+    private void OnTriggerEnter(Collider other) //ì¶©ëŒ íŒì • í•¨ìˆ˜(ë‚´ë¶€êµ¬í˜„X)
     {
-        // TODO: ¾ÆÀÌÅÛ, Àå¾Ö¹°, ÄÚÀÎ Ã³¸® ¿¹Á¤
+        // TODO: ì•„ì´í…œ, ì¥ì• ë¬¼, ì½”ì¸ ì²˜ë¦¬ ì˜ˆì •
     }
 }
