@@ -45,12 +45,20 @@ public class Status : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public void Heal(int amount)  //체력 회복 함수
+=======
+    /*public void Heal(int amount)  //체력 회복 함수
+>>>>>>> feee025a5f7eaf3038e14ccc00345b520893c1ef
     {
         currentHP += amount;
         currentHP = Mathf.Min(currentHP, maxHP); // 체력이 최대값 넘지 않게
         Debug.Log($"HP 회복! +{amount} → 현재 HP: {currentHP}");
+<<<<<<< HEAD
     }
+=======
+    }*/
+>>>>>>> feee025a5f7eaf3038e14ccc00345b520893c1ef
 
     private void Die()  //HP=0면 사망처리 & 조작 비활성화
     {
