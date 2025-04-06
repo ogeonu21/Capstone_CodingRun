@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf2846d7204268e4290dcb265f48313d, type: 3}
-  m_Name: Clanguage1
+  m_Name: Clanguage_2
   m_EditorClassIdentifier: 
-  question: "C\uC5B8\uC5B4\uC5D0\uC11C\uC758 \uBCC0\uC218 \uC120\uC5B8\uC73C\uB85C
-    \uD2C0\uB9B0\uAC83\uC740?"
+  questionNumber: 2
+  difficulty: 0
+  question: "\uB2E4\uC74C \uC911 \uC608\uC57D\uC5B4\uAC00 \uC544\uB2CC \uAC83\uC740?"
   answers:
-  - int Test1;
-  - int else;
-  - double pc;
+  - 1. const
+  - 2. function
+  - 3. void
   correctAnswerIndex: 1
