@@ -455,9 +455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionText: {fileID: 1792934661}
-  questions:
-  - {fileID: 11400000, guid: 35693060a834c1a4cb6d4c5cdaf35214, type: 2}
-  - {fileID: 11400000, guid: da45b45b4037e76499bcc0bdd055d545, type: 2}
   timerImage: {fileID: 1568308510}
   questionCanvas: {fileID: 933379123}
 --- !u!1 &947290924
@@ -1167,10 +1164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToCompleteQuestion: 10
-  isAnsweringQuestion: 0
+  isAnsweringQuestion: 1
   loadGameScene: 0
   timeUp: 0
-  fillFraction: 0
+  fillFraction: 1
 --- !u!4 &1785829019
 Transform:
   m_ObjectHideFlags: 0

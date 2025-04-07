@@ -6,26 +6,32 @@ using UnityEngine.UI;
 
 public class Quiz : MonoBehaviour
 {
-    [Header("Question")]
-    [SerializeField] TextMeshProUGUI questionText;
-    [SerializeField] List<QuestionSO> questions = new List<QuestionSO>();
-    QuestionSO currentQuestion;
+[Header("UI Components")]
+    [SerializeField] TextMeshProUGUI questionText;  
+    [SerializeField] Image timerImage;                 
+    [SerializeField] GameObject questionCanvas;        
 
-    [Header("Timer")]
-    [SerializeField] Image timerImage;
-    Timer timer;
+    private List<QuestionSO> questions = new List<QuestionSO>(); // 문제 리스트
+    private QuestionSO currentQuestion;                
+    private Timer timer;                           
 
-    [Header("UI")]
-    [SerializeField] GameObject questionCanvas;
 
     void Awake()
     {
         timer = FindObjectOfType<Timer>();
+
+        questions.AddRange(Resources.LoadAll<QuestionSO>("Questions"));
+    }
+
+    void Start()
+    {
+        LoadNextQuestion();
     }
 
     void Update()
     {
         timerImage.fillAmount = timer.fillFraction;
+
         if(timer.timeUp)
         {
             timer.timeUp = false;
@@ -33,21 +39,19 @@ public class Quiz : MonoBehaviour
         }
     }
 
-    void Start()
+    void LoadNextQuestion()
     {
-        GetRandomQuestion();
-        DisplayQuestion();
-    }
+        if(questions.Count ==0)
+        {
+            Debug.Log("모든 문제를 풀었다.");
+             return;
+        }
 
-    void GetRandomQuestion()
-    {
         int index = Random.Range(0,questions.Count);
         currentQuestion = questions[index];
+        questions.RemoveAt(index);
 
-        if(questions.Contains(currentQuestion))
-        {
-            questions.Remove(currentQuestion);
-        }
+        DisplayQuestion();
     }
 
     void DisplayQuestion()
