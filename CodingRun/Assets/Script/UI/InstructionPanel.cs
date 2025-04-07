@@ -40,6 +40,12 @@ public class InstructionPanel : MonoBehaviour
         rightButton.interactable = index < panels.Length - 1;
     }
 
+    void OnEnable()
+    {
+        currentIndex = 0;
+        ShowPanel(currentIndex);
+    }
+
     void NextPanel()
     {
         if (currentIndex < panels.Length - 1)
