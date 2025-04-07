@@ -45,6 +45,46 @@ public class CanvasManager : MonoBehaviour
         }
 
     }
+    
+    public void OverlayScene(string sceneName){
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        StartCoroutine(InitUI());
+        IEnumerator InitUI()
+        {
+            // 씬 로딩이 완료될 때까지 더 오래 기다립니다
+            yield return new WaitForSeconds(0.5f);
+            
+            // 씬이 제대로 로드되었는지 확인
+            Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+            if (loadedScene.isLoaded)
+            {
+                Debug.Log($"Scene {sceneName} loaded successfully");
+                
+                // Quiz 컴포넌트를 찾아서 초기화 상태 확인
+                Quiz[] quizzes = FindObjectsOfType<Quiz>();
+                if (quizzes.Length > 0)
+                {
+                    Debug.Log($"Found {quizzes.Length} Quiz components in the loaded scene");
+                    foreach (Quiz quiz in quizzes)
+                    {
+                        // Quiz 컴포넌트가 제대로 초기화되었는지 확인
+                        if (quiz != null)
+                        {
+                            Debug.Log("Quiz component is initialized");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"No Quiz components found in the loaded scene {sceneName}");
+                }
+            }
+            else
+            {
+                Debug.LogError($"Failed to load scene {sceneName}");
+            }
+        }
+    }
 
     public void LoadScene(string sceneName){
         SceneManager.LoadScene(sceneName);
