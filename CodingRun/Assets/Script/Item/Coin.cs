@@ -27,7 +27,7 @@ public class Coin : Item
     }
 
     // 플레이어와 충돌 시 점수 증가 로직 추가
-    private void OggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player")){
             GameManager.Instance.Score += coinScore;
