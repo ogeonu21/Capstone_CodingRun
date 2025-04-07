@@ -62,6 +62,20 @@ public class Status : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) //충돌 판정 함수(내부구현X)
     {
-        // TODO: 아이템, 장애물, 코인 처리 예정
+        // 하트 아이템: 체력 회복
+        /*if (other.TryGetComponent<Heart>(out Heart heart))
+        {
+            Heal(heart.healAmount); //heart 스크립트 안에 있는 값만큼 heal함수가 회복함
+            heart.DisableObject(); // 아이템 비활성화
+        }
+
+        // 코인 아이템: 점수 증가
+        else if (other.TryGetComponent<Coin>(out Coin coin))
+        {
+            GameManager.Instance.Score += coin.coinScore;   //coin 스크립트의 coinscore값만큼 게임 매니저의 score값을 증가시킴.
+            coin.DisableObject();   // 아이템 비활성화
+        }*/
+
+        //추후 장애물 등 추가
     }
 }
