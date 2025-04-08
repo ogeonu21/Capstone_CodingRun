@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -799,6 +799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827679460}
   - component: {fileID: 827679459}
+  - component: {fileID: 827679461}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -838,6 +839,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827679461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827679458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a838d116d339cb142b529cd80fedddda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorPrefab: {fileID: 2244153454405662055, guid: ca1403179261f3e49a04b5d8b6d510e6,
+    type: 3}
+  moveSpeed: 5
 --- !u!1 &860472584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,11 +1097,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d190e44e4eb28e4386a76250c970c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToCompleteQuestion: 10
+  defaultTimeToCompleteQuestion: 15
   isAnsweringQuestion: 0
   loadGameScene: 0
   timeUp: 0
   fillFraction: 0
+  timerValue: 0
+  onTimeUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1107286362
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,6 +1346,7 @@ MonoBehaviour:
   questionText: {fileID: 257569011}
   timerImage: {fileID: 1347320882}
   questionCanvas: {fileID: 1485621143}
+  answerTexts: []
 --- !u!114 &1485621145
 MonoBehaviour:
   m_ObjectHideFlags: 0

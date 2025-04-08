@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour
     public bool loadGameScene;
     public bool timeUp;
     public float fillFraction; //타이머 진행률
-    float timerValue;
+    public float timerValue;  // public으로 변경
     
     // 타이머 이벤트 추가
     public UnityEvent onTimeUp = new UnityEvent();

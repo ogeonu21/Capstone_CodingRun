@@ -63,13 +63,13 @@ public class QuestionSO : ScriptableObject
         switch (difficulty)
         {
             case QuestionDifficulty.Easy:
-                timeLimit = 3f;    // 쉬움: 12초
+                timeLimit = 10f;    // 쉬움: 10초
                 break;
             case QuestionDifficulty.Medium:
-                timeLimit = 2f;     // 보통: 8초
+                timeLimit = 15f;     // 보통: 15초
                 break;
             case QuestionDifficulty.Hard:
-                timeLimit = 1f;     // 어려움: 4초
+                timeLimit = 20f;     // 어려움: 20초
                 break;
         }
     }
