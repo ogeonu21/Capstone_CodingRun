@@ -7,7 +7,8 @@ using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] float timeToCompleteQuestion = 15;
+    [SerializeField] float defaultTimeToCompleteQuestion = 15f;    // 기본 문제 풀이 시간
+    float timeToCompleteQuestion;    // 현재 문제의 풀이 시간
 
     public bool isAnsweringQuestion;
     public bool loadGameScene;
@@ -20,7 +21,8 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timerValue = timeToCompleteQuestion;
+        timeToCompleteQuestion = defaultTimeToCompleteQuestion;
+        ResetTimer();
     }
 
     void Update()
@@ -38,6 +40,13 @@ public class Timer : MonoBehaviour
         timerValue = timeToCompleteQuestion;
         isAnsweringQuestion = true;
         timeUp = false;
+    }
+
+    // 문제별 시간 설정
+    public void SetQuestionTime(float time)
+    {
+        timeToCompleteQuestion = time;
+        ResetTimer();
     }
 
     void UpdateTimer(){

@@ -18,7 +18,7 @@ public class Quiz : MonoBehaviour
     #endregion
 
     #region 프라이빗 필드
-    private List<QuestionSO> questions = new List<QuestionSO>();  // 문제 풀
+    private List<QuestionSO> questions = new List<QuestionSO>();  // 문제 POOL
     private QuestionSO currentQuestion;                           // 현재 문제
     private Timer timer;                                          // 타이머
     #endregion
@@ -251,6 +251,8 @@ public class Quiz : MonoBehaviour
         if (timer != null)
         {
             timer.isAnsweringQuestion = true;
+            // 현재 문제의 시간 설정 적용
+            timer.SetQuestionTime(currentQuestion.GetTimeLimit());
         }
         
         if (questionText != null && currentQuestion != null)
@@ -285,6 +287,34 @@ public class Quiz : MonoBehaviour
             }
         }
     }
+
+    // 퀴즈 완료 처리
+    // 이후 게임 종료 화면으로 전환하는 코드 구현?
+    private void HandleQuizCompletion()
+    {
+        if (questionText != null)
+        {
+            questionText.text = "모든 문제가 끝났습니다!";    // 완료 메시지 표시
+        }
+
+        // 답변 텍스트 비우기
+        if (answerTexts != null)
+        {
+            foreach (var answerText in answerTexts)
+            {
+                if (answerText != null)
+                {
+                    answerText.text = "";
+                }
+            }
+        }
+
+        // 타이머 정지
+        if (timer != null)
+        {
+            timer.isAnsweringQuestion = false;
+        }
+    }
     #endregion
 
     #region 타이머 관리
@@ -307,18 +337,6 @@ public class Quiz : MonoBehaviour
         }
         
         LoadNextQuestion();
-    }
-    #endregion
-
-    #region 헬퍼 메서드
-    // 퀴즈 완료 처리
-    private void HandleQuizCompletion()
-    {
-        Debug.Log("모든 문제를 풀었습니다.");
-        if (questionCanvas != null)
-        {
-            questionCanvas.SetActive(false);
-        }
     }
     #endregion
 }
