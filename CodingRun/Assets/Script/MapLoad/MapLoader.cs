@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class MapManager : MonoBehaviour
+public class MapLoader : MonoBehaviour
 {
-    public static MapManager instance;
+    public static MapLoader instance;
 
     [Header("Player Setting")]
     [Space(5)]
@@ -116,7 +116,7 @@ public class MapManager : MonoBehaviour
         }
         
         float currentZ = startPos.z + roadPool.Peek().transform.position.z;
-        
+       
         for (int i = 0; i < loadNum; i++) {
             GameObject road = roadPool.Dequeue();
             road.SetActive(true);
@@ -126,6 +126,7 @@ public class MapManager : MonoBehaviour
             roadPool.Enqueue(road);
             currentZ += roadLength; // 다음 로드의 위치를 현재 로드의 끝부분으로 설정
         }
+        Debug.Log("Road Instantiated! the z length is : "+GetObjectSize(roadPool.Peek()));
     }
 
     public void StartGame() {
