@@ -27,20 +27,6 @@ public class MapLoader : MonoBehaviour
     public bool IsGameStart {
         get {return isGameStart;}
     }
-    
-
-    private List<Quiz> quizList;
-    private Quiz currentQuiz;
-
-    private bool checkCorrect() {
-        //OnTriggerEnter가 발생했을때, 플레이어와 충돌한 선택지의 answer값이 정답인지 체크하는 함수.
-        return true;
-    }
-
-    private Quiz RandomQuiz() {
-        //Quiz 리스트에서 랜덤으로 하나의 Quiz 뽑아서 dequeue (같은 문제가 뽑히지 않도록 삭제) 한 후, 그 값을 return하는 함수.    
-        return new Quiz();
-    }
 
     /// <summary>
     /// Initialize road's ObejctPool.
