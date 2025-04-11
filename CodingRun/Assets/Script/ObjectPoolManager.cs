@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -9,6 +10,8 @@ public class ObjectPoolManager : MonoBehaviour
     [Space(10)]
     [Range(0, 100)] public int coinAmount = 30;
     [Range(0, 20)] public int obstacleAmount = 10;
+
+    [Header("Instant Ratio")]
     [Range(0, 1f)] public float wallRatio = 0.7f;
     [Range(0, 1f)] public float hallRatio = 0.3f;
 
@@ -21,6 +24,13 @@ public class ObjectPoolManager : MonoBehaviour
     private Queue<GameObject> coinPool = new();
     private Queue<GameObject> obstaclePool = new();
 
+    void Start()
+    {
+        hallRatio = 1.0f - wallRatio; // 확률이 1 넘어가지 않도록 
+        InitCoinPool();
+        InitObstaclePool();
+    }
+
     private void InitCoinPool() {
         if (coinPref == null) { Debug.LogError("coinPref is null"); return; }
         for (int i = 0; i < coinAmount; i++) {
@@ -31,9 +41,22 @@ public class ObjectPoolManager : MonoBehaviour
         Debug.Log("Initialized CoinPool Successfully");
     }
 
-    //TODO : Obstacle 오브젝트들을 ObstaclePool안에 넣는 함수 만들기 (생성비율에 따라 만들것)
     private void InitObstaclePool() {
-        
+        int wallNumber = Mathf.CeilToInt(obstacleAmount*wallRatio);
+        int hallNumber = Mathf.CeilToInt(obstacleAmount*hallRatio);
+
+        for (int i = 0; i < wallNumber; i++) {
+            GameObject wall = Instantiate(wallPref);
+            obstaclePool.Enqueue(wall);
+            wall.SetActive(false);
+        }
+        for (int i = 0; i < hallNumber; i++) {
+            GameObject hall = Instantiate(hallPref);
+            obstaclePool.Enqueue(hall);
+            hall.SetActive(false);
+        }
+
+        QueueExtensions.Shuffle(obstaclePool);
     }
 
     private GameObject GetCoin() {
@@ -45,9 +68,13 @@ public class ObjectPoolManager : MonoBehaviour
         return Instantiate(coinPref); //안남아있으면 새로 만들어서 반환
     }
 
-    //TODO : 풀에서 Obstacle Get하는 메서드 구현 (구멍인지 벽인지는 상관x 확률상 생성이기 때문에)
     private GameObject GetObstacle() {
-        return null;
+        if (obstaclePool.Count > 0) {
+            GameObject obj = obstaclePool.Dequeue();
+            obj.SetActive(true);
+            return obj;
+        }
+        return Instantiate(wallPref);
     }
 
     private void ReturnCoin(GameObject obj) {
