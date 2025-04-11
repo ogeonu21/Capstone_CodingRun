@@ -42,6 +42,11 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     private void InitObstaclePool() {
+        if (wallPref == null || hallPref == null) {
+            Debug.LogError("wallPref or hall is null");
+            return;
+        }
+
         int wallNumber = Mathf.CeilToInt(obstacleAmount*wallRatio);
         int hallNumber = Mathf.CeilToInt(obstacleAmount*hallRatio);
 
@@ -56,7 +61,7 @@ public class ObjectPoolManager : MonoBehaviour
             hall.SetActive(false);
         }
 
-        QueueExtensions.Shuffle(obstaclePool);
+        QueueExtensions.Shuffle(obstaclePool); //QueueExtensions의 커스텀 함수
     }
 
     private GameObject GetCoin() {
@@ -74,7 +79,10 @@ public class ObjectPoolManager : MonoBehaviour
             obj.SetActive(true);
             return obj;
         }
-        return Instantiate(wallPref);
+        return 
+        UnityEngine.Random.Range(0f, 1f) > wallRatio ? 
+        Instantiate(hallPref) :
+        Instantiate(wallPref);
     }
 
     private void ReturnCoin(GameObject obj) {
