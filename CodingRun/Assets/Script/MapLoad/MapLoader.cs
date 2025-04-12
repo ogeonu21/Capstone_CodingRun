@@ -29,7 +29,7 @@ public class MapLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// Initialize road's ObejctPool.
+    /// Initialize road's ObjectPool.
     /// </summary>
     private void InitObjectPool() {
         if (mapPrefs == null) {
@@ -47,7 +47,7 @@ public class MapLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// returns GameObejct's Vector3 size data.
+    /// returns GameObject's Vector3 size data.
     /// </summary>
     /// <param name="obj">GameObject what want to get size</param>
     /// <returns>Size Vector3 Data</returns>
