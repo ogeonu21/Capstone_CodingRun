@@ -18,7 +18,7 @@ public class Quiz : MonoBehaviour
     #endregion
 
     #region 프라이빗 필드
-    private List<QuestionSO> questions = new List<QuestionSO>();  // 문제 POOL
+    private List<QuestionSO> randomQuestions = new List<QuestionSO>();  // 랜덤하게 섞인 문제 POOL
     private QuestionSO currentQuestion;                           // 현재 문제
     private Timer timer;                                          // 타이머
     #endregion
@@ -29,13 +29,23 @@ public class Quiz : MonoBehaviour
         InitializeComponents();
         LoadQuestions();
         ActivateQuestionCanvas();
+        ShowQuizUI();
+        LoadNextQuestion();
     }
 
     private void Start()
     {
         SubscribeToTimerEvents();
-        ShowQuizUI();
-        LoadNextQuestion();
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log($"Quiz OnEnable - 씬: {gameObject.scene.name}, 오브젝트: {gameObject.name}");
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log($"Quiz OnDisable - 씬: {gameObject.scene.name}, 오브젝트: {gameObject.name}");
     }
 
     private void Update()
@@ -115,38 +125,33 @@ public class Quiz : MonoBehaviour
     // 문제 로드
     private void LoadQuestions()
     {
-        questions.Clear();
+        randomQuestions.Clear();
         
-        // 기본 경로에서 문제 로드
+        // Resources/Questions 폴더에서 문제 로드
         QuestionSO[] loadedQuestions = Resources.LoadAll<QuestionSO>("Questions");
         if (loadedQuestions != null && loadedQuestions.Length > 0)
         {
-            questions.AddRange(loadedQuestions);
-            Debug.Log($"문제 {questions.Count}개 로드 완료: Resources/Questions 폴더");
-            return;
+            randomQuestions.AddRange(loadedQuestions);
+            ShuffleQuestions();
         }
-        
-        // 대체 경로에서 문제 로드 시도
-        Debug.LogWarning("기본 경로에서 문제를 찾을 수 없습니다. 대체 경로 시도 중...");
-        LoadQuestionsFromAlternativePaths();
+        else
+        {
+            Debug.LogError("Resources/Questions 폴더에서 문제를 찾을 수 없습니다! 퀴즈가 제대로 작동하지 않을 수 있습니다.");
+        }
     }
 
-    // 대체 경로에서 문제 로드
-    private void LoadQuestionsFromAlternativePaths()
+    // 문제 섞기
+    private void ShuffleQuestions()
     {
-        string[] possiblePaths = new string[] { "Questions", "Quiz/Questions", "Assets/Resources/Questions" };
-        foreach (string path in possiblePaths)
+        int n = randomQuestions.Count;
+        while (n > 1)
         {
-            QuestionSO[] loadedQuestions = Resources.LoadAll<QuestionSO>(path);
-            if (loadedQuestions != null && loadedQuestions.Length > 0)
-            {
-                questions.AddRange(loadedQuestions);
-                Debug.Log($"문제 {loadedQuestions.Length}개 로드 완료: {path}");
-                return;
-            }
+            n--;
+            int k = Random.Range(0, n + 1);
+            QuestionSO value = randomQuestions[k];
+            randomQuestions[k] = randomQuestions[n];
+            randomQuestions[n] = value;
         }
-        
-        Debug.LogError("어떤 경로에서도 문제를 찾을 수 없습니다! 퀴즈가 제대로 작동하지 않을 수 있습니다.");
     }
     #endregion
 
@@ -201,7 +206,7 @@ public class Quiz : MonoBehaviour
     // 다음 문제 로드
     private void LoadNextQuestion()
     {
-        if (questions.Count == 0)
+        if (randomQuestions.Count == 0)
         {
             HandleQuizCompletion();
             return;
@@ -215,34 +220,9 @@ public class Quiz : MonoBehaviour
         }
         else
         {
-            Debug.LogError("선택된 문제가 null입니다. 문제 풀을 다시 로드 시도 중...");
-            ReloadQuestions();
-        }
-    }
-
-    // 문제 풀 다시 로드
-    private void ReloadQuestions()
-    {
-        LoadQuestions();
-        
-        if (questions.Count > 0)
-        {
-            SelectRandomQuestion();
-            DisplayQuestion();
-        }
-        else
-        {
-            Debug.LogError("문제 풀을 다시 로드했지만 여전히 문제가 없습니다.");
+            Debug.LogError("선택된 문제가 null입니다. 퀴즈를 종료합니다.");
             HandleQuizCompletion();
         }
-    }
-
-    // 무작위 문제 선택
-    private void SelectRandomQuestion()
-    {
-        int index = Random.Range(0, questions.Count);
-        currentQuestion = questions[index];
-        questions.RemoveAt(index);
     }
 
     // 문제 표시
@@ -289,12 +269,11 @@ public class Quiz : MonoBehaviour
     }
 
     // 퀴즈 완료 처리
-    // 이후 게임 종료 화면으로 전환하는 코드 구현?
     private void HandleQuizCompletion()
     {
         if (questionText != null)
         {
-            questionText.text = "모든 문제가 끝났습니다!";    // 완료 메시지 표시
+            questionText.text = "모든 문제가 끝났습니다!";
         }
 
         // 답변 텍스트 비우기
@@ -314,6 +293,8 @@ public class Quiz : MonoBehaviour
         {
             timer.isAnsweringQuestion = false;
         }
+
+        Debug.Log("모든 문제가 소진되었습니다. 퀴즈가 종료됩니다.");
     }
     #endregion
 
@@ -339,4 +320,16 @@ public class Quiz : MonoBehaviour
         LoadNextQuestion();
     }
     #endregion
+
+    // 무작위 문제 선택
+    private void SelectRandomQuestion()
+    {
+        if (randomQuestions.Count == 0)
+        {
+            HandleQuizCompletion();
+            return;
+        }
+        currentQuestion = randomQuestions[0];
+        randomQuestions.RemoveAt(0);
+    }
 }
