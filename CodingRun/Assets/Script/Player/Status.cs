@@ -1,81 +1,130 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Status : MonoBehaviour
 {
     [Header("스테이터스")]
-    public int maxHP = 100;
-    public int currentHP;
+    public float maxHP = 100f;      //최대 체력
+    public float currentHP;         //현재 체력
+    public float moveSpeed = 5f;    //이동 속도
 
-    public float moveSpeed = 5f;
+    [Header("자동 체력 감소")]
+    [SerializeField] private float hpDecayInterval = 1f;    //체력 감소 주기 (초)     
+    private float hpDecayTimer = 0f;                        //체력 감소 타이머
 
-    private float hpDecayInterval = 2f;
-    private float hpDecayTimer = 0f;
+    [Header("충돌 감지")]
+    [SerializeField] private float detectRadius = 1f;       //충돌 감지 반경
+    [SerializeField] private LayerMask detectLayer;         //충돌 감지 레이어
+    [SerializeField] private float detectInterval = 0.1f;   //충돌 감지 주기 (초)
+    private float detectTimer = 0f;                         //충돌 감지 타이머
+
+    //델리게이트 이벤트
+    public event Action<float, float> OnHPChanged; // 체력 변경 알림
+    public event Action OnDie;                     // 사망 알림
+
+    //Animator 연결 (피격 애니메이션용)
+    //private Animator animator;
 
     void Start()
     {
         currentHP = maxHP;
+        //animator = GetComponent<Animator>(); // Animator 자동 연결
+        OnHPChanged?.Invoke(currentHP, maxHP); // 초기 체력 상태 알림
     }
 
     void Update()
     {
-        HandleHPDecay();
+        HandleHPDecay();                        // 1초마다 체력 감소
+        HandleCollisionDetection();             // 0.1초마다 충돌 감지
     }
 
-    void HandleHPDecay()    //2초마다 체력 1씩 감소
+    // 1초마다 0.5씩 체력 감소
+    void HandleHPDecay()
     {
-        hpDecayTimer += Time.deltaTime;
-        if (hpDecayTimer >= hpDecayInterval)
+        hpDecayTimer += Time.deltaTime;         // 타이머 증가
+        if (hpDecayTimer >= hpDecayInterval)    // 1초가 지났다면
         {
-            TakeDamage(1); // 체력 1씩 감소
-            hpDecayTimer = 0f;
+            TakeDamage(0.5f);                   // 체력 감소
+            hpDecayTimer = 0f;                  // 타이머 초기화
         }
     }
 
-    public void TakeDamage(int amount)  //데미지 함수
+    // 0.1초마다 주변 충돌 감지
+    void HandleCollisionDetection()             
     {
-        currentHP -= amount;
-        currentHP = Mathf.Max(currentHP, 0); // 체력이 음수가 되지 않게
-        Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");
-
-        if (currentHP <= 0)
+        detectTimer += Time.deltaTime;                  // 타이머 증가
+        if (detectTimer >= detectInterval)              // 0.1초가 지났다면
         {
-            Die();
+            DetectNearbyObjects();                      // 주변 물체 감지
+            detectTimer = 0f;                           // 타이머 초기화
         }
     }
 
-    public void Heal(int amount)  //체력 회복 함수
+    // 충돌 대상 수동 감지
+    void DetectNearbyObjects()
     {
-        currentHP += amount;
-        currentHP = Mathf.Min(currentHP, maxHP); // 체력이 최대값 넘지 않게
-        Debug.Log($"HP 회복! +{amount} → 현재 HP: {currentHP}");
-    }
+        Collider[] hits = Physics.OverlapSphere(transform.position, detectRadius, detectLayer);     // 주변 물체 감지
 
-    private void Die()  //HP=0면 사망처리 & 조작 비활성화
-    {
-        Debug.Log("플레이어 사망! 게임 오버 처리 진행");
-        //GameManager.Instance.GameOver(); // 게임 종료 처리
-        // 플레이어 조작 비활성화
-        GetComponent<Player>().enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other) //충돌 판정 함수(내부구현X)
-    {
-        // 하트 아이템: 체력 회복
-        /*if (other.TryGetComponent<Heart>(out Heart heart))
+        foreach (Collider hit in hits)                                                              // 감지된 물체에 대해 반복
         {
-            Heal(heart.healAmount); //heart 스크립트 안에 있는 값만큼 heal함수가 회복함
-            heart.DisableObject(); // 아이템 비활성화
+            if (hit.TryGetComponent<Heart>(out Heart heart))                                        // Heart와 충돌시
+            {
+                Heal(heart.healAmount);                                                             // 체력 회복
+                heart.DisableObject();                                                              // Heart 오브젝트 비활성화
+            }
+            else if (hit.TryGetComponent<Coin>(out Coin coin))                                      // Coin과 충돌시
+            {
+                GameManager.Instance.Score += coin.coinScore;                                       // 코인 점수 추가
+                coin.DisableObject();                                                               // Coin 오브젝트 비활성화
+            }
         }
+    }
 
-        // 코인 아이템: 점수 증가
-        else if (other.TryGetComponent<Coin>(out Coin coin))
+    //데미지 처리 + 피격 애니메이션
+    public void TakeDamage(float amount)
+    {
+        currentHP = Mathf.Max(currentHP - amount, 0f);                                      // 체력 감소 (0보다 작게 깍이지 않음)
+        Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
+
+        // 데미지가 3 이상이면 피격 애니메이션 실행
+      /*  if (amount >= 3f && animator != null)
         {
-            GameManager.Instance.Score += coin.coinScore;   //coin 스크립트의 coinscore값만큼 게임 매니저의 score값을 증가시킴.
-            coin.DisableObject();   // 아이템 비활성화
+            animator.SetTrigger("Hit");
         }*/
 
-        //추후 장애물 등 추가
+        OnHPChanged?.Invoke(currentHP, maxHP);                                              // 체력 변경 알림
+
+        if (currentHP <= 0f)                                                                // HP가 0가 되면면   
+        {
+            OnDie?.Invoke();                                                                // 사망 알림
+            Die();                                                                          // 사망 처리
+        }
+    }
+
+    //체력 회복 처리
+    public void Heal(float amount)
+    {
+        currentHP = Mathf.Min(currentHP + amount, maxHP);                                       // 체력 회복 (최대 체력 초과 방지)
+        Debug.Log($"HP 회복! +{amount} → 현재 HP: {currentHP}");                                 // 현재 체력 출력
+        OnHPChanged?.Invoke(currentHP, maxHP);                                                  // 체력 변경 알림
+    }
+
+    //사망 처리 (조작 정지 + GameManager 호출)
+    private void Die()
+    {
+        Debug.Log("플레이어 사망! 게임 오버 처리 진행");
+
+        GetComponent<Player>().enabled = false;                                     // 조작 정지
+
+        // 게임 종료 처리
+        /*if (GameManager.Instance != null)
+            GameManager.Instance.GameOver();*/
+    }
+
+    // 씬에서 감지 반경 시각화
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 }
