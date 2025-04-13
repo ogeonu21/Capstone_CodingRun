@@ -67,20 +67,15 @@ public class Status : MonoBehaviour
 
         foreach (Collider hit in hits)                                                              // 감지된 물체에 대해 반복
         {
-             if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
+            if (hit.TryGetComponent<Heart>(out Heart heart))                                        // Heart와 충돌시
             {
-                switch (item.itemType)
-                {
-                    case ObjectType.HEART:
-                        Heal(item.amount);
-                        break;
-
-                    case ObjectType.COIN:
-                        GameManager.Instance.Score += (int)item.amount;
-                        break;
-                }
-
-                item.ReturnToPool(); // 풀로 반환
+                Heal(heart.healAmount);                                                             // 체력 회복
+                heart.DisableObject();                                                              // Heart 오브젝트 비활성화
+            }
+            else if (hit.TryGetComponent<Coin>(out Coin coin))                                      // Coin과 충돌시
+            {
+                GameManager.Instance.Score += coin.coinScore;                                       // 코인 점수 추가
+                coin.DisableObject();                                                               // Coin 오브젝트 비활성화
             }
         }
     }
