@@ -13,6 +13,18 @@ public class ObjectPoolManager : MonoBehaviour
 
     private Dictionary<ObjectType, IObjectPool> pools = new();
 
+    public static ObjectPoolManager Instance;
+
+    private void Awake()
+    {
+        if(Instance == null){
+            Instance = this;
+        }
+        else if(Instance != this){
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         InitPoolsFromList();
