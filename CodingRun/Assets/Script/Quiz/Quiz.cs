@@ -21,6 +21,8 @@ public class Quiz : MonoBehaviour
     private List<QuestionSO> randomQuestions = new List<QuestionSO>();  // 랜덤하게 섞인 문제 POOL
     private QuestionSO currentQuestion;                           // 현재 문제
     private Timer timer;                                          // 타이머
+    private GameManager gameManager;                              // 게임 매니저
+    private Status playerStatus;                                  // 플레이어 상태
     #endregion
 
     #region Unity 라이프사이클
@@ -59,6 +61,8 @@ public class Quiz : MonoBehaviour
     private void InitializeComponents()
     {
         FindTimerComponent();
+        FindGameManager();
+        FindPlayerStatus();
         ValidateUIComponents();
     }
 
@@ -75,6 +79,34 @@ public class Quiz : MonoBehaviour
             {
                 Debug.LogError("어떤 씬에서도 타이머를 찾을 수 없습니다! 퀴즈 기능이 제한될 수 있습니다.");
             }
+        }
+    }
+
+    // 게임 매니저 컴포넌트 찾기
+    private void FindGameManager()
+    {
+        gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            Debug.LogError("게임 매니저를 찾을 수 없습니다!");
+        }
+    }
+
+    // 플레이어 상태 컴포넌트 찾기
+    private void FindPlayerStatus()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerStatus = player.GetComponent<Status>();
+            if (playerStatus == null)
+            {
+                Debug.LogError("플레이어의 Status 컴포넌트를 찾을 수 없습니다!");
+            }
+        }
+        else
+        {
+            Debug.LogError("플레이어를 찾을 수 없습니다!");
         }
     }
 
@@ -318,6 +350,53 @@ public class Quiz : MonoBehaviour
             timer.ResetTimer();
         }
         
+        LoadNextQuestion();
+    }
+    #endregion
+
+    #region 답변 처리
+    public void SubmitAnswer(int answerIndex)
+    {
+        if (currentQuestion == null)
+        {
+            Debug.LogError("현재 문제가 없습니다!");
+            return;
+        }
+
+        // 정답 확인
+        int selectedAnswer = answerIndex;
+        int correctAnswer = currentQuestion.GetCorrectIndex() + 1;
+        bool isCorrect = (selectedAnswer == correctAnswer);
+        
+        // 결과 로깅
+        string resultMessage = isCorrect ? "정답" : "오답";
+        Debug.Log($"선택한 답변: {selectedAnswer}, 정답: {correctAnswer}, 결과: {resultMessage}");
+
+        // 정답/오답 처리
+        if (isCorrect)
+        {
+            if (gameManager != null)
+            {
+                gameManager.Score += 100; // 정답 시 100점 증가
+                Debug.Log($"현재 점수: {gameManager.Score}점");
+            }
+        }
+        else
+        {
+            if (playerStatus != null)
+            {
+                playerStatus.TakeDamage(25); // 오답 시 체력 25 감소
+                Debug.Log($"오답으로 인한 체력 감소! 현재 체력: {playerStatus.currentHP}");
+            }
+        }
+
+        // 타이머 정지
+        if (timer != null)
+        {
+            timer.isAnsweringQuestion = false;
+        }
+
+        // 다음 문제 로드
         LoadNextQuestion();
     }
     #endregion

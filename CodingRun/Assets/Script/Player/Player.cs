@@ -4,60 +4,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float laneDistance = 5.0f; // 좌중우 레인 간 간격 & 이동거리 5씩이동
-    private int currentLane = 1;      // 0 = 왼쪽, 1 = 중앙, 2 = 오른쪽
-
-    private Vector2 touchStart; //터치 시작 지점
-    private bool isSwiping = false; //스와이핑 여부
+    public float laneDistance = 5.0f;       // 레인 간격
+    private int currentLane = 1;            // 현재 레인 (0: 왼쪽, 1: 중앙, 2: 오른쪽)
 
     void Update()
     {
-        HandleSwipeOrKey();
-        MoveToLane();
+        HandleInput();   // 입력에 따른 레인 변화
+        MoveToLane();    // 위치 이동
     }
 
-    void MoveToLane()
+    void HandleInput()   // 입력 처리
     {
-        Vector3 targetPos = transform.position;
-        targetPos.x = (currentLane - 1) * laneDistance; //플레이어 x값 왼쪽(-1)=-1*5   가운데(1)=0*5  오른쪽(1)=1*5
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f); //부드러운 움직임,10f조정시 레인->레인이동시간 조절 가능(크면 클수록 빠름)
-    }
+        var input = InputManager.Instance.Swipe;        // InputManager에서 스와이프 방향 가져오기
 
-    void HandleSwipeOrKey()
-    {
-        // 모바일 스와이프
-        if (Input.touchCount == 1)     //손가락 1개만 터치중일때
-        {
-            Touch touch = Input.GetTouch(0);    //첫 번째 터치 정보 호출
-
-            if (touch.phase == TouchPhase.Began)    //터치했을때
-            {
-                touchStart = touch.position;    //터치 시작 x값 저장
-                isSwiping = true;               //스와이핑 상태로 전환
-            }
-            else if (touch.phase == TouchPhase.Ended && isSwiping)  //스와이핑중 & 스와이핑 종료시
-            {
-                // 터치 시작 x값과 터치가 끝난 x값 차이 계산
-                float deltaX = touch.position.x - touchStart.x;
-
-                if (Mathf.Abs(deltaX) > 50f)    //x값의 차이가 50f을 넘기면 스와이핑으로 인정
-                {
-                    if (deltaX > 0 && currentLane < 2) currentLane++;   //오른쪽 이동
-                    else if (deltaX < 0 && currentLane > 0) currentLane--;  //왼쪽 이동 (레인범위를 초과하지 않도록)
-                }
-
-                isSwiping = false;  //한번의 스와이핑 끝났으니 상태 초기화
-            }
-        }
-
-        // PC 키보드 테스트용 입력
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0) //왼쪽 화살표
-        {
+        if (input == InputManager.SwipeDirection.Left && currentLane > 0)           //왼쪽으로 스와이프한 경우 왼쪽으로 한칸이동(최소 0)
             currentLane--;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)   //오른쪽 화살표
-        {
+        else if (input == InputManager.SwipeDirection.Right && currentLane < 2)      //오른쪽으로 스와이프한 경우 오른쪽으로 한칸이동(최대 2)
             currentLane++;
-        }
+    }
+
+    void MoveToLane()                                   // 현재 레인에 맞게 플레이어 위치 이동
+    {
+        Vector3 targetPos = transform.position;         // 현재 위치를 타겟 위치로 설정
+        targetPos.x = (currentLane - 1) * laneDistance; // 현재 레인에 맞게 x좌표 설정
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f);// 현재 위치에서 타겟 위치로 부드럽게 이동
     }
 }
