@@ -90,6 +90,7 @@ public class Door : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
+            Debug.Log($"플레이어가 {gameObject.name} 문과 충돌했습니다!");
             //추가 로직 구현 예를들어 selectedQuiz 필드를 변경한다.
         }
     }

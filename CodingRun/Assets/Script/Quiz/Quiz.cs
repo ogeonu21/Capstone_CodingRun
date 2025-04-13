@@ -212,7 +212,8 @@ public class Quiz : MonoBehaviour
             return;
         }
 
-        SelectRandomQuestion();
+        currentQuestion = randomQuestions[0];
+        randomQuestions.RemoveAt(0);
         
         if (currentQuestion != null)
         {
@@ -320,16 +321,4 @@ public class Quiz : MonoBehaviour
         LoadNextQuestion();
     }
     #endregion
-
-    // 무작위 문제 선택
-    private void SelectRandomQuestion()
-    {
-        if (randomQuestions.Count == 0)
-        {
-            HandleQuizCompletion();
-            return;
-        }
-        currentQuestion = randomQuestions[0];
-        randomQuestions.RemoveAt(0);
-    }
 }
