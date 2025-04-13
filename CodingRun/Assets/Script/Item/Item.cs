@@ -19,13 +19,13 @@ public class Item : MonoBehaviour
         CheckOutOfBounds();
     }
 
-    protected void DisableObject()
+    public void DisableObject()
     {
         // ObjectPoolManager 없이 단순히 비활성화 (ObjectPoolManager구현시 적용 예정)
         gameObject.SetActive(false);
     }
 
-    private void CheckOutOfBounds()
+    protected void CheckOutOfBounds()
     {
         // 현재 카메라의 뷰포트 경계를 기준으로 오브젝트가 화면 밖에 나갔는지 확인
         Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
