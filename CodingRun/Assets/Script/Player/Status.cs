@@ -55,13 +55,13 @@ public class Status : MonoBehaviour
         detectTimer += Time.deltaTime;                  // 타이머 증가
         if (detectTimer >= detectInterval)              // 0.1초가 지났다면
         {
-            DetectNearbyObjects();                      // 주변 물체 감지
+            //DetectNearbyObjects();                      // 주변 물체 감지
             detectTimer = 0f;                           // 타이머 초기화
         }
     }
 
     // 충돌 대상 수동 감지
-    void DetectNearbyObjects()
+    /*void DetectNearbyObjects()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, detectRadius, detectLayer);     // 주변 물체 감지
 
@@ -84,7 +84,7 @@ public class Status : MonoBehaviour
             }
         }
     }
-
+*/
     //데미지 처리 + 피격 애니메이션
     public void TakeDamage(float amount)
     {
