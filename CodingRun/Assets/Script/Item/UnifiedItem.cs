@@ -88,7 +88,7 @@ public class UnifiedItem : MonoBehaviour
         }
     }
 
-    private void ReturnToPool()
+    public void ReturnToPool()
     {
         switch (itemType)
         {

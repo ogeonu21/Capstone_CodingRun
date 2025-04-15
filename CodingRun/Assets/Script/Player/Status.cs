@@ -71,12 +71,12 @@ public class Status : MonoBehaviour
             {
                 switch (item.itemType)
                 {
-                    case ObjectType.HEART:
-                        Heal(item.amount);
+                    case ItemType.Heart:
+                        Heal(item.healAmount);;
                         break;
 
-                    case ObjectType.COIN:
-                        GameManager.Instance.Score += (int)item.amount;
+                    case ItemType.Coin:
+                        GameManager.Instance.Score += item.coinScore;;
                         break;
                 }
 
