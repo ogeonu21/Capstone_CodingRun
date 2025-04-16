@@ -92,10 +92,8 @@ public class Status : MonoBehaviour
         Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
 
         // 데미지가 3 이상이면 피격 애니메이션 실행
-      /*  if (amount >= 3f && animator != null)
-        {
-            animator.SetTrigger("Hit");
-        }*/
+      if (amount >= 3f && HitEffectManager.Instance != null)
+        HitEffectManager.Instance.ShowHitEffect();
 
         OnHPChanged?.Invoke(currentHP, maxHP);                                              // 체력 변경 알림
 
