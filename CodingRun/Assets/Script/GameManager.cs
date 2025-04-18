@@ -1,82 +1,84 @@
-using System.Collections;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+// 1) 제네릭 MonoSingleton<T> 구현
+public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 {
-    // 싱글톤 인스턴스
-    public static GameManager Instance { get; private set; }
+    public static T Instance { get; private set; }
 
-    // 전역 변수: 현재 점수
-    public float Score { get; set; }
-
-    // 현재까지의 최고 점수 (읽기 전용)
-    public float HighScore { get; private set; }
-
-    // 타이머 변수: 게임 진행 시간을 초 단위로 저장
-    private float timer = 0f;
-
-    // 타이머가 이미 실행 중인지 확인하는 플래그
-    private bool isTimerRunning = false;
-
-    public bool IsGameOver { get; private set; } = false;
-
-    // Awake 함수: 싱글톤 초기화 및 중복 제거, 씬 전환 시 파괴되지 않게 설정
-    private void Awake()
+    protected virtual void Awake()
     {
         if (Instance == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환에도 유지
+            Instance = (T)this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // 이미 인스턴스가 존재하면 중복 생성 방지
+            Destroy(gameObject);
         }
     }
+}
 
-    // Start 함수: 저장된 HighScore 로드
+// 2) GameManager
+public class GameManager : MonoSingleton<GameManager>
+{
+    // --- 전역 상태 ---
+    public float Score { get; set; }
+    public float HighScore { get; private set; }
+
+    // --- 타이머 관련 ---
+    private float startTime;
+    private float timer;
+    public float Timer => timer;
+    private bool isTimerRunning = false;
+
+    // --- 게임 오버 플래그 ---
+    public bool IsGameOver { get; private set; } = false;
+
+    // MonoSingleton 의 Awake 호출
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     private void Start()
     {
+        // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
-    // Update 함수에서 MapLoader의 존재 여부를 감지하여 타이머 시작
     private void Update()
     {
-        // 타이머가 아직 실행되지 않았으면 MapLoader 인스턴스가 존재하는지 확인
         if (!isTimerRunning)
         {
-            MapLoader loader = FindObjectOfType<MapLoader>();
+            // MapLoader 가 씬에 로드되면 자동으로 타이머 시작
+            var loader = FindObjectOfType<MapLoader>();
             if (loader != null)
             {
                 StartTimer();
+                Debug.Log("타이머 시작됨");
             }
+        }
+        else if (!IsGameOver)
+        {
+            // Time.timeScale 이 0 이면 Time.time 증가치가 0 이므로
+            // 게임이 멈춰 있으면 timer 도 멈춥니다.
+            timer = Time.time - startTime;
+            //Debug.Log($"진행 시간: {timer:F2}초");
         }
     }
 
-    // MapLoader가 DontDestroyOnLoad 상태에 들어간 것을 감지하면 호출할 타이머 시작 함수
+    // 외부에서 타이머를 강제로 시작할 때도 호출 가능
     public void StartTimer()
     {
         if (!isTimerRunning)
         {
             isTimerRunning = true;
-            StartCoroutine(TimerRoutine());
-            Debug.Log("타이머 시작됨");
+            startTime = Time.time;
         }
     }
 
-    // 1초마다 실행되는 타이머 코루틴
-    private IEnumerator TimerRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            timer++;
-            //Debug.Log("진행 시간: " + timer + "초");
-        }
-    }
-
-    // HighScore 저장 기능: 현재 점수가 기존 최고 점수보다 높으면 저장
+    // 최고 점수 저장
     public void SaveHighScore()
     {
         if (Score > HighScore)
@@ -88,24 +90,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // GameOver 함수
+    // 게임 종료 처리
     public void GameOver()
     {
         if (IsGameOver) return;
 
         IsGameOver = true;
-        StopAllCoroutines(); // 타이머 멈춤
+        isTimerRunning = false;  // 타이머 정지
+
         SaveHighScore();
+        Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
 
-        Debug.Log("GameOver() 호출됨" + "플레이 시간: " + timer + "초"); 
-
-        //모든 Rigidbody 멈춤 처리
-        Rigidbody[] allRigidbodies = FindObjectsOfType<Rigidbody>();
-        foreach (Rigidbody rb in allRigidbodies)
+        // 모든 Rigidbody 일시정지
+        foreach (var rb in FindObjectsOfType<Rigidbody>())
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            //rb.isKinematic = true; // 물리 시뮬레이션 멈춤 (필요 시)
         }
     }
 }
