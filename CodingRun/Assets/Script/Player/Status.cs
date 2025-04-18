@@ -69,18 +69,18 @@ public class Status : MonoBehaviour
         {
              if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
             {
-                switch (item.itemType)
+                 switch (item.itemType)
                 {
-                    case ItemType.Heart:
-                        Heal(item.healAmount);;
-                        break;
+                case ItemType.Heart:
+                    Heal(item.healAmount);
+                    Destroy(item.gameObject); // 하트는 파괴
+                    break;
 
-                    case ItemType.Coin:
-                        GameManager.Instance.Score += item.coinScore;;
-                        break;
+                case ItemType.Coin:
+                    GameManager.Instance.Score += item.coinScore;
+                    item.ReturnToPool();      // 코인은 풀에 반환
+                    break;
                 }
-
-                item.ReturnToPool(); // 풀로 반환
             }
         }
     }
