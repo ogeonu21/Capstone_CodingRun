@@ -25,6 +25,7 @@ public class StageManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
         //0.8�� �ֱ�� ���� ����
         coinTimer += Time.deltaTime;
         if (coinTimer > waitingCoinTime) {

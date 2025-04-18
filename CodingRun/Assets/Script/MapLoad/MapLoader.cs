@@ -139,6 +139,8 @@ public class MapLoader : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+
         isGameStart = true;
         if (isGameStart) StartGame();
     }

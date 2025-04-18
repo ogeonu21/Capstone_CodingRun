@@ -25,6 +25,8 @@ public class Status : MonoBehaviour
     //Animator 연결 (피격 애니메이션용)
     //private Animator animator;
 
+    private bool isDead = false; //사망 여부 저장
+
     void Start()
     {
         currentHP = maxHP;
@@ -88,6 +90,8 @@ public class Status : MonoBehaviour
     //데미지 처리 + 피격 애니메이션
     public void TakeDamage(float amount)
     {
+        if (isDead) return; // 이미 죽은 상태라면 데미지 처리 안함
+
         currentHP = Mathf.Max(currentHP - amount, 0f);                                      // 체력 감소 (0보다 작게 깍이지 않음)
         Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
 
@@ -97,10 +101,11 @@ public class Status : MonoBehaviour
 
         OnHPChanged?.Invoke(currentHP, maxHP);                                              // 체력 변경 알림
 
-        if (currentHP <= 0f)                                                                // HP가 0가 되면면   
+       if (currentHP <= 0f)
         {
-            OnDie?.Invoke();                                                                // 사망 알림
-            Die();                                                                          // 사망 처리
+        isDead = true; // 죽음 처리
+        OnDie?.Invoke();
+        Die();
         }
     }
 
@@ -116,12 +121,11 @@ public class Status : MonoBehaviour
     private void Die()
     {
         Debug.Log("플레이어 사망! 게임 오버 처리 진행");
-
-        GetComponent<Player>().enabled = false;                                     // 조작 정지
-
         // 게임 종료 처리
-        /*if (GameManager.Instance != null)
-            GameManager.Instance.GameOver();*/
+        if (GameManager.Instance != null)
+            GameManager.Instance.GameOver();
+
+        GetComponent<Player>().enabled = false;// 조작 정지
     }
 
     // 씬에서 감지 반경 시각화

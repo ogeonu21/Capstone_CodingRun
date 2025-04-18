@@ -37,6 +37,9 @@ public class DoorManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            return;
+
         if (timer != null && timer.isAnsweringQuestion)
         {
             if (timer.timerValue <= 9f && !doorsSpawned)

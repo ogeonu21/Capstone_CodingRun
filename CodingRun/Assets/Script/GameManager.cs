@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     // 타이머가 이미 실행 중인지 확인하는 플래그
     private bool isTimerRunning = false;
 
+    public bool IsGameOver { get; private set; } = false;
+
     // Awake 함수: 싱글톤 초기화 및 중복 제거, 씬 전환 시 파괴되지 않게 설정
     private void Awake()
     {
@@ -89,6 +91,21 @@ public class GameManager : MonoBehaviour
     // GameOver 함수
     public void GameOver()
     {
+        if (IsGameOver) return;
+
+        IsGameOver = true;
+        StopAllCoroutines(); // 타이머 멈춤
+        SaveHighScore();
+
         Debug.Log("GameOver() 호출됨" + "플레이 시간: " + timer + "초"); 
+
+        //모든 Rigidbody 멈춤 처리
+        Rigidbody[] allRigidbodies = FindObjectsOfType<Rigidbody>();
+        foreach (Rigidbody rb in allRigidbodies)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            //rb.isKinematic = true; // 물리 시뮬레이션 멈춤 (필요 시)
+        }
     }
 }
