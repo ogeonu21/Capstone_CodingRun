@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : MonoSingleton<ResourceManager>
 {
-    public static ResourceManager instance;
-
     [SerializeField]
     private List<Quiz> quizList;
     public List<Quiz> QuizList{
@@ -13,7 +11,7 @@ public class ResourceManager : MonoBehaviour
         private set {quizList = value;}
     }
 
-    private void LoadQuiz() {
+    public void LoadQuiz() {
         TextAsset jsonFile = Resources.Load<TextAsset>("Data/QuizData");
 
         if (jsonFile == null) {
@@ -32,17 +30,5 @@ public class ResourceManager : MonoBehaviour
     [System.Serializable]
     public class QuizWrapper {
         public List<Quiz> quizzes;
-    }
-
-    void Awake()
-    {
-        if (instance == null) {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
-        }
-
-        LoadQuiz();
     }
 }

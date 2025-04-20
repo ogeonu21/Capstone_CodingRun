@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageManager : MonoBehaviour
+public class StageManager : MonoSingleton<StageManager>
 {
     private Vector3[] spawnPoint = new Vector3[3];
     public float objectSpeed = 5f;
@@ -11,23 +11,28 @@ public class StageManager : MonoBehaviour
     public GameObject testPrefab1;
     public Transform items;
 
-    void Awake()
+    public void Init()
     {
         spawnPoint[0] = new Vector3(-4.9f, 1f, 14f);
         spawnPoint[1] = new Vector3(0f, 1f, 14f);
         spawnPoint[2] = new Vector3(4.9f, 1f, 14f);
     }
 
-    void Start()
+    public void SetPrefab(GameObject testPrefab1_)
     {
-    
+        testPrefab1 = testPrefab1_;
     }
 
-    void Update()
+    public void SetTransform(Transform items_)
+    {
+        items = items_;
+    }
+
+    public void ElapedUpdate(float elapedTime)
     {
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
         //0.8�� �ֱ�� ���� ����
-        coinTimer += Time.deltaTime;
+        coinTimer += elapedTime;
         if (coinTimer > waitingCoinTime) {
             SpawnItem(testPrefab1);
             coinTimer = 0.0f;

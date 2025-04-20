@@ -3,20 +3,39 @@ using UnityEngine;
 // 1) 제네릭 MonoSingleton<T> 구현
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 {
-    public static T Instance { get; private set; }
+    private static T _instance;
+    private static object _lock = new object();
+    private static bool _applicationIsQuitting = false;
 
-    protected virtual void Awake()
+    public static T Instance
     {
-        if (Instance == null)
+        get
         {
-            Instance = (T)this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (_applicationIsQuitting)
+            {
+                Debug.LogWarning($"[Singleton] {typeof(T)} 인스턴스는 앱 종료 중이므로 반환되지 않습니다.");
+                return null;
+            }
+
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<T>();
+
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject(typeof(T).Name);
+                        _instance = singletonObject.AddComponent<T>();
+                        DontDestroyOnLoad(singletonObject);
+                    }
+                }
+
+                return _instance;
+            }
         }
     }
+
 }
 
 // 2) GameManager
@@ -36,9 +55,9 @@ public class GameManager : MonoSingleton<GameManager>
     public bool IsGameOver { get; private set; } = false;
 
     // MonoSingleton 의 Awake 호출
-    protected override void Awake()
+    public void Init()
     {
-        base.Awake();
+
     }
 
     private void Start()
@@ -49,6 +68,10 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Update()
     {
+        float elapedTime = Time.deltaTime;
+
+        StageManager.Instance.ElapedUpdate(elapedTime);
+
         if (!isTimerRunning)
         {
             // MapLoader 가 씬에 로드되면 자동으로 타이머 시작
