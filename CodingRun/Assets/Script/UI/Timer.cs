@@ -37,9 +37,14 @@ public class Timer : MonoBehaviour
     // 타이머를 초기화합니다.
     public void ResetTimer()
     {
-        timerValue = timeToCompleteQuestion;
-        isAnsweringQuestion = true;
+        timerValue = timeToCompleteQuestion;  // 타이머 값을 초기화
         timeUp = false;
+    }
+
+    // 타이머를 시작합니다.
+    public void StartTimer()
+    {
+        isAnsweringQuestion = true;
     }
 
     // 문제별 시간 설정

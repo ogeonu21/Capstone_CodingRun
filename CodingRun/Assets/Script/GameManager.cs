@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 // 1) 제네릭 MonoSingleton<T> 구현
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
@@ -32,6 +34,10 @@ public class GameManager : MonoSingleton<GameManager>
     public float Timer => timer;
     private bool isTimerRunning = false;
 
+    // --- 퀴즈 관련 ---
+    private Quiz quizManager;  // 퀴즈 매니저 참조
+    [SerializeField] private float quizTransitionDelay = 10f;  // 퀴즈 전환 딜레이 (초)
+
     // --- 게임 오버 플래그 ---
     public bool IsGameOver { get; private set; } = false;
 
@@ -39,6 +45,30 @@ public class GameManager : MonoSingleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    private void FindQuizManager()
+    {
+        // 모든 로드된 씬에서 Quiz 찾기
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded)
+            {
+                GameObject[] rootObjects = scene.GetRootGameObjects();
+                foreach (GameObject obj in rootObjects)
+                {
+                    Quiz quiz = obj.GetComponentInChildren<Quiz>(true);
+                    if (quiz != null)
+                    {
+                        quizManager = quiz;
+                        Debug.Log($"Quiz를 찾았습니다: {scene.name} 씬");
+                        return;
+                    }
+                }
+            }
+        }
+        Debug.LogWarning("어떤 씬에서도 Quiz를 찾을 수 없습니다!");
     }
 
     private void Start()
@@ -106,6 +136,47 @@ public class GameManager : MonoSingleton<GameManager>
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    // 퀴즈 전환 처리
+    public void HandleQuizTransition()
+    {
+        // Quiz가 없으면 다시 찾아보기
+        if (quizManager == null)
+        {
+            FindQuizManager();
+        }
+
+        if (quizManager != null)
+        {
+            StartCoroutine(HandleQuizTransitionWithDelay());
+        }
+        else
+        {
+            Debug.LogError("퀴즈 매니저가 없어서 전환을 처리할 수 없습니다!");
+        }
+    }
+
+    private IEnumerator HandleQuizTransitionWithDelay()
+    {
+        // Panel 비활성화
+        quizManager.SetQuestionPanelActive(false);
+        
+        // 10초 대기
+        yield return new WaitForSeconds(10f);
+        
+        // Panel 활성화 및 다음 문제 로드
+        quizManager.SetQuestionPanelActive(true);
+        quizManager.LoadNextQuestion();
+        
+        // 타이머 시작
+        Timer timer = FindObjectOfType<Timer>();
+        if (timer != null)
+        {
+            timer.ResetTimer();
+            timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
+            timer.StartTimer();
         }
     }
 }

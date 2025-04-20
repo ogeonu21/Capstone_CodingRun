@@ -14,6 +14,7 @@ public class Quiz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questionText;   // 문제 텍스트 UI
     [SerializeField] private Image timerImage;               // 타이머 게이지
     [SerializeField] private GameObject questionCanvas;      // 문제 표시 캔버스
+    private GameObject questionPanel;                        // 문제 패널
     [SerializeField] private TextMeshProUGUI[] answerTexts;  // 답안 선택지 텍스트
     #endregion
 
@@ -32,7 +33,15 @@ public class Quiz : MonoBehaviour
         LoadQuestions();
         ActivateQuestionCanvas();
         ShowQuizUI();
-        LoadNextQuestion();
+        LoadNextQuestion();  // 첫 문제 로드
+
+        // 첫 문제 로드 후 타이머 시작
+        if (timer != null)
+        {
+            timer.ResetTimer();
+            timer.SetQuestionTime(GetCurrentQuestionTimeLimit());
+            timer.StartTimer();
+        }
     }
 
     private void Start()
@@ -64,6 +73,7 @@ public class Quiz : MonoBehaviour
         FindGameManager();
         FindPlayerStatus();
         ValidateUIComponents();
+        FindQuestionPanel();
     }
 
     // 타이머 컴포넌트 찾기
@@ -185,6 +195,23 @@ public class Quiz : MonoBehaviour
             randomQuestions[n] = value;
         }
     }
+
+    private void FindQuestionPanel()
+    {
+        // Canvas 아래의 Panel 찾기
+        if (questionCanvas != null)
+        {
+            questionPanel = questionCanvas.transform.Find("Panel")?.gameObject;
+            if (questionPanel != null)
+            {
+                Debug.Log("Panel을 찾았습니다: " + questionPanel.name);
+            }
+            else
+            {
+                Debug.LogError("Canvas 아래에서 Panel을 찾을 수 없습니다!");
+            }
+        }
+    }
     #endregion
 
     #region 이벤트 관리
@@ -236,11 +263,11 @@ public class Quiz : MonoBehaviour
 
     #region 퀴즈 관리
     // 다음 문제 로드
-    private void LoadNextQuestion()
+    public void LoadNextQuestion()
     {
         if (randomQuestions.Count == 0)
         {
-            HandleQuizCompletion();
+            EndQuiz();
             return;
         }
 
@@ -249,34 +276,20 @@ public class Quiz : MonoBehaviour
         
         if (currentQuestion != null)
         {
-            DisplayQuestion();
+            // 문제 표시
+            if (questionText != null)
+            {
+                questionText.text = currentQuestion.GetQuestion();
+                DisplayAnswerChoices();
+            }
+            else
+            {
+                Debug.LogError("문제 텍스트 UI가 null입니다.");
+            }
         }
         else
         {
-            Debug.LogError("선택된 문제가 null입니다. 퀴즈를 종료합니다.");
-            HandleQuizCompletion();
-        }
-    }
-
-    // 문제 표시
-    private void DisplayQuestion()
-    {
-        if (timer != null)
-        {
-            timer.isAnsweringQuestion = true;
-            // 현재 문제의 시간 설정 적용
-            timer.SetQuestionTime(currentQuestion.GetTimeLimit());
-        }
-        
-        if (questionText != null && currentQuestion != null)
-        {
-            questionText.text = currentQuestion.GetQuestion();
-            DisplayAnswerChoices();
-        }
-        else
-        {
-            if (questionText == null) Debug.LogError("문제 텍스트 UI가 null입니다.");
-            if (currentQuestion == null) Debug.LogError("현재 문제가 null입니다.");
+            EndQuiz();
         }
     }
 
@@ -301,8 +314,8 @@ public class Quiz : MonoBehaviour
         }
     }
 
-    // 퀴즈 완료 처리
-    private void HandleQuizCompletion()
+    // 퀴즈 종료
+    private void EndQuiz()
     {
         if (questionText != null)
         {
@@ -347,14 +360,19 @@ public class Quiz : MonoBehaviour
         if (timer != null)
         {
             timer.timeUp = false;
-            timer.ResetTimer();
+            timer.ResetTimer();  // 타이머 값만 초기화
         }
         
-        LoadNextQuestion();
+        // GameManager에게 다음 문제 전환을 알림
+        if (gameManager != null)
+        {
+            gameManager.HandleQuizTransition();
+        }
     }
     #endregion
 
     #region 답변 처리
+    // 답변 처리
     public void SubmitAnswer(int answerIndex)
     {
         if (currentQuestion == null)
@@ -377,7 +395,7 @@ public class Quiz : MonoBehaviour
         {
             if (gameManager != null)
             {
-                gameManager.Score += 100; // 정답 시 100점 증가
+                gameManager.Score += 100;
                 Debug.Log($"현재 점수: {gameManager.Score}점");
             }
         }
@@ -385,7 +403,7 @@ public class Quiz : MonoBehaviour
         {
             if (playerStatus != null)
             {
-                playerStatus.TakeDamage(25); // 오답 시 체력 25 감소
+                playerStatus.TakeDamage(25);
                 Debug.Log($"오답으로 인한 체력 감소! 현재 체력: {playerStatus.currentHP}");
             }
         }
@@ -396,8 +414,33 @@ public class Quiz : MonoBehaviour
             timer.isAnsweringQuestion = false;
         }
 
-        // 다음 문제 로드
-        LoadNextQuestion();
+        // GameManager에게 다음 문제 전환을 알림
+        if (gameManager != null)
+        {
+            gameManager.HandleQuizTransition();
+        }
+    }
+    #endregion
+
+    // Panel 활성화/비활성화 제어
+    public void SetQuestionPanelActive(bool active)
+    {
+        if (questionPanel != null)
+        {
+            questionPanel.SetActive(active);
+            Debug.Log($"Panel {(active ? "활성화" : "비활성화")}");
+        }
+        else
+        {
+            Debug.LogError("questionPanel이 null입니다!");
+        }
+    }
+
+    #region public 메서드
+    // 현재 문제의 시간 제한을 반환합니다.
+    public float GetCurrentQuestionTimeLimit()
+    {
+        return currentQuestion?.GetTimeLimit() ?? 15f;  // 문제가 없으면 기본값 15초 반환
     }
     #endregion
 }
