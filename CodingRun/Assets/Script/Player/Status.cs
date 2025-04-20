@@ -3,39 +3,37 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
-    [Header("스테이터스")]
-    public float maxHP = 100f;      //최대 체력
-    public float currentHP;         //현재 체력
-    public float moveSpeed = 5f;    //이동 속도
+    [Header("스탯 설정")]
+    public float maxHP = 100f;
+    public float currentHP;
 
-    [Header("자동 체력 감소")]
-    [SerializeField] private float hpDecayInterval = 1f;    //체력 감소 주기 (초)     
-    private float hpDecayTimer = 0f;                        //체력 감소 타이머
+    [Header("체력 자연 감소")]
+    public float hpDecreaseInterval = 1f;
+    public float hpDecreaseAmount = 0.5f;
 
-    [Header("충돌 감지")]
-    [SerializeField] private float detectRadius = 1f;       //충돌 감지 반경
-    [SerializeField] private LayerMask detectLayer;         //충돌 감지 레이어
-    [SerializeField] private float detectInterval = 0.1f;   //충돌 감지 주기 (초)
-    private float detectTimer = 0f;                         //충돌 감지 타이머
+    [Header("충돌 판정")]
+    public float detectRadius = 1.5f;
+    public LayerMask detectLayer;
+    public float detectInterval = 0.1f;
 
-    //델리게이트 이벤트
-    public event Action<float, float> OnHPChanged; // 체력 변경 알림
-    public event Action OnDie;                     // 사망 알림
+    private float detectTimer = 0f;
+    private float decreaseTimer = 0f;
+    private bool isDead = false;
 
-    //Animator 연결 (피격 애니메이션용)
-    //private Animator animator;
-
-    private bool isDead = false; //사망 여부 저장
+    public event Action<float, float> OnHPChanged;
+    public event Action OnDie;
 
     void Start()
     {
         currentHP = maxHP;
-        //animator = GetComponent<Animator>(); // Animator 자동 연결
         OnHPChanged?.Invoke(currentHP, maxHP); // 초기 체력 상태 알림
     }
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            return; // 게임 오버 상태라면 업데이트 중지
+
         HandleHPDecay();                        // 1초마다 체력 감소
         HandleCollisionDetection();             // 0.1초마다 충돌 감지
     }
@@ -43,11 +41,12 @@ public class Status : MonoBehaviour
     // 1초마다 0.5씩 체력 감소
     void HandleHPDecay()
     {
-        hpDecayTimer += Time.deltaTime;         // 타이머 증가
-        if (hpDecayTimer >= hpDecayInterval)    // 1초가 지났다면
+        decreaseTimer += Time.deltaTime;               // 타이머 증가
+
+        if (decreaseTimer >= hpDecreaseInterval)       
         {
-            TakeDamage(0.5f);                   // 체력 감소
-            hpDecayTimer = 0f;                  // 타이머 초기화
+            TakeDamage(hpDecreaseAmount);
+            decreaseTimer = 0f;
         }
     }
 
@@ -71,17 +70,25 @@ public class Status : MonoBehaviour
         {
              if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
             {
-                 switch (item.itemType)
+                switch (item.itemType)
                 {
-                case ItemType.Heart:
-                    Heal(item.healAmount);
-                    Destroy(item.gameObject); // 하트는 파괴
-                    break;
+                    case ItemType.Coin:
+                        float baseCoinScore = ConfigManager.Instance.itemConfig.Coin.coinScore;
+                        float growthRate = ConfigManager.Instance.itemConfig.Coin.growthRate;
+                        float elapsedTime = Time.timeSinceLevelLoad;
 
-                case ItemType.Coin:
-                    GameManager.Instance.Score += item.coinScore;
-                    item.ReturnToPool();      // 코인은 풀에 반환
-                    break;
+                        float scaledScore = baseCoinScore * (1 + growthRate * elapsedTime);
+                        GameManager.Instance.Score += scaledScore;
+                        GameManager.Instance.SaveHighScore();
+
+                        item.ReturnToPool(); // 풀로 반환
+                        break;
+
+                    case ItemType.Heart:
+                        int healAmount = ConfigManager.Instance.itemConfig.Heart.healAmount;
+                        Heal(healAmount);
+                        Destroy(item.gameObject);
+                        break;
                 }
             }
         }
@@ -95,13 +102,15 @@ public class Status : MonoBehaviour
         currentHP = Mathf.Max(currentHP - amount, 0f);                                      // 체력 감소 (0보다 작게 깍이지 않음)
         Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
 
-        // 데미지가 3 이상이면 피격 애니메이션 실행
-      if (amount >= 3f && HitEffectManager.Instance != null)
+        // 데미지가 현재체력의 20% 이상, 절대값이 1이상이면 피격 애니메이션 실행
+        if (amount >= currentHP * 0.2f && amount >= 1f && HitEffectManager.Instance != null)
+        {
         HitEffectManager.Instance.ShowHitEffect();
+        }
 
         OnHPChanged?.Invoke(currentHP, maxHP);                                              // 체력 변경 알림
 
-       if (currentHP <= 0f)
+        if (currentHP <= 0f)
         {
         isDead = true; // 죽음 처리
         OnDie?.Invoke();
@@ -125,13 +134,14 @@ public class Status : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.GameOver();
 
-        GetComponent<Player>().enabled = false;// 조작 정지
+        if (TryGetComponent<Player>(out var player))
+            player.enabled = false;// 조작 정지
     }
 
     // 씬에서 감지 반경 시각화
-    void OnDrawGizmosSelected()
+    /*void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
-    }
+    }*/
 }
