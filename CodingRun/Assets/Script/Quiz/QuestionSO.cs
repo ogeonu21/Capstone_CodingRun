@@ -30,6 +30,10 @@ public class QuestionSO : ScriptableObject
     [SerializeField] private float timeLimit = 8f;                  // 문제 풀이 제한 시간 (초)
     #endregion
 
+    #region 프로퍼티
+    public QuestionDifficulty Difficulty => difficulty;  // 난이도 프로퍼티
+    #endregion
+
     #region 유효성 검사
     // Unity 에디터에서 값이 변경될 때 호출되는 함수
     // 문제 데이터의 유효성을 검사하고 난이도에 따른 시간을 설정합니다.

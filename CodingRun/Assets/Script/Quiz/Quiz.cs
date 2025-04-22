@@ -16,6 +16,7 @@ public class Quiz : MonoBehaviour
     [SerializeField] private GameObject questionCanvas;      // 문제 표시 캔버스
     private GameObject questionPanel;                        // 문제 패널
     [SerializeField] private TextMeshProUGUI[] answerTexts;  // 답안 선택지 텍스트
+    [SerializeField] private Button skipButton;              // Skip 버튼
     #endregion
 
     #region 프라이빗 필드
@@ -42,6 +43,12 @@ public class Quiz : MonoBehaviour
             timer.SetQuestionTime(GetCurrentQuestionTimeLimit());
             timer.StartTimer();
         }
+
+        // Skip 버튼 클릭 이벤트 연결
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(OnSkipButtonClicked);
+        }
     }
 
     private void Start()
@@ -62,6 +69,7 @@ public class Quiz : MonoBehaviour
     private void Update()
     {
         UpdateTimer();
+        CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
     }
     #endregion
 
@@ -281,6 +289,7 @@ public class Quiz : MonoBehaviour
             {
                 questionText.text = currentQuestion.GetQuestion();
                 DisplayAnswerChoices();
+                UpdateSkipButtonVisibility();  // Skip 버튼 상태 업데이트
             }
             else
             {
@@ -341,6 +350,21 @@ public class Quiz : MonoBehaviour
         }
 
         Debug.Log("모든 문제가 소진되었습니다. 퀴즈가 종료됩니다.");
+    }
+
+    // Skip 버튼 가시성 업데이트
+    private void UpdateSkipButtonVisibility()
+    {
+        if (skipButton != null && currentQuestion != null)
+        {
+            // Easy 난이도일 때는 버튼을 완전히 숨김
+            skipButton.gameObject.SetActive(currentQuestion.Difficulty != QuestionDifficulty.Easy);
+            Debug.Log($"Skip 버튼 {(skipButton.gameObject.activeSelf ? "표시" : "숨김")} (난이도: {currentQuestion.Difficulty})");
+        }
+        else
+        {
+            Debug.LogError("Skip 버튼 또는 현재 문제가 null입니다!");
+        }
     }
     #endregion
 
@@ -443,4 +467,26 @@ public class Quiz : MonoBehaviour
         return currentQuestion?.GetTimeLimit() ?? 15f;  // 문제가 없으면 기본값 15초 반환
     }
     #endregion
+
+    // Skip 버튼 가시성 체크
+    private void CheckSkipButtonVisibility()
+    {
+        if (skipButton != null && currentQuestion != null && timer != null)
+        {
+            // Easy 난이도이거나 타이머가 9.1초 이하로 남았을 때는 버튼 숨김
+            bool shouldHide = currentQuestion.Difficulty == QuestionDifficulty.Easy || 
+                            (timer.timerValue <= 9.1f && timer.timerValue > 0);
+            
+            skipButton.gameObject.SetActive(!shouldHide);
+        }
+    }
+
+    // Skip 버튼 클릭 이벤트 처리
+    private void OnSkipButtonClicked()
+    {
+        if (timer != null)
+        {
+            timer.timerValue = 9.1f;
+        }
+    }
 }
