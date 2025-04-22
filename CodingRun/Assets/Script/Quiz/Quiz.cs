@@ -68,6 +68,16 @@ public class Quiz : MonoBehaviour
 
     private void Update()
     {
+        if (gameManager != null && gameManager.IsGameOver)
+        {
+            // 게임 오버 상태일 때 타이머 일시정지
+            if (timer != null)
+            {
+                timer.isAnsweringQuestion = false;
+            }
+            return;
+        }
+
         UpdateTimer();
         CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
     }
