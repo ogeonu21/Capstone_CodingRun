@@ -53,6 +53,21 @@ public class UnifiedItem : MonoBehaviour
 
     private void RotateObject()
     {
+        if (ConfigManager.Instance == null)
+        {
+            Debug.LogError("ConfigManager.Instance is NULL");
+            return;
+        }
+        if (ConfigManager.Instance.itemConfig == null)
+        {
+            Debug.LogError("itemConfig is NULL");
+            return;
+        }
+        if (ConfigManager.Instance.itemConfig.Coin == null)
+        {
+            Debug.LogError("itemConfig.Coin is NULL");
+            return;
+        }
         float rotationSpeed = ConfigManager.Instance.itemConfig.Coin.rotationSpeed;
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
     }
@@ -100,7 +115,7 @@ public class UnifiedItem : MonoBehaviour
                 break;
 
             case ItemType.Heart:
-                Destroy(gameObject); 
+                Destroy(gameObject);
                 break;
         }
     }
