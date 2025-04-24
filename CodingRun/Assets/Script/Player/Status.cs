@@ -68,12 +68,12 @@ public class Status : MonoBehaviour
 
         foreach (Collider hit in hits)                                                              // 감지된 물체에 대해 반복
         {
-            if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
+             if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
             {
                 switch (item.itemType)
                 {
                     case ItemType.Coin:
-                        Debug.Log("코인과 충돌 확인됨!");
+                        //Debug.Log("코인과 충돌 확인됨!");
                         float baseCoinScore = ConfigManager.Instance.itemConfig.Coin.coinScore;
                         float growthRate = ConfigManager.Instance.itemConfig.Coin.growthRate;
                         float elapsedTime = Time.timeSinceLevelLoad;
@@ -82,6 +82,7 @@ public class Status : MonoBehaviour
                         GameManager.Instance.Score += scaledScore;
                         GameManager.Instance.SaveHighScore();
 
+                        //Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
                         item.ReturnToPool(); // 풀로 반환
                         break;
 
