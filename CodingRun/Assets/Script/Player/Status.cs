@@ -68,7 +68,7 @@ public class Status : MonoBehaviour
 
         foreach (Collider hit in hits)                                                              // 감지된 물체에 대해 반복
         {
-             if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
+            if (hit.TryGetComponent<UnifiedItem>(out UnifiedItem item))
             {
                 switch (item.itemType)
                 {

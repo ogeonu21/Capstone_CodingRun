@@ -10,6 +10,7 @@ public class ConfigManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Debug.Log("ConfigManager Awake: Instance set");
             LoadConfig();
             DontDestroyOnLoad(gameObject);
         }
@@ -24,6 +25,7 @@ public class ConfigManager : MonoBehaviour
         TextAsset configText = Resources.Load<TextAsset>("itemConfig");
         if (configText != null)
         {
+            Debug.Log("itemConfig.json found, parsing…");
             itemConfig = JsonUtility.FromJson<ItemConfig>(configText.text);
         }
         else
