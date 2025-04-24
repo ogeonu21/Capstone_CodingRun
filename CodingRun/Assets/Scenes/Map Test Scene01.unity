@@ -1762,6 +1762,11 @@ PrefabInstance:
       propertyPath: effectDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6325825200203943434, guid: adc29cec84c3a154799af0a175fada52,
+        type: 3}
+      propertyPath: detectLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6325825200203943442, guid: adc29cec84c3a154799af0a175fada52,
         type: 3}
       propertyPath: m_Name

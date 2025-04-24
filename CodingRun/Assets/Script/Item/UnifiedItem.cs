@@ -56,7 +56,7 @@ public class UnifiedItem : MonoBehaviour
         float rotationSpeed = ConfigManager.Instance.itemConfig.Coin.rotationSpeed;
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
     }
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -86,7 +86,7 @@ public class UnifiedItem : MonoBehaviour
             }
             ReturnToPool();
         }
-    }
+    }*/
 
     public void ReturnToPool()
     {
