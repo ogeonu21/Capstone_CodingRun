@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager Instance; //캔버스 싱글톤 생성
+    public GameObject inputBlocker;
     public Stack<GameObject> canvasStack = new Stack<GameObject>(); //캔버스 스택 생성
 
     void Awake()
@@ -34,7 +35,9 @@ public class CanvasManager : MonoBehaviour
         canvasStack.Push(newCanvas); //canvasStack에 newCanvas push
     }
 
-    public void CloseCurrentCanvas(){ //닫는 버튼 구현시 현재 캔버스 닫도록 하는 메소드
+    public void CloseCurrentCanvas(){
+         //닫는 버튼 구현시 현재 캔버스 닫도록 하는 메소드
+        Time.timeScale = 1f;
         if(canvasStack.Count > 0){ 
             GameObject currentCanvas = canvasStack.Pop(); //currentCanvas변수에 스택에서 제거된 최상단 현재 활성화된 캔버스가 할당
             currentCanvas.SetActive(false);
@@ -44,6 +47,35 @@ public class CanvasManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void OnClickPaused(GameObject pausedPanel){
+        Time.timeScale = 0f;
+        if(canvasStack.Count > 0){
+            canvasStack.Peek().SetActive(false);
+        }
+        pausedPanel.SetActive(true);
+        canvasStack.Push(pausedPanel);
+
+        inputBlocker.SetActive(true);
+
+    }
+
+    public void OnclickResume(GameObject pausedPanel){
+        Time.timeScale = 1f;
+        pausedPanel.SetActive(false);
+
+        inputBlocker.SetActive(false);
+    }
+
+    public void OnClickRestart(){
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnClickGoToMain(){
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("CanvasSampleScene");
     }
     
     public void OverlayScene(string sceneName){
