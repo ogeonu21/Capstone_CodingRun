@@ -41,6 +41,10 @@ public class GameManager : MonoSingleton<GameManager>
     // --- 게임 오버 플래그 ---
     public bool IsGameOver { get; private set; } = false;
 
+    // --- HPUI 관련 ---
+    [SerializeField] private Status playerStatus;
+    [SerializeField] private HPUiController hpUiController;
+    
     // MonoSingleton 의 Awake 호출
     protected override void Awake()
     {
@@ -75,6 +79,9 @@ public class GameManager : MonoSingleton<GameManager>
     {
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
+
+        //HPUI
+        hpUiController.Bind(playerStatus);
     }
 
     private void Update()

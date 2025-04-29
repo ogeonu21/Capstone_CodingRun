@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager Instance; //캔버스 싱글톤 생성
-    public GameObject inputBlocker;
     public Stack<GameObject> canvasStack = new Stack<GameObject>(); //캔버스 스택 생성
 
     void Awake()
@@ -57,15 +56,12 @@ public class CanvasManager : MonoBehaviour
         pausedPanel.SetActive(true);
         canvasStack.Push(pausedPanel);
 
-        inputBlocker.SetActive(true);
-
     }
 
     public void OnclickResume(GameObject pausedPanel){
         Time.timeScale = 1f;
         pausedPanel.SetActive(false);
 
-        inputBlocker.SetActive(false);
     }
 
     public void OnClickRestart(){

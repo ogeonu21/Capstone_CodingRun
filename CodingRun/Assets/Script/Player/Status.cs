@@ -6,6 +6,7 @@ public class Status : MonoBehaviour
     [Header("스탯 설정")]
     public float maxHP = 100f;
     public float currentHP;
+    
 
     [Header("체력 자연 감소")]
     public float hpDecreaseInterval = 1f;
@@ -19,6 +20,7 @@ public class Status : MonoBehaviour
     private float detectTimer = 0f;
     private float decreaseTimer = 0f;
     private bool isDead = false;
+
 
     public event Action<float, float> OnHPChanged;
     public event Action OnDie;
@@ -48,6 +50,7 @@ public class Status : MonoBehaviour
             TakeDamage(hpDecreaseAmount);
             decreaseTimer = 0f;
         }
+
     }
 
     // 0.1초마다 주변 충돌 감지
@@ -110,7 +113,7 @@ public class Status : MonoBehaviour
         HitEffectManager.Instance.ShowHitEffect();
         }
 
-        OnHPChanged?.Invoke(currentHP, maxHP);                                              // 체력 변경 알림
+        OnHPChanged?.Invoke(currentHP, maxHP); //HPUIController.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림
 
         if (currentHP <= 0f)
         {
