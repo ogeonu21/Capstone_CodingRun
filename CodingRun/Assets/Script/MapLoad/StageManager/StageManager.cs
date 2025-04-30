@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
@@ -10,6 +12,11 @@ public class StageManager : MonoBehaviour
     public float waitingCoinTime = 0.8f;
     public GameObject testPrefab1;
     public Transform items;
+    private IStageState currentState = null;
+
+    public List<StateData> stateDatas = new();
+
+    private Dictionary<StageState, MonoBehaviour> stateDatasDic = new();
 
     void Awake()
     {
@@ -20,7 +27,9 @@ public class StageManager : MonoBehaviour
 
     void Start()
     {
-    
+        stateDatasDic = stateDatas.ToDictionary(data => data.stageState, data => data.stateComponent);
+        Debug.Log("Keys : "+stateDatasDic.Keys);
+        Debug.Log("Values : "+stateDatasDic.Values);
     }
 
     void Update()
@@ -32,12 +41,26 @@ public class StageManager : MonoBehaviour
             SpawnItem(testPrefab1);
             coinTimer = 0.0f;
         }
+        currentState?.Update();    
+    }
+
+    private Dictionary<StageState, MonoBehaviour> ToDict(List<StateData> list) {
+        var dict = new Dictionary<StageState, MonoBehaviour>();
         
+        foreach(var data in list) {
+            dict.Add(data.stageState, data.stateComponent);
+        }
+        
+        return dict;
     }
 
     private void SpawnItem(GameObject obj)
     {
         GameObject spawnObject = Instantiate(obj, spawnPoint[Random.Range(0, 3)], Quaternion.identity, items);
         spawnObject.GetComponent<Rigidbody>().velocity = Vector3.back * objectSpeed;
+    }
+
+    private void ChangeState(StageState state) {
+
     }
 }
