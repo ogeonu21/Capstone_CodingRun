@@ -5,11 +5,11 @@ using UnityEngine;
 public class DestroyWall : MonoBehaviour
 {
     //Object 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
         {
-            Destroy(collision.gameObject);
+            ObjectPoolManager.Instance.ReturnObject(other.gameObject.GetComponent<UnifiedItem>().GetPoolType(), other.gameObject.GetComponent<UnifiedItem>());
         }
     }
 }

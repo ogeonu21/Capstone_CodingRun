@@ -121,7 +121,7 @@ public class UnifiedItem : MonoBehaviour
     }
 
     // ObjectType과 ItemType이 다르다면 이 메서드에서 매핑해 줄 수 있음
-    private ObjectType GetPoolType()
+    public ObjectType GetPoolType()
     {
         // 예시: ItemType.Coin -> ObjectType.COIN, ItemType.Heart -> ObjectType.HEART
         switch (itemType)

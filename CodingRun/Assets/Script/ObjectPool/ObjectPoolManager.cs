@@ -30,8 +30,8 @@ public class ObjectPoolManager : MonoBehaviour
         InitPoolsFromList();
 
         //테스트 예제 (obj를 받을때 MonoBehaviour로 받음음)
-        MonoBehaviour obj = GetObject(ObjectType.COIN);
-        ReturnObject(ObjectType.COIN, obj);
+        //MonoBehaviour obj = GetObject(ObjectType.COIN);
+        
     }
 
     private void InitPoolsFromList() {

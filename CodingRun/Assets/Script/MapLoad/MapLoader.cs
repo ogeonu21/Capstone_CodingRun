@@ -20,8 +20,6 @@ public class MapLoader : MonoBehaviour
     public int delayDistance = 5;
     public Vector3 startPos = new Vector3(0f, 0f, 0f);
     public Transform roads;
-    
-
     private Queue<GameObject> roadPool = new Queue<GameObject>();
     private bool isGameStart = false;
     public bool IsGameStart {
