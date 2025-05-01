@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -24,8 +25,19 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
 // 2) GameManager
 public class GameManager : MonoSingleton<GameManager>
 {
+    public event Action<float> OnScoreChanged;
+
     // --- 전역 상태 ---
-    public float Score { get; set; }
+    private float score;
+    public float Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            OnScoreChanged?.Invoke(score); // 점수 변경될 때마다 이벤트 호출
+        }
+    }
     public float HighScore { get; private set; }
 
     // --- 타이머 관련 ---
