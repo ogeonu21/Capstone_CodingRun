@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectSpeed: 5
-  waitingCoinTime: 1
+  spawnPeriod: 0.8
   testPrefab1: {fileID: 2244153454405662055, guid: 4c301eca2b9eeaf45970351f4be26e5d,
     type: 3}
   items: {fileID: 1559587672}
@@ -4092,21 +4092,6 @@ PrefabInstance:
       propertyPath: vignetteImage
       value: 
       objectReference: {fileID: 1635004799}
-    - target: {fileID: 6325825200203943432, guid: adc29cec84c3a154799af0a175fada52,
-        type: 3}
-      propertyPath: effectDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6325825200203943434, guid: adc29cec84c3a154799af0a175fada52,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6325825200203943434, guid: adc29cec84c3a154799af0a175fada52,
-        type: 3}
-      propertyPath: detectLayer.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6325825200203943442, guid: adc29cec84c3a154799af0a175fada52,
         type: 3}
       propertyPath: m_Name
