@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 // 1) 제네릭 MonoSingleton<T> 구현
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
@@ -44,11 +47,16 @@ public class GameManager : MonoSingleton<GameManager>
     // --- HPUI 관련 ---
     [SerializeField] private Status playerStatus;
     [SerializeField] private HPUiController hpUiController;
+
+    // --- 구글 플레이 관련 ---
+    [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
     
     // MonoSingleton 의 Awake 호출
     protected override void Awake()
     {
         base.Awake();
+
+        Debug.Log("구글 게임 서비스 초기화 완료");
     }
 
     private void FindQuizManager()
@@ -77,11 +85,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
+        Debug.Log("Start 메소드 호출됨");
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
 
         //HPUI
         hpUiController.Bind(playerStatus);
+        SignGooglePlayGames(true);
     }
 
     private void Update()
@@ -115,6 +125,62 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    // 구글 로그인
+
+    // 구글 로그인 (silent=true: 자동, false: 수동)
+    public void SignGooglePlayGames(bool silent)
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            Debug.Log("이미 로그인된 상태입니다.");
+            return;
+        }
+
+        if (silent)
+        {
+            Debug.Log("자동 로그인 시도");
+            PlayGamesPlatform.Instance.Authenticate(OnSignIn);
+        }
+        else
+        {
+            Debug.Log("수동 로그인 시도");
+            PlayGamesPlatform.Instance.ManuallyAuthenticate(OnSignIn);
+        }
+    }
+
+    // Authenticate / ManuallyAuthenticate 콜백
+    private void OnSignIn(SignInStatus status)
+    {
+        if (status == SignInStatus.Success)
+        {
+            Debug.Log("Google Play Games 로그인 성공!");
+            Debug.Log("환영합니다, " + PlayGamesPlatform.Instance.GetUserDisplayName() + "!");
+            // …로그인 성공 후 로직…
+        }
+        else
+        {
+            Debug.LogWarning("Google Play Games 로그인 실패: " + status);
+            // …실패 처리(자동→수동 버튼 노출 등)…
+        }
+    }
+
+
+    // Google Play Games 로그아웃 함수
+    public void SignOutGooglePlayGames()
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            //PlayGamesPlatform.Instance.SignOut();
+            Debug.Log("Google Play Games 로그아웃 성공");
+        }
+    }
+
+    // 로그인 상태 확인
+    public bool IsSignedInToGooglePlayGames()
+    {
+        return PlayGamesPlatform.Instance.IsAuthenticated();
+    }
+
     // 최고 점수 저장
     public void SaveHighScore()
     {
@@ -124,7 +190,38 @@ public class GameManager : MonoSingleton<GameManager>
             PlayerPrefs.SetFloat("HighScore", HighScore);
             PlayerPrefs.Save();
             Debug.Log("새로운 최고 점수 저장: " + HighScore);
+
+            SubmitScoreToLeaderboard((long)HighScore);
         }
+    }
+
+    // 구글 리더보드에 점수 제출
+    private void SubmitScoreToLeaderboard(long score)
+    {
+        if(!IsSignedInToGooglePlayGames())
+        {
+            Debug.LogWarning("로그인 안됨");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(leaderboardId) || leaderboardId == "CgkIvrSJ8r8EEAIQAA")
+        {
+            Debug.LogError("리더보드 ID가 설정되지 않음");
+            return;
+        }
+        Debug.LogError("리더보드에 점수 제출 시도");
+
+        PlayGamesPlatform.Instance.ReportScore(score, leaderboardId, (success) => 
+        {
+            if (success)
+            {
+                Debug.Log("점수 제출");
+            }
+            else
+            {
+                Debug.LogWarning("점수 제출 실패");
+            }
+        });
     }
 
     // 게임 종료 처리
