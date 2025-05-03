@@ -105,7 +105,7 @@ public class Status : MonoBehaviour
         if (isDead) return; // 이미 죽은 상태라면 데미지 처리 안함
 
         currentHP = Mathf.Max(currentHP - amount, 0f);                                      // 체력 감소 (0보다 작게 깍이지 않음)
-        Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
+        //Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
 
         // 데미지가 현재체력의 20% 이상, 절대값이 1이상이면 피격 애니메이션 실행
         if (amount >= currentHP * 0.2f && amount >= 1f && HitEffectManager.Instance != null)

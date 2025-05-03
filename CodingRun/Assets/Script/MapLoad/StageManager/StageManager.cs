@@ -7,32 +7,48 @@ using UnityEngine.UIElements;
 
 public class StageManager : MonoBehaviour
 {
-    private Vector3[] spawnPoint = new Vector3[3];
+    private Vector3[] spawnPoints = new Vector3[3];
+    
+    [Header("Speed")]
+    [Range(0.1f, 20f)]
     public float objectSpeed = 5f;
-    private float coinTimer = 0f;
     [Range(0.1f, 5f)]
     public float spawnPeriod = 0.8f;
-    public GameObject testPrefab1;
+    [Space(20)]
+    [Header("Item Transform")]
     public Transform items;
+    public Transform spawnPoint1 = null;
+    public Transform spawnPoint2 = null;
+    public Transform spawnPoint3 = null;
+    [Space(19)]
+    [Header("State Define")]
+    public List<StateData> stateDatas = new();
     private IStageState currentBehaviour;
     private StageState nowState;
-    public List<StateData> stateDatas = new();
+    private float coinTimer = 0f;
     private Dictionary<StageState, MonoBehaviour> stateDict = new();
+    public Quiz quizManager = null;
 
     void Awake()
     {
-        spawnPoint[0] = new Vector3(-4.9f, 1f, 14f);
-        spawnPoint[1] = new Vector3(0f, 1f, 14f);
-        spawnPoint[2] = new Vector3(4.9f, 1f, 14f);
+        SetSpawnPoint();
     }
 
     void Start()
     {
         stateDict = stateDatas.ToDictionary(data => data.stageState, data => data.stateComponent);
-        
-        nowState = StageState.OBSTACLE_STATE;
+        quizManager = FindObjectOfType<Quiz>();
+        if (quizManager == null) {Debug.LogError("QuizManager is not assigned!!");}
+
+        nowState = StageState.QUESTION_STATE;
         ChangeState(nowState);
-        StartCoroutine(SpawnItems());
+    }
+
+    private void SetSpawnPoint() {
+        if (!(spawnPoint1&spawnPoint2&spawnPoint3)) {Debug.LogError("SpawnPoint is not assigned!"); return;}
+        spawnPoints[0] = spawnPoint1.position;
+        spawnPoints[1] = spawnPoint2.position;
+        spawnPoints[2] = spawnPoint3.position;
     }
 
     private void MoveItems()
@@ -40,11 +56,29 @@ public class StageManager : MonoBehaviour
         items.position -= new Vector3(0, 0, 5 * Time.deltaTime);
     }
 
-    IEnumerator SpawnItems() {
-        while(nowState == StageState.OBSTACLE_STATE) {
-            yield return new WaitForSeconds(spawnPeriod);
-            int randomIdx = Random.Range(0,2);
-            SpawnItem(ObjectType.COIN, spawnPoint[randomIdx], items);
+    public IEnumerator SpawnItems() {
+        while(true /*이 부분의 조건을 isGameRunning == true로 변경해야함. GameManager와 상의*/) {
+            if (nowState == StageState.OBSTACLE_STATE) {
+                yield return new WaitForSeconds(spawnPeriod);
+                int randomIdx = Random.Range(0,3);
+                SpawnItem(ObjectType.COIN, spawnPoints[randomIdx], items);
+                yield return new WaitForSeconds(0.5f);
+            } else {
+                yield return null;
+            }
+        }
+    }
+
+    public IEnumerator ShowQuiz() {
+        while (true) {
+            if (nowState == StageState.QUESTION_STATE) {
+                quizManager.ActivateQuestionCanvas();
+                quizManager.ShowQuizUI();
+                quizManager.LoadNextQuestion();
+                yield return new WaitForSeconds(0.5f);
+            } else {
+                yield return null;
+            }
         }
     }
 
@@ -53,25 +87,19 @@ public class StageManager : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
         //0.8�� �ֱ�� ���� ����
         MoveItems();
+        // currentBehaviour?.UpdateState();
+        Debug.Log(nowState);
     }
 
-    private MonoBehaviour SpawnItem(ObjectType type)
-    {
-        return ObjectPoolManager.Instance.GetObject(type);
-    }
+    private MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
+    var obj = ObjectPoolManager.Instance.GetObject(type);
+    if (location.HasValue)
+        obj.transform.position = location.Value;
+    if (parent != null)
+        obj.transform.SetParent(parent);
+    return obj;
+}
 
-    private MonoBehaviour SpawnItem(ObjectType type, Vector3 location)
-    {
-        MonoBehaviour obj = SpawnItem(type);
-        obj.transform.position = location;
-        return obj;
-    }
-
-    private MonoBehaviour SpawnItem(ObjectType type, Vector3 location, Transform transform) {
-        MonoBehaviour obj = SpawnItem(type, location);
-        obj.transform.SetParent(transform);
-        return obj;
-    }
 
    public void ChangeState(StageState state) 
     {

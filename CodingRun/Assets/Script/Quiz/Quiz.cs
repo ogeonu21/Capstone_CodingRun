@@ -32,9 +32,9 @@ public class Quiz : MonoBehaviour
     {
         InitializeComponents();
         LoadQuestions();
-        ActivateQuestionCanvas();
-        ShowQuizUI();
-        LoadNextQuestion();  // 첫 문제 로드
+        // ActivateQuestionCanvas();
+        // ShowQuizUI();
+        // LoadNextQuestion();  // 첫 문제 로드
 
         // 첫 문제 로드 후 타이머 시작
         if (timer != null)
@@ -170,7 +170,7 @@ public class Quiz : MonoBehaviour
     }
 
     // 문제 캔버스 활성화
-    private void ActivateQuestionCanvas()
+    public void ActivateQuestionCanvas()
     {
         if (questionCanvas != null)
         {
@@ -249,7 +249,7 @@ public class Quiz : MonoBehaviour
 
     #region UI 관리
     // 퀴즈 UI 표시
-    private void ShowQuizUI()
+    public void ShowQuizUI()
     {
         if (questionCanvas == null) return;
         

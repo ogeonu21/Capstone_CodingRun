@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7281268418301438347}
   - component: {fileID: 8576641469615053003}
   - component: {fileID: 4997086480720704124}
-  - component: {fileID: 8525310232972312126}
   m_Layer: 0
   m_Name: DottedLine (6)
   m_TagString: Untagged
@@ -84,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8525310232972312126
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342287084742936308}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &344711160529603659
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +132,6 @@ GameObject:
   - component: {fileID: 8872483976111705993}
   - component: {fileID: 8977682398157224398}
   - component: {fileID: 4073521116829096640}
-  - component: {fileID: 6080055060184128726}
   m_Layer: 0
   m_Name: DottedLine (3)
   m_TagString: Untagged
@@ -220,20 +204,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6080055060184128726
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792665290481571736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2569631616200412315
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +215,6 @@ GameObject:
   - component: {fileID: 8900858153635992231}
   - component: {fileID: 1264847467008699247}
   - component: {fileID: 1499064717431889599}
-  - component: {fileID: 8433235190319399716}
   m_Layer: 0
   m_Name: DottedLine (2)
   m_TagString: Untagged
@@ -318,20 +287,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8433235190319399716
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2569631616200412315}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3263780358616677387
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +298,6 @@ GameObject:
   - component: {fileID: 5452743693900294441}
   - component: {fileID: 1848172201701801928}
   - component: {fileID: 7341958674648426999}
-  - component: {fileID: 5745884467778358522}
   m_Layer: 0
   m_Name: DottedLine (5)
   m_TagString: Untagged
@@ -416,20 +370,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5745884467778358522
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3263780358616677387}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3534584218000742240
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +381,6 @@ GameObject:
   - component: {fileID: 6932773266959909843}
   - component: {fileID: 6251574968535730720}
   - component: {fileID: 1722899810563999690}
-  - component: {fileID: 2213408144807516615}
   m_Layer: 0
   m_Name: DottedLine
   m_TagString: Untagged
@@ -514,20 +453,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2213408144807516615
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3534584218000742240}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &6218468599311438378
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +464,6 @@ GameObject:
   - component: {fileID: 2784104243625504381}
   - component: {fileID: 4543255291066636052}
   - component: {fileID: 931183259373861531}
-  - component: {fileID: 8900516342209829991}
   m_Layer: 0
   m_Name: DottedLine (1)
   m_TagString: Untagged
@@ -612,20 +536,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8900516342209829991
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6218468599311438378}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7280434240319961765
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +547,6 @@ GameObject:
   - component: {fileID: 1288879665942170172}
   - component: {fileID: 1833487351743861521}
   - component: {fileID: 3863608428230628096}
-  - component: {fileID: 4348899371778702766}
   m_Layer: 0
   m_Name: DottedLine (4)
   m_TagString: Untagged
@@ -710,17 +619,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4348899371778702766
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7280434240319961765}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
