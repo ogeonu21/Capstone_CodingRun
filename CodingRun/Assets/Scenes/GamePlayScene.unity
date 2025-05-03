@@ -2773,6 +2773,7 @@ MonoBehaviour:
   quizTransitionDelay: 10
   playerStatus: {fileID: 6325825200349053979}
   hpUiController: {fileID: 1485621150}
+  leaderboardId: CgkIvrSJ8r8EEAIQAA
 --- !u!4 &1121748576
 Transform:
   m_ObjectHideFlags: 0
@@ -2862,7 +2863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 690.64795}
+  m_AnchoredPosition: {x: 0, y: 591}
   m_SizeDelta: {x: -23.171143, y: -1404.4673}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339891978
@@ -3227,7 +3228,10 @@ MonoBehaviour:
   questionText: {fileID: 1938206630}
   timerImage: {fileID: 1845273390}
   questionCanvas: {fileID: 1485621143}
-  answerTexts: []
+  answerTexts:
+  - {fileID: 1749134006}
+  - {fileID: 903261761}
+  - {fileID: 1027317625}
   skipButton: {fileID: 261631360}
 --- !u!1 &1559587671
 GameObject:

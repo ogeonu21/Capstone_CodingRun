@@ -52,6 +52,12 @@ public class DoorManager : MonoBehaviour
                 doorsSpawned = false;
             }
         }
+
+        MapLoader mapLoader = FindObjectOfType<MapLoader>();
+        if (mapLoader != null)
+        {
+            moveSpeed = mapLoader.moveSpeed;
+        }
     }
 
     private void SpawnDoors()
@@ -74,12 +80,6 @@ public class DoorManager : MonoBehaviour
             if (doorBehavior != null)
             {
                 doorBehavior.answerNumber = i + 1;
-            }
-            
-            Rigidbody rb = door.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.velocity = Vector3.back * moveSpeed;
             }
             
             activeDoors.Add(door);

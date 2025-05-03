@@ -37,7 +37,11 @@ public class StageManager : MonoBehaviour
 
     private void MoveItems()
     {
-        items.position -= new Vector3(0, 0, 5 * Time.deltaTime);
+        MapLoader mapLoader = FindObjectOfType<MapLoader>();
+        if (mapLoader != null)
+        {
+            items.position -= new Vector3(0, 0, mapLoader.moveSpeed * Time.deltaTime);
+        }
     }
 
     IEnumerator SpawnItems() {
