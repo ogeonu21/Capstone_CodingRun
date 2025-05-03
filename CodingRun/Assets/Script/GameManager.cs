@@ -91,7 +91,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         //HPUI
         hpUiController.Bind(playerStatus);
-        SignGooglePlayGames(true);
+        //SignGooglePlayGames(true);
     }
 
     private void Update()
@@ -128,7 +128,7 @@ public class GameManager : MonoSingleton<GameManager>
     // 구글 로그인
 
     // 구글 로그인 (silent=true: 자동, false: 수동)
-    public void SignGooglePlayGames(bool silent)
+    /*public void SignGooglePlayGames(bool silent)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -147,6 +147,7 @@ public class GameManager : MonoSingleton<GameManager>
             PlayGamesPlatform.Instance.ManuallyAuthenticate(OnSignIn);
         }
     }
+
 
     // Authenticate / ManuallyAuthenticate 콜백
     private void OnSignIn(SignInStatus status)
@@ -223,7 +224,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
         });
     }
-
+*/
     // 게임 종료 처리
     public void GameOver()
     {
@@ -232,7 +233,7 @@ public class GameManager : MonoSingleton<GameManager>
         IsGameOver = true;
         isTimerRunning = false;  // 타이머 정지
 
-        SaveHighScore();
+        //SaveHighScore();
         Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
 
         // 모든 Rigidbody 일시정지

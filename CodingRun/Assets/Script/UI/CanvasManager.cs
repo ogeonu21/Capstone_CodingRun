@@ -20,7 +20,7 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        GameObject mainCanvas = GameObject.Find("MainCanvas");
+        GameObject mainCanvas = GameObject.Find("MainWindow");
         if(mainCanvas != null){
             canvasStack.Push(mainCanvas);
         }
@@ -71,7 +71,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OnClickGoToMain(){
         Time.timeScale = 1f;
-        SceneManager.LoadScene("CanvasSampleScene");
+        SceneManager.LoadScene("GamePlayScene");
     }
     
     public void OverlayScene(string sceneName){
