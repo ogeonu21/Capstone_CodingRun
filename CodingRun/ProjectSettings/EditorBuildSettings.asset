@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 46044778a2e89824fa5f8a0511a83c4c
   - enabled: 1
-    path: Assets/Scenes/UIOverlayScene.unity
+    path: Assets/Scenes/UNUSED.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
   - enabled: 1
     path: Assets/Scenes/GamePlayScene.unity
