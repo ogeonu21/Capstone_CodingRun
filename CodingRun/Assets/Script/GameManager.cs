@@ -134,6 +134,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         IsGameOver = true;
         isTimerRunning = false;  // 타이머 정지
+        Time.timeScale = 0f;     // 게임 시간 정지
 
         SaveHighScore();
         Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
@@ -184,6 +185,26 @@ public class GameManager : MonoSingleton<GameManager>
             timer.ResetTimer();
             timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
             timer.StartTimer();
+        }
+    }
+
+    // 타이머 상태에 따른 퀴즈 패널 제어
+    public void SetQuizPanelByTimerState(bool isTimerRunning)
+    {
+        // Quiz가 없으면 다시 찾아보기
+        if (quizManager == null)
+        {
+            FindQuizManager();
+        }
+
+        if (quizManager != null)
+        {
+            quizManager.SetQuestionPanelActive(isTimerRunning);
+            Debug.Log($"타이머 {(isTimerRunning ? "시작" : "정지")}에 따라 퀴즈 패널 {(isTimerRunning ? "활성화" : "비활성화")}");
+        }
+        else
+        {
+            Debug.LogError("퀴즈 매니저가 없어서 패널을 제어할 수 없습니다!");
         }
     }
 }

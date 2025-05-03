@@ -19,6 +19,8 @@ public class Timer : MonoBehaviour
     // 타이머 이벤트 추가
     public UnityEvent onTimeUp = new UnityEvent();
 
+    private bool isPaused = false;  // 일시정지 상태를 나타내는 변수 추가
+
     void Start()
     {
         timeToCompleteQuestion = defaultTimeToCompleteQuestion;
@@ -28,10 +30,16 @@ public class Timer : MonoBehaviour
     void Update()
     {
         UpdateTimer();
+        CheckTimeScale();  // Time.timeScale 체크
     }
 
     public void CancelTimer(){
         timerValue = 0;
+        isAnsweringQuestion = false;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetQuizPanelByTimerState(false);
+        }
     }
 
     // 타이머를 초기화합니다.
@@ -45,6 +53,10 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         isAnsweringQuestion = true;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetQuizPanelByTimerState(true);
+        }
     }
 
     // 문제별 시간 설정
@@ -54,11 +66,37 @@ public class Timer : MonoBehaviour
         ResetTimer();
     }
 
-    void UpdateTimer(){
-        timerValue -= Time.deltaTime;
-        if(isAnsweringQuestion) //질문에 답변 중인 경우
+    // Time.timeScale 체크
+    private void CheckTimeScale()
+    {
+        if (Time.timeScale == 0f && !isPaused)
         {
-            if(timerValue > 0)
+            // 게임이 일시정지된 경우
+            isPaused = true;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetQuizPanelByTimerState(false);
+            }
+            Debug.Log("게임 일시정지로 인한 타이머 일시정지");
+        }
+        else if (Time.timeScale == 1f && isPaused)
+        {
+            // 게임이 재개된 경우
+            isPaused = false;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetQuizPanelByTimerState(true);
+            }
+            Debug.Log("게임 재개로 인한 타이머 재개");
+        }
+    }
+
+    void UpdateTimer()
+    {
+        if (isAnsweringQuestion && !isPaused)  // 일시정지 상태가 아닐 때만 타이머 감소
+        {
+            timerValue -= Time.deltaTime;
+            if (timerValue > 0)
             {
                 fillFraction = timerValue / timeToCompleteQuestion;
             }
