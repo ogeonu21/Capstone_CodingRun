@@ -724,7 +724,10 @@ MonoBehaviour:
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &309602962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,9 +2198,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectSpeed: 5
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   spawnPeriod: 0.8
   testPrefab1: {fileID: 2244153454405662055, guid: 4c301eca2b9eeaf45970351f4be26e5d,
     type: 3}
+=======
+  spawnPeriod: 0.1
+>>>>>>> Stashed changes
 =======
   spawnPeriod: 0.1
 >>>>>>> Stashed changes
@@ -2699,7 +2706,11 @@ CanvasRenderer:
   m_GameObject: {fileID: 945240372}
   m_CullTransparentMesh: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1027317623
+=======
+--- !u!1 &1017169846
+>>>>>>> Stashed changes
 =======
 --- !u!1 &1017169846
 >>>>>>> Stashed changes
@@ -2711,17 +2722,23 @@ GameObject:
   serializedVersion: 6
   m_Component:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - component: {fileID: 1027317624}
   - component: {fileID: 1027317626}
   - component: {fileID: 1027317625}
   m_Layer: 5
   m_Name: Answer3
 =======
+=======
+>>>>>>> Stashed changes
   - component: {fileID: 1017169847}
   - component: {fileID: 1017169849}
   - component: {fileID: 1017169848}
   m_Layer: 0
   m_Name: SpawnPoint2
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2729,8 +2746,13 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!224 &1027317624
 RectTransform:
+=======
+--- !u!4 &1017169847
+Transform:
+>>>>>>> Stashed changes
 =======
 --- !u!4 &1017169847
 Transform:
@@ -2739,6 +2761,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1027317623}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -2757,6 +2780,8 @@ Transform:
 --- !u!114 &1027317625
 MonoBehaviour:
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1017169846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 50}
@@ -2768,11 +2793,15 @@ MonoBehaviour:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1017169848
 MeshRenderer:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1027317623}
   m_Enabled: 1
@@ -2861,6 +2890,8 @@ MeshRenderer:
 --- !u!222 &1027317626
 CanvasRenderer:
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1017169846}
   m_Enabled: 0
   m_CastShadows: 1
@@ -2899,14 +2930,22 @@ CanvasRenderer:
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1017169849
 MeshFilter:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 1027317623}
   m_CullTransparentMesh: 1
+=======
+  m_GameObject: {fileID: 1017169846}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+>>>>>>> Stashed changes
 =======
   m_GameObject: {fileID: 1017169846}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -4504,8 +4543,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1938206628
 =======
+=======
+>>>>>>> Stashed changes
   manager: {fileID: 827679459}
 --- !u!1 &1875135097
 >>>>>>> Stashed changes
