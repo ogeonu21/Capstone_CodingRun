@@ -10,7 +10,7 @@ public class ObstacleState : MonoBehaviour, IStageState
     public float obstacleDuration = 3f;
     private float currentTime = 0f;
     private Coroutine coroutine = null;
-    public StageManager manager = null;
+    private StageManager manager = null;
 
 
     public ObstacleState(StageManager manager) {
@@ -20,18 +20,16 @@ public class ObstacleState : MonoBehaviour, IStageState
     public void Enter()
     {
         Debug.Log("Obstacle Stage 진입");
-        coroutine = StartCoroutine(manager.SpawnItems());
+        // coroutine = StartCoroutine(TimerCoroutine(obstacleDuration));
     }
 
-    public void UpdateState()
+    public void Update()
     {
-        Debug.Log("now 장애물 stage!!");
         // StageManager의 SpawnObstacle을 SpawnTime마다 실행
     }
 
     public void Exit()
     {
-        StopCoroutine(coroutine);
         // StageManager에서 ChangeState를 실행할때 정리하는 로직직
     }
 
