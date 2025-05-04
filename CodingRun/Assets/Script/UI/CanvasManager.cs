@@ -26,7 +26,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void OpenCanvas(GameObject newCanvas){ //버튼 클릭 시 버튼에 해당하는 캔버스 or gameobject 열도록 하는 메소드
+    public void OpenCanvas(GameObject newCanvas){ //버튼 클릭 시 버튼에 해당하는 gameobject 열도록 하는 메소드
         if(canvasStack.Count >0){
             canvasStack.Peek().SetActive(false); //Peek(): 맨 위에 객체 제거하지 않고 반환, SetActive(): false이면 해당 캔버스 비활성화하여 씬에서 보이지 않게된다.
         }
@@ -58,10 +58,10 @@ public class CanvasManager : MonoBehaviour
 
     }
 
+
     public void OnclickResume(GameObject pausedPanel){
         Time.timeScale = 1f;
         pausedPanel.SetActive(false);
-
     }
 
     public void OnClickRestart(){
