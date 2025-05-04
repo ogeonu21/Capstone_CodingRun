@@ -92,7 +92,9 @@ public class Status : MonoBehaviour
                         GameManager.Instance.Score += scaledScore;
                        //GameManager.Instance.SaveHighScore();
 
-                        //Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
+                        GameManager.Instance.AddCoin();
+                        GameManager.Instance.AddScore(scaledScore);
+                        Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
                         item.ReturnToPool(); // 풀로 반환
                         break;
 
@@ -120,7 +122,7 @@ public class Status : MonoBehaviour
         HitEffectManager.Instance.ShowHitEffect();
         }
 
-        OnHPChanged?.Invoke(currentHP, maxHP); //HPUIController.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림
+        OnHPChanged?.Invoke(currentHP, maxHP); //uiManager.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림
 
         if (currentHP <= 0f)
         {

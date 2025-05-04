@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
-public class HPUiController : MonoBehaviour
+
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI inGameCoinText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -31,19 +32,19 @@ public class HPUiController : MonoBehaviour
     void UpdateScore(float newScore)
     {
         if (scoreText != null)
-            scoreText.text = $"점수: {newScore:F1}";
+            scoreText.text = $"Score: {newScore:F1}";
     }
 
     void UpdateInGameCoin(int newCoin)
     {
         if (inGameCoinText != null)
-            inGameCoinText.text = $"코인: {newCoin}";
+            inGameCoinText.text = $"Coin: {newCoin}";
     }
 
     public void UpdateTotalCoin(int totalCoin)
     {
         if (totalCoinText != null)
-            totalCoinText.text = $"총 코인: {totalCoin}";
+            totalCoinText.text = $"Total Coin: {totalCoin}";
     }
 
     public void Bind(Status status)
