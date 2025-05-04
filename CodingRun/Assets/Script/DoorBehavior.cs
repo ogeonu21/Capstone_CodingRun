@@ -31,6 +31,8 @@ public class DoorBehavior : MonoBehaviour
             {
                 quiz.SubmitAnswer(answerNumber);
             }
+            StageManager manager = FindAnyObjectByType<StageManager>();
+            manager.ChangeState(StageState.OBSTACLE_STATE);
         }
     }
 } 

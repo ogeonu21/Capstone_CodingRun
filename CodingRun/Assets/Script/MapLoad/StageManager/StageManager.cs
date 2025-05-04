@@ -2,37 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class StageManager : MonoBehaviour
 {
-    private Vector3[] spawnPoint = new Vector3[3];
+    private Vector3[] spawnPoints = new Vector3[3];
+    //Speed 관련 변수
+    [Header("Speed")]
+    [Range(0.1f, 20f)]
     public float objectSpeed = 5f;
     private float coinTimer = 0f;
     [Range(0.1f, 5f)]
     public float spawnPeriod = 0.8f;
-    public GameObject testPrefab1;
+    [Space(20)]
+    //Item 관련 변수
+    [Header("Item Transform")]
     public Transform items;
-    private IStageState currentBehaviour;
-    private StageState nowState;
+    public Transform spawnPoint1 = null;
+    public Transform spawnPoint2 = null;
+    public Transform spawnPoint3 = null;
+    [Space(19)]
+
+    //State 매치 관련
+    [Header("State Define")]
     public List<StateData> stateDatas = new();
     private Dictionary<StageState, MonoBehaviour> stateDict = new();
 
+    //상태 관련 변수
+    private IStageState currentBehaviour;
+    [SerializeField]
+    private StageState nowState;
+
+    //코루틴
+    private Coroutine spawnCoroutine = null;
+    private Coroutine quizCoroutine = null;
+
+        
     void Awake()
     {
-        spawnPoint[0] = new Vector3(-4.9f, 1f, 14f);
-        spawnPoint[1] = new Vector3(0f, 1f, 14f);
-        spawnPoint[2] = new Vector3(4.9f, 1f, 14f);
+        SetSpawnPoint();
     }
 
     void Start()
     {
         stateDict = stateDatas.ToDictionary(data => data.stageState, data => data.stateComponent);
         
-        nowState = StageState.OBSTACLE_STATE;
+        nowState = StageState.QUESTION_STATE;
         ChangeState(nowState);
-        StartCoroutine(SpawnItems());
+    }
+
+    private void SetSpawnPoint() {
+        if (!(spawnPoint1&spawnPoint2&spawnPoint3)) {Debug.LogError("SpawnPoint is not assigned!"); return;}
+        spawnPoints[0] = spawnPoint1.position;
+        spawnPoints[1] = spawnPoint2.position;
+        spawnPoints[2] = spawnPoint3.position;
     }
 
     private void MoveItems()
@@ -44,12 +69,46 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnItems() {
-        while(nowState == StageState.OBSTACLE_STATE) {
-            yield return new WaitForSeconds(spawnPeriod);
-            int randomIdx = Random.Range(0,2);
-            SpawnItem(ObjectType.COIN, spawnPoint[randomIdx], items);
+    public void StartSpawn() {
+        spawnCoroutine = StartCoroutine(SpawnItems());
+    }
+
+    public void StopSpawn() {
+        StopCoroutine(spawnCoroutine);
+    }
+
+    public IEnumerator SpawnItems() {
+        while(true /*이 부분의 조건을 isGameRunning == true로 변경해야함. GameManager와 상의*/) {
+            if (nowState == StageState.OBSTACLE_STATE) {
+                yield return new WaitForSeconds(spawnPeriod);
+                SpawnObject();
+            } else {
+                yield return null;
+            }
         }
+    }
+
+    public void SpawnObject()
+    {
+        // 1. 장애물 라인 랜덤 선택
+        int obstacleLine = Random.Range(0, 3);
+
+        // 2. 장애물 종류 결정 (벽 90%, 구멍 10%)
+        float rand = Random.value; // 0~1
+        MonoBehaviour obstaclePrefab = rand <= 0.2f ? 
+        SpawnItem(ObjectType.WALL, spawnPoints[obstacleLine], items) : 
+        SpawnItem(ObjectType.HALL, spawnPoints[obstacleLine], items);
+
+        // 3. 장애물 스폰
+        
+
+        // 4. 코인 라인 결정 (나머지 두 라인 중 하나)
+        List<int> remainingLines = new List<int> { 0, 1, 2 };
+        remainingLines.Remove(obstacleLine);
+        int coinLine = remainingLines[Random.Range(0, 2)];
+
+        // 5. 코인 스폰
+        SpawnItem(ObjectType.COIN, spawnPoints[coinLine], items);
     }
 
     void Update()
@@ -59,23 +118,14 @@ public class StageManager : MonoBehaviour
         MoveItems();
     }
 
-    private MonoBehaviour SpawnItem(ObjectType type)
-    {
-        return ObjectPoolManager.Instance.GetObject(type);
-    }
-
-    private MonoBehaviour SpawnItem(ObjectType type, Vector3 location)
-    {
-        MonoBehaviour obj = SpawnItem(type);
-        obj.transform.position = location;
-        return obj;
-    }
-
-    private MonoBehaviour SpawnItem(ObjectType type, Vector3 location, Transform transform) {
-        MonoBehaviour obj = SpawnItem(type, location);
-        obj.transform.SetParent(transform);
-        return obj;
-    }
+     private MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
+    var obj = ObjectPoolManager.Instance.GetObject(type);
+    if (location.HasValue)
+        obj.transform.position = location.Value;
+    if (parent != null)
+        obj.transform.SetParent(parent);
+    return obj;
+}
 
    public void ChangeState(StageState state) 
     {
@@ -91,7 +141,7 @@ public class StageManager : MonoBehaviour
             Debug.LogError($"{state}의 MonoBehaviour는 IStageState를 구현하지 않음.");
             return;
         }
-
+        nowState = state;
         currentBehaviour?.Exit();    // 이전 상태 마무리
         currentBehaviour = nextState; // 새 상태로 변경
         currentBehaviour.Enter();     // 새 상태 진입

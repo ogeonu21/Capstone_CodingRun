@@ -34,7 +34,7 @@ public class Quiz : MonoBehaviour
         LoadQuestions();
         ActivateQuestionCanvas();
         ShowQuizUI();
-        LoadNextQuestion();  // 첫 문제 로드
+        // LoadNextQuestion();  // 첫 문제 로드
 
         // 첫 문제 로드 후 타이머 시작
         if (timer != null)
@@ -182,6 +182,8 @@ public class Quiz : MonoBehaviour
         }
     }
 
+    
+
     // 문제 로드
     private void LoadQuestions()
     {
@@ -318,7 +320,7 @@ public class Quiz : MonoBehaviour
         if (currentQuestion == null || answerTexts == null) return;
         
         string[] answers = currentQuestion.GetAnswers();
-        
+        Debug.Log("선택지 : "+answers[0]+", "+answers[1]+", "+answers[2]);
         for (int i = 0; i < answerTexts.Length; i++)
         {
             if (i < answers.Length)
@@ -398,10 +400,10 @@ public class Quiz : MonoBehaviour
         }
         
         // GameManager에게 다음 문제 전환을 알림
-        if (gameManager != null)
-        {
-            gameManager.HandleQuizTransition();
-        }
+        // if (gameManager != null)
+        // {
+        //     gameManager.HandleQuizTransition();
+        // }
     }
     #endregion
 
@@ -442,17 +444,17 @@ public class Quiz : MonoBehaviour
             }
         }
 
-        // 타이머 정지
-        if (timer != null)
-        {
-            timer.isAnsweringQuestion = false;
-        }
+        // // 타이머 정지
+        // if (timer != null)
+        // {
+        //     timer.isAnsweringQuestion = false;
+        // }
 
         // GameManager에게 다음 문제 전환을 알림
-        if (gameManager != null)
-        {
-            gameManager.HandleQuizTransition();
-        }
+        // if (gameManager != null)
+        // {
+        //     gameManager.HandleQuizTransition();
+        // }
     }
     #endregion
 
@@ -485,7 +487,7 @@ public class Quiz : MonoBehaviour
         {
             // Easy 난이도이거나 타이머가 9.1초 이하로 남았을 때는 버튼 숨김
             bool shouldHide = currentQuestion.Difficulty == QuestionDifficulty.Easy || 
-                            (timer.timerValue <= 9.1f && timer.timerValue > 0);
+                            (timer.timerValue <= 2f && timer.timerValue > 0);
             
             skipButton.gameObject.SetActive(!shouldHide);
         }
@@ -496,7 +498,7 @@ public class Quiz : MonoBehaviour
     {
         if (timer != null)
         {
-            timer.timerValue = 9.1f;
+            timer.timerValue = 2f;
         }
     }
 }

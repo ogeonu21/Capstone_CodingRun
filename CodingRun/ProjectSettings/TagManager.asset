@@ -9,14 +9,16 @@ TagManager:
   - Heart
   - Coin
   - Door
+  - Wall
+  - Hall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Object
+  - PoolObject
   - Water
   - UI
-  - 
+  - Object
   - 
   - 
   - 

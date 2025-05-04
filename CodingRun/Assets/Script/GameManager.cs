@@ -282,7 +282,7 @@ public class GameManager : MonoSingleton<GameManager>
         quizManager.SetQuestionPanelActive(false);
         
         // 10초 대기
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f); //3초 후 시작.
         
         // Panel 활성화 및 다음 문제 로드
         quizManager.SetQuestionPanelActive(true);
