@@ -14,7 +14,7 @@ public class Quiz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questionText;   // 문제 텍스트 UI
     [SerializeField] private Image timerImage;               // 타이머 게이지
     [SerializeField] private GameObject questionCanvas;      // 문제 표시 캔버스
-    private GameObject questionPanel;                        // 문제 패널
+    [SerializeField]private GameObject questionPanel;                        // 문제 패널
     [SerializeField] private TextMeshProUGUI[] answerTexts;  // 답안 선택지 텍스트
     [SerializeField] private Button skipButton;              // Skip 버튼
     #endregion
@@ -79,7 +79,8 @@ public class Quiz : MonoBehaviour
         }
 
         UpdateTimer();
-        CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
+        skipButton.gameObject.SetActive(true);
+        //CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
     }
     #endregion
 
@@ -221,7 +222,7 @@ public class Quiz : MonoBehaviour
         // Canvas 아래의 Panel 찾기
         if (questionCanvas != null)
         {
-            questionPanel = questionCanvas.transform.Find("Panel")?.gameObject;
+            questionPanel = questionCanvas.transform.Find("QuizWindow")?.gameObject;
             if (questionPanel != null)
             {
                 Debug.Log("Panel을 찾았습니다: " + questionPanel.name);

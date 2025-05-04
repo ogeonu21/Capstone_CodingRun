@@ -92,7 +92,9 @@ public class Status : MonoBehaviour
                         GameManager.Instance.Score += scaledScore;
                        //GameManager.Instance.SaveHighScore();
 
-                        //Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
+                        GameManager.Instance.AddCoin();
+                        GameManager.Instance.AddScore(scaledScore);
+                        Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
                         item.ReturnToPool(); // 풀로 반환
                         break;
 
@@ -112,7 +114,7 @@ public class Status : MonoBehaviour
         if (isDead) return; // 이미 죽은 상태라면 데미지 처리 안함
 
         currentHP = Mathf.Max(currentHP - amount, 0f);                                      // 체력 감소 (0보다 작게 깍이지 않음)
-        Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
+        //Debug.Log($"피해 받음! -{amount} → 현재 HP: {currentHP}");                           // 현재 체력 출력
 
         // 데미지가 현재체력의 20% 이상, 절대값이 1이상이면 피격 애니메이션 실행
         if (amount >= currentHP * 0.2f && amount >= 1f && HitEffectManager.Instance != null)
@@ -120,7 +122,7 @@ public class Status : MonoBehaviour
         HitEffectManager.Instance.ShowHitEffect();
         }
 
-        OnHPChanged?.Invoke(currentHP, maxHP); //HPUIController.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림
+        OnHPChanged?.Invoke(currentHP, maxHP); //uiManager.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림
 
         if (currentHP <= 0f)
         {

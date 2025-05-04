@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class StageManager : MonoBehaviour
 {
-    private Vector3[] spawnPoints = new Vector3[3];
+    public Vector3[] spawnPoints = new Vector3[3];
     //Speed 관련 변수
     [Header("Speed")]
     [Range(0.1f, 20f)]
@@ -20,9 +20,9 @@ public class StageManager : MonoBehaviour
     //Item 관련 변수
     [Header("Item Transform")]
     public Transform items;
-    public Transform spawnPoint1 = null;
-    public Transform spawnPoint2 = null;
-    public Transform spawnPoint3 = null;
+    [SerializeField] private Transform spawnPoint1 = null;
+    [SerializeField] private Transform spawnPoint2 = null;
+    [SerializeField] private Transform spawnPoint3 = null;
     [Space(19)]
 
     //State 매치 관련
@@ -38,7 +38,8 @@ public class StageManager : MonoBehaviour
     //코루틴
     private Coroutine spawnCoroutine = null;
     private Coroutine quizCoroutine = null;
-
+    
+    public float adjustTime = 3f;
         
     void Awake()
     {
@@ -51,6 +52,7 @@ public class StageManager : MonoBehaviour
         
         nowState = StageState.QUESTION_STATE;
         ChangeState(nowState);
+        //IncreaseSpeed(0.01f, 15f);
     }
 
     private void SetSpawnPoint() {
@@ -95,7 +97,7 @@ public class StageManager : MonoBehaviour
 
         // 2. 장애물 종류 결정 (벽 90%, 구멍 10%)
         float rand = Random.value; // 0~1
-        MonoBehaviour obstaclePrefab = rand <= 0.2f ? 
+        MonoBehaviour obstaclePrefab = rand <= 0.8f ? 
         SpawnItem(ObjectType.WALL, spawnPoints[obstacleLine], items) : 
         SpawnItem(ObjectType.HALL, spawnPoints[obstacleLine], items);
 
@@ -116,6 +118,7 @@ public class StageManager : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
         //0.8�� �ֱ�� ���� ����
         MoveItems();
+        currentBehaviour?.UpdateState();
     }
 
      private MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
@@ -145,5 +148,21 @@ public class StageManager : MonoBehaviour
         currentBehaviour?.Exit();    // 이전 상태 마무리
         currentBehaviour = nextState; // 새 상태로 변경
         currentBehaviour.Enter();     // 새 상태 진입
+    }
+
+    private void IncreaseSpeed(float amount, float maxSpeed) {
+        //속도 증가함수
+        StartCoroutine(IncreaseSpeed(amount, maxSpeed));
+
+        IEnumerator IncreaseSpeed(float amount, float maxSpeed) {
+            while (true /*이 부분 GameManager와 합의의*/) {
+                if (objectSpeed >= maxSpeed) yield break;
+
+            objectSpeed += amount;
+            MapLoader.instance.moveSpeed += amount;
+            
+            yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
 }

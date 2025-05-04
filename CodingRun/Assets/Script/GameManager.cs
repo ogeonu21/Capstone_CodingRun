@@ -29,6 +29,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
 public class GameManager : MonoSingleton<GameManager>
 {
     public event Action<float> OnScoreChanged;
+    public event Action<int> OnCoinChanged;
 
     // --- 전역 상태 ---
     private float score;
@@ -41,6 +42,28 @@ public class GameManager : MonoSingleton<GameManager>
             OnScoreChanged?.Invoke(score); // 점수 변경될 때마다 이벤트 호출
         }
     }
+
+    private int inGameCoin;
+    public int InGameCoin
+    {
+        get => inGameCoin;
+        set
+        {
+            inGameCoin = value;
+            OnCoinChanged?.Invoke(inGameCoin); // 이벤트 호출
+        }
+    }
+
+    public int TotalCoin
+    {
+        get => PlayerPrefs.GetInt("TotalCoin", 0);
+        set
+        {
+            PlayerPrefs.SetInt("TotalCoin", value);
+            PlayerPrefs.Save();
+        }
+    }
+
     public float HighScore { get; private set; }
 
     // --- 타이머 관련 ---
@@ -58,7 +81,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     // --- HPUI 관련 ---
     [SerializeField] private Status playerStatus;
-    [SerializeField] private HPUiController hpUiController;
+    [SerializeField] private UIManager uiManager;
 
     // --- 구글 플레이 관련 ---
     [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
@@ -102,7 +125,7 @@ public class GameManager : MonoSingleton<GameManager>
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
 
         //HPUI
-        hpUiController.Bind(playerStatus);
+        uiManager.Bind(playerStatus);
         //SignGooglePlayGames(true);
     }
 
@@ -137,10 +160,32 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    //Coin
+     public void AddCoin()
+    {
+        InGameCoin += 1;
+    }
+
+    public void AddScore(float amount)
+    {
+        Score += amount;
+    }
+    public void SaveCoins()
+    {
+        TotalCoin += (int)InGameCoin;
+        PlayerPrefs.SetInt("TotalCoin",TotalCoin);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadTotalCoin()
+    {
+        TotalCoin = PlayerPrefs.GetInt("TotalCoin",0);
+    }
+
     // 구글 로그인
 
     // 구글 로그인 (silent=true: 자동, false: 수동)
-    public void SignGooglePlayGames(bool silent)
+   /* public void SignGooglePlayGames(bool silent)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -236,7 +281,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
         });
     }
-
+*/
     // 게임 종료 처리
     public void GameOver()
     {
@@ -247,6 +292,7 @@ public class GameManager : MonoSingleton<GameManager>
         Time.timeScale = 0f;     // 게임 시간 정지
 
         //SaveHighScore();
+        SaveCoins();
         Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
 
         // 모든 Rigidbody 일시정지
