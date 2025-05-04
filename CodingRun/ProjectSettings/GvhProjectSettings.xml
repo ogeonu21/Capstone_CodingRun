@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projectSettings>
+<<<<<<< Updated upstream
   <projectSetting name="com.google.external-dependency-managerAnalyticsCookie" value="a46b1de040fb49deba5d7277bbfc9462" />
   <projectSetting name="com.google.external-dependency-managerAnalyticsEnabled" value="True" />
+=======
+  <projectSetting />
+  <projectSetting name="com.google.external-dependency-managerAnalyticsEnabled" value="False" />
+>>>>>>> Stashed changes
   <projectSetting name="Google.VersionHandler.VerboseLoggingEnabled" value="False" />
   <projectSetting name="GooglePlayServices.PromptBeforeAutoResolution" value="False" />
   <projectSetting name="GooglePlayServices.UseJetifier" value="True" />
