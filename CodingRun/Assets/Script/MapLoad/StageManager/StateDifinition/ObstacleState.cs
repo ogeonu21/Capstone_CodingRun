@@ -9,7 +9,7 @@ public class ObstacleState : MonoBehaviour, IStageState
     private StageManager manager = null;
     //타이머 
     [Range(1f, 30f)]
-    public float timerTime = 10f;
+    public float obstacleDuration = 10f;
 
     private void Awake() {
         manager = FindObjectOfType<StageManager>();
@@ -19,7 +19,7 @@ public class ObstacleState : MonoBehaviour, IStageState
     {
         Debug.Log("Obstacle Stage 진입");
         manager.StartSpawn();
-        TimerExtension.StartTimer(timerTime, () => {
+        TimerExtension.StartTimer(obstacleDuration, () => {
             manager.ChangeState(StageState.QUESTION_STATE);
         });
     }

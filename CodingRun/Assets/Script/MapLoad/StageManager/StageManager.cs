@@ -38,7 +38,8 @@ public class StageManager : MonoBehaviour
     //코루틴
     private Coroutine spawnCoroutine = null;
     private Coroutine quizCoroutine = null;
-
+    
+    public float adjustTime = 3f;
         
     void Awake()
     {
@@ -116,6 +117,7 @@ public class StageManager : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
         //0.8�� �ֱ�� ���� ����
         MoveItems();
+        currentBehaviour?.UpdateState();
     }
 
      private MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
