@@ -22,6 +22,9 @@ public class ObstacleState : MonoBehaviour, IStageState
         TimerExtension.StartTimer(obstacleDuration, () => {
             manager.ChangeState(StageState.QUESTION_STATE);
         });
+        TimerExtension.StartTimer(obstacleDuration-manager.adjustTime, () => {
+            manager.StopSpawn();
+        }); 
     }
 
     public void UpdateState()
@@ -32,6 +35,6 @@ public class ObstacleState : MonoBehaviour, IStageState
     public void Exit()
     {
         // StageManager에서 ChangeState를 실행할때 정리하는 로직
-        manager.StopSpawn();
+        //manager.StopSpawn();
     }
 }

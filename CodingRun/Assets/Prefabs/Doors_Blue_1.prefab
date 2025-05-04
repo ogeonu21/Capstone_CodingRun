@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5153917721887777837}
   - component: {fileID: 8146961509849034334}
   - component: {fileID: 6468901883447114275}
-  - component: {fileID: 8712115705852210345}
   m_Layer: 0
   m_Name: Plane 2
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8712115705852210345
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442292747938826244}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0658914, y: 2.0658572, z: 0.0000002477318}
-  m_Center: {x: -0.00064355135, y: 0.9887663, z: -0.025285304}
 --- !u!1 &5803959787911912741
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +94,6 @@ GameObject:
   - component: {fileID: 2266525402244703499}
   - component: {fileID: 3019873446629700852}
   - component: {fileID: 5356798967311095159}
-  - component: {fileID: 871519429427604313}
   m_Layer: 0
   m_Name: Plane 1
   m_TagString: Untagged
@@ -181,19 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &871519429427604313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5803959787911912741}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0658914, y: 2.0658572, z: 0.0000002477318}
-  m_Center: {x: -0.00064355135, y: 0.9887663, z: 0.01752678}
 --- !u!1 &6602010424662098182
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,8 +214,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4, y: 7.098896, z: 0.5239019}
+  m_Center: {x: 0, y: 3.049448, z: -0.26195094}
 --- !u!114 &7783541173069912574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +256,6 @@ GameObject:
   - component: {fileID: 2355684994820307649}
   - component: {fileID: 5975401557891630520}
   - component: {fileID: 4835743067373200495}
-  - component: {fileID: 2764491795598907056}
   m_Layer: 0
   m_Name: Doors Framework
   m_TagString: Untagged
@@ -357,16 +328,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2764491795598907056
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8614003461239603092}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3482907, y: 2.131014, z: 0.23013985}
-  m_Center: {x: -0.00064352155, y: 1.0176066, z: 0.00000008568168}
