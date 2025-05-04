@@ -140,7 +140,7 @@ public class GameManager : MonoSingleton<GameManager>
     // 구글 로그인
 
     // 구글 로그인 (silent=true: 자동, false: 수동)
-    /*public void SignGooglePlayGames(bool silent)
+    public void SignGooglePlayGames(bool silent)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -236,7 +236,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
         });
     }
-*/
+
     // 게임 종료 처리
     public void GameOver()
     {
