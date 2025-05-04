@@ -71,7 +71,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OnClickGoToMain(){
         Time.timeScale = 1f;
-        SceneManager.LoadScene("GamePlayScene");
+        SceneManager.LoadScene("MainScene");
     }
     
     public void OverlayScene(string sceneName){
