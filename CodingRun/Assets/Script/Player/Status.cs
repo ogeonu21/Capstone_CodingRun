@@ -90,7 +90,7 @@ public class Status : MonoBehaviour
 
                         float scaledScore = baseCoinScore * (1 + growthRate * elapsedTime);
                         GameManager.Instance.Score += scaledScore;
-                        GameManager.Instance.SaveHighScore();
+                       //GameManager.Instance.SaveHighScore();
 
                         //Debug.Log($"[코인 획득] +{scaledScore:F1}점 → 총 점수: {GameManager.Instance.Score:F1}");
                         item.ReturnToPool(); // 풀로 반환
