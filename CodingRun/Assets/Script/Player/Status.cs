@@ -25,6 +25,13 @@ public class Status : MonoBehaviour
     public event Action<float, float> OnHPChanged;
     public event Action OnDie;
 
+    private Animator animator;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
         currentHP = maxHP;
@@ -136,6 +143,11 @@ public class Status : MonoBehaviour
     {
         Debug.Log("플레이어 사망! 게임 오버 처리 진행");
         // 게임 종료 처리
+
+        if (animator != null)
+            Debug.Log("Animator에 Die Trigger 전달!");
+            animator.SetTrigger("Die");
+
         if (GameManager.Instance != null)
             GameManager.Instance.GameOver();
 

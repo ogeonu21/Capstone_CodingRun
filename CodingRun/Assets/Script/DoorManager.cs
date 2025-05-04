@@ -42,12 +42,12 @@ public class DoorManager : MonoBehaviour
 
         if (timer != null && timer.isAnsweringQuestion)
         {
-            if (timer.timerValue <= 9f && !doorsSpawned)
+            if (timer.timerValue <= 1f && !doorsSpawned)
             {
                 SpawnDoors();
                 doorsSpawned = true;
             }
-            else if (timer.timerValue > 9f)
+            else if (timer.timerValue > 1f)
             {
                 doorsSpawned = false;
             }

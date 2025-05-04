@@ -2,7 +2,7 @@ public interface IStageState
 {
     void Enter();
 
-    void Update();
+    void UpdateState();
 
     void Exit();
 }

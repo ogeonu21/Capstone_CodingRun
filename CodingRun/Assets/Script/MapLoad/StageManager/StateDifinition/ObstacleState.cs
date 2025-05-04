@@ -6,39 +6,32 @@ using UnityEngine;
 [Serializable]
 public class ObstacleState : MonoBehaviour, IStageState
 {
-    [Range(1,10)]
-    public float obstacleDuration = 3f;
-    private float currentTime = 0f;
-    private Coroutine coroutine = null;
     private StageManager manager = null;
+    //타이머 
+    [Range(1f, 30f)]
+    public float timerTime = 10f;
 
-
-    public ObstacleState(StageManager manager) {
-        this.manager = manager;
+    private void Awake() {
+        manager = FindObjectOfType<StageManager>();
     }
 
     public void Enter()
     {
         Debug.Log("Obstacle Stage 진입");
-        // coroutine = StartCoroutine(TimerCoroutine(obstacleDuration));
+        manager.StartSpawn();
+        TimerExtension.StartTimer(timerTime, () => {
+            manager.ChangeState(StageState.QUESTION_STATE);
+        });
     }
 
-    public void Update()
+    public void UpdateState()
     {
         // StageManager의 SpawnObstacle을 SpawnTime마다 실행
     }
 
     public void Exit()
     {
-        // StageManager에서 ChangeState를 실행할때 정리하는 로직직
-    }
-
-    IEnumerator TimerCoroutine(float time) {
-        currentTime = time;
-
-        while (currentTime < 0) {
-            yield return new WaitForSeconds(1);
-            currentTime--;
-        }
+        // StageManager에서 ChangeState를 실행할때 정리하는 로직
+        manager.StopSpawn();
     }
 }

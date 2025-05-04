@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using GooglePlayGames;
@@ -27,8 +28,19 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
 // 2) GameManager
 public class GameManager : MonoSingleton<GameManager>
 {
+    public event Action<float> OnScoreChanged;
+
     // --- 전역 상태 ---
-    public float Score { get; set; }
+    private float score;
+    public float Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            OnScoreChanged?.Invoke(score); // 점수 변경될 때마다 이벤트 호출
+        }
+    }
     public float HighScore { get; private set; }
 
     // --- 타이머 관련 ---
@@ -128,7 +140,7 @@ public class GameManager : MonoSingleton<GameManager>
     // 구글 로그인
 
     // 구글 로그인 (silent=true: 자동, false: 수동)
-    /*public void SignGooglePlayGames(bool silent)
+    public void SignGooglePlayGames(bool silent)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -224,7 +236,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
         });
     }
-*/
+
     // 게임 종료 처리
     public void GameOver()
     {
@@ -270,7 +282,7 @@ public class GameManager : MonoSingleton<GameManager>
         quizManager.SetQuestionPanelActive(false);
         
         // 10초 대기
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f); //3초 후 시작.
         
         // Panel 활성화 및 다음 문제 로드
         quizManager.SetQuestionPanelActive(true);
