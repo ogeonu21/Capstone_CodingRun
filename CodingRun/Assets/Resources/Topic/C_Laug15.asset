@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug15
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC870\uAC74\uBB38 (Conditional Statements)"
+  Topics:
+  - topicNumber: CL15
+    term: "\uC870\uAC74\uBB38 (Conditional Statements)"
+    description: "\uC8FC\uC5B4\uC9C4 \uC870\uAC74\uC774 \uC9C4\uC9DC\uC778\uC9C0
+      \uAC70\uC9D3\uC778\uC9C0 \uBD10\uC11C, \uCC38\uC774\uBA74 \uC774 \uCF54\uB4DC
+      \uC2E4\uD589\uD558\uACE0 \uAC70\uC9D3\uC774\uBA74 \uC800 \uCF54\uB4DC \uC2E4\uD589\uD558\uACE0...
+      \uC774\uB807\uAC8C \uD750\uB984\uC744 \uBC14\uAFD4\uC8FC\uB294 \uAC70\uC57C.
+      if\uC640 else if\uB294 \uC870\uAC74 \uB9DE\uC73C\uBA74, else\uB294 \uC870\uAC74
+      \uD2C0\uB9AC\uBA74 \uC2E4\uD589\uB3FC."

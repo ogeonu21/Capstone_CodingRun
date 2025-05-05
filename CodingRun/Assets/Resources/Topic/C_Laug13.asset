@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug13
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uCD9C\uB825 (Output)"
+  Topics:
+  - topicNumber: CL13
+    term: "\uCD9C\uB825 (Output)"
+    description: "printf()\uB77C\uB294 \uD568\uC218 \uC368\uC11C \uD654\uBA74\uC5D0
+      \uACB0\uACFC\uB97C \uBCF4\uC5EC\uC904 \uC218 \uC788\uC5B4. \uC5EC\uB7EC \uAC00\uC9C0
+      \uD615\uC2DD \uC9C0\uC815\uC790\uB85C \uBCC0\uC22B\uAC12\uC744 \uC6D0\uD558\uB294
+      \uBAA8\uC591\uC73C\uB85C \uCD9C\uB825\uD560 \uC218 \uC788\uC5B4."

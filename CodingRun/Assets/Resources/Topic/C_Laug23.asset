@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug23
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uD3EC\uC778\uD130 (Pointers)"
+  Topics:
+  - topicNumber: CL23
+    term: "\uD3EC\uC778\uD130 (Pointers)"
+    description: "\uBA54\uBAA8\uB9AC \uC8FC\uC18C\uB97C \uC800\uC7A5\uD558\uB294
+      \uD2B9\uBCC4\uD55C \uBCC0\uC218\uC57C. \uD3EC\uC778\uD130 \uC4F0\uBA74 \uBA54\uBAA8\uB9AC\uC5D0
+      \uC9C1\uC811 \uC811\uADFC\uD574\uC11C \uB370\uC774\uD130\uB97C \uC880 \uB354
+      \uD6A8\uC728\uC801\uC73C\uB85C \uB2E4\uB8F0 \uC218 \uC788\uC5B4."

@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure08
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uD504\uB85C\uADF8\uB7A8 \uC2E4\uD589"
+  Topics:
+  - topicNumber: COM08
+    term: "\uD504\uB85C\uADF8\uB7A8 \uC2E4\uD589"
+    description: "\uD504\uB85C\uADF8\uB7A8 \uB3CC\uB9AC\uBA74, \uC6B4\uC601\uCCB4\uC81C\uAC00
+      \uD504\uB85C\uADF8\uB7A8\uD55C\uD14C \uD544\uC694\uD55C \uBA54\uBAA8\uB9AC
+      \uC790\uB9AC\uB97C \uC8FC\uACE0, CPU\uAC00 \uBC88\uC5ED\uB41C \uAE30\uACC4\uC5B4
+      \uBA85\uB839\uB4E4\uC744 \uCC28\uB840\uB300\uB85C \uC2E4\uD589\uD574."

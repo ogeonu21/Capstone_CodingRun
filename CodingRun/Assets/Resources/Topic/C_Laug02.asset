@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug02
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uAC1C\uBC1C \uD658\uACBD \uC124\uC815"
+  Topics:
+  - topicNumber: CL02
+    term: "\uAC1C\uBC1C \uD658\uACBD \uC124\uC815"
+    description: "C\uC5B8\uC5B4 \uCF54\uB4DC\uB97C \uC4F0\uACE0 \uC2E4\uD589\uD558\uB824\uBA74
+      \uCEF4\uD30C\uC77C\uB7EC\uB791 \uD14D\uC2A4\uD2B8 \uD3B8\uC9D1\uAE30\uAC00
+      \uC788\uC5B4\uC57C \uD574. Visual Studio Code\uB098 Code::Blocks \uAC19\uC740
+      \uD1B5\uD569 \uAC1C\uBC1C \uD658\uACBD(IDE) \uC4F0\uBA74 \uD3B8\uD574."

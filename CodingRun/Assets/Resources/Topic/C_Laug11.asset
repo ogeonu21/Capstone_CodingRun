@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug11
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC5F0\uC0B0\uC790 (Operators)"
+  Topics:
+  - topicNumber: CL11
+    term: "\uC5F0\uC0B0\uC790 (Operators)"
+    description: "\uBCC0\uC218\uB098 \uAC12\uB4E4\uC744 \uAC00\uC9C0\uACE0 \uC5EC\uB7EC
+      \uAC00\uC9C0 \uACC4\uC0B0\uC774\uB098 \uBE44\uAD50\uB97C \uD558\uB294 \uAE30\uD638\uB4E4\uC774\uC57C.
+      \uB354\uD558\uAE30 \uBE7C\uAE30 \uACF1\uD558\uAE30 \uB098\uB204\uAE30 (+, -,
+      *, /, %), \uD06C\uACE0 \uC791\uC740 \uAC70 \uBE44\uAD50 (==, !=, >, <), \uADF8\uB9AC\uACE0
+      \uC870\uAC74 \uB530\uC9C0\uB294 \uAC70 (&&, ||, !) \uAC19\uC740 \uAC8C \uC788\uC5B4."

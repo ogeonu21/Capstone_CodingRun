@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure04
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uB808\uC9C0\uC2A4\uD130 (Registers)"
+  Topics:
+  - topicNumber: COM04
+    term: "\uB808\uC9C0\uC2A4\uD130 (Registers)"
+    description: "CPU \uC548\uC5D0 \uC788\uB294 \uC5C4\uCCAD \uBE60\uB978 \uC784\uC2DC
+      \uC800\uC7A5 \uACF5\uAC04\uC774\uC57C. CPU\uAC00 \uC9C0\uAE08 \uB9C9 \uCC98\uB9AC\uD558\uB294
+      \uB370\uC774\uD130\uB97C \uC7A0\uAE50 \uB123\uC5B4\uB46C. \uBCC0\uC218\uAC00
+      \uAC00\uB054 \uC5EC\uAE30 \uB4E4\uC5B4\uAC00\uC11C \uC5C4\uCCAD \uBE68\uB9AC
+      \uC811\uADFC\uB420 \uC218\uB3C4 \uC788\uC5B4."

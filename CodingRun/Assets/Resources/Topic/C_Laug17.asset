@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug17
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uD568\uC218 (Functions)"
+  Topics:
+  - topicNumber: CL17
+    term: "\uD568\uC218 (Functions)"
+    description: "\uD2B9\uC815\uD55C \uC791\uC5C5\uC744 \uD558\uB294 \uCF54\uB4DC\uB4E4\uC744
+      \uBB36\uC5B4 \uB193\uC740 \uAC70\uC57C. \uCF54\uB4DC\uB97C \uC815\uB9AC\uD558\uAE30
+      \uC88B\uACE0, \uB611\uAC19\uC740 \uCF54\uB4DC\uB97C \uC5EC\uB7EC \uBC88 \uC548
+      \uC368\uB3C4 \uB3FC\uC11C \uD3B8\uD574."

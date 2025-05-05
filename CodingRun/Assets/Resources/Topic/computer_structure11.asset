@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure11
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBCF4\uC870 \uAE30\uC5B5\uC7A5\uCE58 (Secondary Storage)"
+  Topics:
+  - topicNumber: COM11
+    term: "\uBCF4\uC870 \uAE30\uC5B5\uC7A5\uCE58 (Secondary Storage)"
+    description: "\uC624\uB798\uC624\uB798 \uB370\uC774\uD130\uB97C \uBCF4\uAD00\uD558\uB294
+      \uC880 \uB290\uB9AC\uC9C0\uB9CC \uC6A9\uB7C9\uC774 \uD070 \uAE30\uC5B5 \uACF5\uAC04\uC774\uC57C.
+      \uD558\uB4DC \uB514\uC2A4\uD06C(HDD), SSD \uAC19\uC740 \uAC83\uB4E4\uC774 \uC788\uACE0,
+      \uC804\uC6D0\uC774 \uAEBC\uC838\uB3C4 \uB370\uC774\uD130\uB294 \uADF8\uB300\uB85C
+      \uB0A8\uC544 \uC788\uC5B4. \uCEF4\uD4E8\uD130\uC758 \uCC3D\uACE0 \uAC19\uC740
+      \uACF3\uC774\uC9C0!"

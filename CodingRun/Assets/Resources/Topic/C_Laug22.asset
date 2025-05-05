@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug22
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBB38\uC790\uC5F4 (Strings)"
+  Topics:
+  - topicNumber: CL22
+    term: "\uBB38\uC790\uC5F4 (Strings)"
+    description: "C\uC5B8\uC5B4\uC5D0\uC11C\uB294 \uBB38\uC790\uB4E4\uC774 \uCB49
+      \uC774\uC5B4\uC9C4 \uAC78\uB85C \uD45C\uD604\uD574. \uC0AC\uC2E4\uC740 \uBB38\uC790
+      \uBC30\uC5F4\uC778\uB370, \uC81C\uC77C \uB05D\uC5D0\uB294 \uBB38\uC790\uC5F4
+      \uB05D\uB0AC\uB2E4\uB294 \uD45C\uC2DC (\\0)\uAC00 \uAF2D \uBD99\uC5B4. "

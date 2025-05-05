@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug25
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uD3EC\uC778\uD130\uC640 \uBC30\uC5F4"
+  Topics:
+  - topicNumber: CL25
+    term: "\uD3EC\uC778\uD130\uC640 \uBC30\uC5F4"
+    description: "\uBC30\uC5F4 \uC774\uB984 \uC790\uCCB4\uAC00 \uBC30\uC5F4\uC758
+      \uCCAB \uBC88\uC9F8 \uB370\uC774\uD130\uAC00 \uC788\uB294 \uBA54\uBAA8\uB9AC
+      \uC8FC\uC18C\uB791 \uB611\uAC19\uC544. \uADF8\uB798\uC11C \uD3EC\uC778\uD130\uCC98\uB7FC
+      \uC4F8 \uC218 \uC788\uACE0, \uD3EC\uC778\uD130 \uAC00\uC9C0\uACE0 \uBC30\uC5F4
+      \uC548\uC5D0 \uC788\uB294 \uB370\uC774\uD130\uB4E4\uC744 \uCC3E\uC544\uB2E4\uB2D0
+      \uC218 \uC788\uC5B4."

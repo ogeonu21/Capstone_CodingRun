@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug21
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBC30\uC5F4 (Arrays)"
+  Topics:
+  - topicNumber: CL21
+    term: "\uBC30\uC5F4 (Arrays)"
+    description: "\uAC19\uC740 \uC885\uB958\uC758 \uB370\uC774\uD130\uB97C \uCB49
+      \uBD99\uC5EC\uC11C \uBA54\uBAA8\uB9AC\uC5D0 \uC800\uC7A5\uD558\uACE0, \uD558\uB098\uC758
+      \uC774\uB984\uC73C\uB85C \uBB36\uC5B4\uC11C \uC4F0\uB294 \uAC70\uC57C. \uAC01\uAC01\uC758
+      \uB370\uC774\uD130\uB294 \uBC88\uD638(\uC778\uB371\uC2A4)\uB85C \uCC3E\uC544.
+      \uC5EC\uB7EC \uAC1C \uBCC0\uC218 \uC120\uC5B8\uD558\uB294 \uAC70\uBCF4\uB2E4
+      \uD6E8\uC52C \uD3B8\uD574."

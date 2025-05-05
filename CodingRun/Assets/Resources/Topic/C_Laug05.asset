@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug05
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC790\uB8CC\uD615 (Data Types)"
+  Topics:
+  - topicNumber: CL05
+    term: "\uC790\uB8CC\uD615 (Data Types)"
+    description: "\uBCC0\uC218\uAC00 \uC5B4\uB5A4 \uC885\uB958\uC758 \uB370\uC774\uD130\uB97C
+      \uC800\uC7A5\uD560 \uAC74\uC9C0 \uC815\uD558\uB294 \uAC70\uC57C. \uC815\uC218
+      \uC800\uC7A5\uD558\uB294 int, \uC2E4\uC218 \uC800\uC7A5\uD558\uB294 float,
+      double, \uBB38\uC790 \uD558\uB098 \uC800\uC7A5\uD558\uB294 char \uAC19\uC740
+      \uAC8C \uC788\uC5B4."

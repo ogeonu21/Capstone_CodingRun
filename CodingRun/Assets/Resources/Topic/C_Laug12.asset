@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug12
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC785\uB825 (Input)"
+  Topics:
+  - topicNumber: CL012
+    term: "\uC785\uB825 (Input)"
+    description: "scanf()\uB77C\uB294 \uD568\uC218 \uC368\uC11C \uD0A4\uBCF4\uB4DC\uB85C
+      \uC6B0\uB9AC\uAC00 \uAC12\uC744 \uB123\uC5B4\uC904 \uC218 \uC788\uC5B4. \uB123\uC744
+      \uAC12\uC758 \uC885\uB958\uC5D0 \uB9DE\uCDB0\uC11C \uD615\uC2DD \uC9C0\uC815\uC790\uB97C
+      \uC368\uC57C \uD574."

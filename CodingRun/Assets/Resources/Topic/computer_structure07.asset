@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure07
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC6B4\uC601\uCCB4\uC81C (Operating System)"
+  Topics:
+  - topicNumber: COM07
+    term: "\uC6B4\uC601\uCCB4\uC81C (Operating System)"
+    description: "\uCEF4\uD4E8\uD130 \uD558\uB4DC\uC6E8\uC5B4\uB791 \uC18C\uD504\uD2B8\uC6E8\uC5B4\uB97C
+      \uAD00\uB9AC\uD558\uACE0, \uC6B0\uB9AC\uAC00 \uCEF4\uD4E8\uD130 \uC4F0\uAE30
+      \uD3B8\uD558\uAC8C \uD574\uC8FC\uB294 \uC2DC\uC2A4\uD15C \uC18C\uD504\uD2B8\uC6E8\uC5B4\uC57C.
+      \uD504\uB85C\uADF8\uB7A8\uC774 \uBA54\uBAA8\uB9AC \uBE4C\uB9AC\uACE0 CPU \uC4F8
+      \uB54C \uC6B4\uC601\uCCB4\uC81C \uB3C4\uC6C0\uC744 \uBC1B\uC544."

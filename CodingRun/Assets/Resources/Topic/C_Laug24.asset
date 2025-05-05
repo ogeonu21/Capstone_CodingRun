@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug24
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC8FC\uC18C \uC5F0\uC0B0\uC790 (&)\uC640 \uAC04\uC811 \uCC38\uC870 \uC5F0\uC0B0\uC790
+    (*)"
+  Topics:
+  - topicNumber: CL24
+    term: "\uC8FC\uC18C \uC5F0\uC0B0\uC790 (&)\uC640 \uAC04\uC811 \uCC38\uC870 \uC5F0\uC0B0\uC790
+      (*)"
+    description: "\uBCC0\uC218\uAC00 \uC788\uB294 \uBA54\uBAA8\uB9AC \uC8FC\uC18C\uB97C
+      \uC54C\uACE0 \uC2F6\uC744 \uB54C\uB294 &\uB97C \uBCC0\uC218 \uC55E\uC5D0 \uBD99\uC5EC.
+      \uD3EC\uC778\uD130\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uBA54\uBAA8\uB9AC \uC704\uCE58\uC5D0
+      \uC788\uB294 \uAC12\uC744 \uBCF4\uACE0 \uC2F6\uC744 \uB54C\uB294 \uD3EC\uC778\uD130
+      \uBCC0\uC218 \uC55E\uC5D0 *\uB97C \uBD99\uC5EC."

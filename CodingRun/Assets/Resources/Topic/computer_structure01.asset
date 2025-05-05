@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure01
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBA54\uBAA8\uB9AC (Memory)"
+  Topics:
+  - topicNumber: COM01
+    term: "\uBA54\uBAA8\uB9AC (Memory)"
+    description: "\uCEF4\uD4E8\uD130\uC758 \uAE30\uC5B5 \uC7A5\uCE58\uC778\uB370,
+      \uD504\uB85C\uADF8\uB7A8\uC774\uB791 \uB370\uC774\uD130\uAC00 \uC5EC\uAE30
+      \uC800\uC7A5\uB3FC. \uBCC0\uC218\uB294 \uC774 \uBA54\uBAA8\uB9AC \uD2B9\uC815
+      \uC704\uCE58\uC5D0 \uAC12\uC744 \uB123\uC5B4\uB450\uB294 \uAC70\uC57C."

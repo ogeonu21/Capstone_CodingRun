@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug08
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBB38\uC790\uD615 (Character Type)"
+  Topics:
+  - topicNumber: CL08
+    term: "\uBB38\uC790\uD615 (Character Type)"
+    description: "\uB531 \uD558\uB098\uC758 \uBB38\uC790\uB97C \uC800\uC7A5\uD558\uB294
+      \uC790\uB8CC\uD615\uC774\uC57C. \uC54C\uD30C\uBCB3('A', 'b'), \uC22B\uC790('1',
+      '9'), \uC2EC\uC9C0\uC5B4 \uD2B9\uC218 \uBB38\uC790('#', '$')\uAE4C\uC9C0 \uD558\uB098\uC529
+      \uB2F4\uC744 \uC218 \uC788\uC5B4. char(1\uBC14\uC774\uD2B8)\uB77C\uACE0 \uC4F0\uACE0,
+      \uC791\uC740\uB530\uC634\uD45C('')\uB85C \uBB36\uC5B4\uC11C \uD45C\uD604\uD574.
+      \uB9C8\uCE58 \uD3B8\uC9C0\uC5D0 \uB531 \uD55C \uAE00\uC790\uB9CC \uC368\uC11C
+      \uBCF4\uB0B4\uB294 \uBD09\uD22C \uAC19\uC740 \uAC70\uC57C!"

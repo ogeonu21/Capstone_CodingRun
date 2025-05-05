@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug16
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uBC18\uBCF5\uBB38 (Loops)"
+  Topics:
+  - topicNumber: CL16
+    term: "\uBC18\uBCF5\uBB38 (Loops)"
+    description: "\uB611\uAC19\uC740 \uCF54\uB4DC \uBE14\uB85D\uC744 \uC5EC\uB7EC
+      \uBC88 \uACC4\uC18D \uC2E4\uD589\uD558\uAC8C \uB9CC\uB4DC\uB294 \uAC70\uC57C.
+      for \uB8E8\uD504\uB294 \uC815\uD574\uC9C4 \uD69F\uC218\uB9CC\uD07C, while \uB8E8\uD504\uB294
+      \uC870\uAC74\uC774 \uB9DE\uC744 \uB54C\uAE4C\uC9C0 \uACC4\uC18D \uB3CC\uC544. "

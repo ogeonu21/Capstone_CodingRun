@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug10
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC0C1\uC218 (Constants)"
+  Topics:
+  - topicNumber: CL10
+    term: "\uC0C1\uC218 (Constants)"
+    description: "\uD504\uB85C\uADF8\uB7A8\uC774 \uB3CC\uC544\uAC00\uB294 \uB3D9\uC548
+      \uAC12\uC774 \uC548 \uBC14\uB00C\uB294 \uB370\uC774\uD130\uB97C \uC0C1\uC218\uB77C\uACE0
+      \uD574. \uADF8\uB0E5 \uC22B\uC790\uB098 \uBB38\uC790 \uADF8\uB300\uB85C \uC4F0\uB294
+      \uB9AC\uD130\uB7F4 \uC0C1\uC218 (10, 3.14, 'A')\uB791, \uC774\uB984\uC744 \uBD99\uC5EC\uC11C
+      \uC4F0\uB294 \uC2EC\uBCFC\uB9AD \uC0C1\uC218 (#define PI 3.14)\uAC00 \uC788\uC5B4."

@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug06
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC815\uC218\uD615 (Integer Types)"
+  Topics:
+  - topicNumber: CL06
+    term: "\uC815\uC218\uD615 (Integer Types)"
+    description: "\uC815\uC218\uB97C \uC800\uC7A5\uD558\uB294 \uC790\uB8CC\uD615\uC774\uC57C.
+      \uC591\uC218, \uC74C\uC218, 0 \uAC19\uC740 \uC18C\uC218\uC810 \uC5C6\uB294
+      \uC22B\uC790\uB97C \uB2F4\uC744 \uC218 \uC788\uC5B4. int\uB77C\uACE0 \uC8FC\uB85C
+      \uC4F0\uACE0, int\uB294 4\uBC14\uC774\uD2B8 \uBA54\uBAA8\uB9AC\uB97C \uC0AC\uC6A9\uD574,
+      \uBA54\uBAA8\uB9AC \uD06C\uAE30\uC5D0 \uB530\uB77C\uC11C short(2\uBC14\uC774\uD2B8),
+      long(8\uBC14\uC774\uD2B8) \uAC19\uC740 \uAC83\uB3C4 \uC788\uC5B4. \uB9C8\uCE58
+      \uB531 \uB5A8\uC5B4\uC9C0\uB294 \uAC1C\uC218\uB97C \uC138\uB294 \uB370 \uC4F0\uB294
+      \uC22B\uC790 \uC0C1\uC790 \uAC19\uC740 \uAC70\uC57C!"

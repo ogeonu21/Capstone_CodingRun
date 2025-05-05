@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: C_Laug07
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uC2E4\uC218\uD615 (Floating-Point Types)"
+  Topics:
+  - topicNumber: CL07
+    term: "\uC2E4\uC218\uD615 (Floating-Point Types)"
+    description: "\uC2E4\uC218, \uC989 \uC18C\uC218\uC810\uC774 \uC788\uB294 \uC22B\uC790\uB97C
+      \uC800\uC7A5\uD558\uB294 \uC790\uB8CC\uD615\uC774\uC57C. float(4\uBC14\uC774\uD2B8)\uC774\uB098
+      double(8\uBC14\uC774\uD2B8)\uC744 \uC8FC\uB85C \uC368. float\uB294 \uBCF4\uD1B5
+      \uC815\uB3C4\uC758 \uC815\uBC00\uB3C4\uB97C \uAC16\uACE0, double\uC740 \uB354
+      \uC815\uD655\uD55C \uC18C\uC218\uC810\uAE4C\uC9C0 \uC800\uC7A5\uD560 \uC218
+      \uC788\uC5B4. \uB9C8\uCE58 \uC790\uB85C \uAE38\uC774\uB97C \uC7AC\uAC70\uB098,
+      \uBB34\uAC8C\uB97C \uC7B4 \uB54C\uCC98\uB7FC \uC18C\uC218\uC810\uAE4C\uC9C0
+      \uD544\uC694\uD55C \uC22B\uC790\uB97C \uB2F4\uB294 \uC0C1\uC790\uC57C!"

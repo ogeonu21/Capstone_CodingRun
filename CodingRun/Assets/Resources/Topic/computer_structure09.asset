@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa1b845eb8cb96429c7d0051d7f0073, type: 3}
   m_Name: computer_structure09
   m_EditorClassIdentifier: 
-  Title: 
-  Topics: []
+  Title: "\uB370\uC774\uD130 \uD45C\uD604"
+  Topics:
+  - topicNumber: COM09
+    term: "\uB370\uC774\uD130 \uD45C\uD604"
+    description: "\uCEF4\uD4E8\uD130\uB294 \uBAA8\uB4E0 \uAC78 0\uC774\uB791 1\uB85C
+      \uD45C\uD604\uD574. C\uC5B8\uC5B4\uC758 \uC5EC\uB7EC \uAC00\uC9C0 \uC790\uB8CC\uD615(int,
+      float, char)\uC740 \uC774 0\uACFC 1 \uD328\uD134\uC744 \uC5B4\uB5BB\uAC8C \uD574\uC11D\uD560\uC9C0
+      \uC815\uD574\uC8FC\uB294 \uC57D\uC18D \uAC19\uC740 \uAC70\uC57C."
