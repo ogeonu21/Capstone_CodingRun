@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
     {
         if (status != null)
             status.OnHPChanged += UpdateHP;
+            UpdateHP(status.currentHP, status.maxHP); // 초기값 강제 적용
     }
 
     private void UpdateHP(float current, float max)
