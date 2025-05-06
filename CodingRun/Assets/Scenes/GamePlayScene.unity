@@ -2793,7 +2793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quizTransitionDelay: 10
   playerStatus: {fileID: 6325825200349053979}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 1485621152}
   leaderboardId: CgkIvrSJ8r8EEAIQAA
 --- !u!4 &1121748576
 Transform:
@@ -5159,7 +5159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -881.36053, y: 1446.8873}
+  m_AnchoredPosition: {x: -878.84, y: 1450}
   m_SizeDelta: {x: 392.0176, y: 355.3784}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2066444169
