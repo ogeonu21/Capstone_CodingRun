@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5208,7 +5208,7 @@ MonoBehaviour:
   coinAmount: 30
   poolDataList:
   - type: 0
-    prefab: {fileID: 2244153454405662055, guid: 4c301eca2b9eeaf45970351f4be26e5d,
+    prefab: {fileID: 5354658872960820585, guid: 459c5c7898f160747b1f9098d28a9226,
       type: 3}
     amount: 5
   - type: 1
@@ -5220,7 +5220,7 @@ MonoBehaviour:
       type: 3}
     amount: 5
   - type: 3
-    prefab: {fileID: 2244153454405662055, guid: 2856486894562014197fee4dd926daa3,
+    prefab: {fileID: 7360247848554571197, guid: 67a6f534436674c4c92b4ec111f1ba96,
       type: 3}
     amount: 1
 --- !u!4 &2127920410
