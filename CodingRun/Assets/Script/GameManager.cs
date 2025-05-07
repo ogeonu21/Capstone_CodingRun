@@ -82,7 +82,7 @@ public class GameManager : MonoSingleton<GameManager>
     // --- HPUI 관련 ---
     [SerializeField] private Status playerStatus;
     [SerializeField] private UIManager uiManager;
-
+ 
     // --- 구글 플레이 관련 ---
     [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
     
@@ -170,17 +170,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Score += amount;
     }
-    public void SaveCoins()
-    {
-        TotalCoin += (int)InGameCoin;
-        PlayerPrefs.SetInt("TotalCoin",TotalCoin);
-        PlayerPrefs.Save();
-    }
 
-    public void LoadTotalCoin()
-    {
-        TotalCoin = PlayerPrefs.GetInt("TotalCoin",0);
-    }
+
 
     // 구글 로그인
 
@@ -283,6 +274,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
 */
     // 게임 종료 처리
+    
     public void GameOver()
     {
         if (IsGameOver) return;
