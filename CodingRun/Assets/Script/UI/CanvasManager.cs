@@ -66,7 +66,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OnClickRestart(){
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnClickGoToMain(){
@@ -74,6 +74,10 @@ public class CanvasManager : MonoBehaviour
         SceneManager.LoadScene("MainScene");
     }
     
+    public void ExitGame(){
+        Application.Quit();
+    }
+
     public void OverlayScene(string sceneName){
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         StartCoroutine(InitUI());

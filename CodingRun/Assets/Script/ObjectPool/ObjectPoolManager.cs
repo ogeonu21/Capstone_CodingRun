@@ -19,8 +19,9 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if(Instance == null){
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else if(Instance != this){
+        else {
             Destroy(gameObject);
         }
     }
@@ -34,6 +35,7 @@ public class ObjectPoolManager : MonoBehaviour
         
     }
 
+    
     private void InitPoolsFromList() {
         foreach (PoolData data in poolDataList)
         {
