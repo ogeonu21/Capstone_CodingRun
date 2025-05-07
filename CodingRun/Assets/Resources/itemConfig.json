@@ -1,7 +1,7 @@
 {
     "Coin": {
-        "rotationSpeed": 30.0,
-        "coinScore": 100,
+        "rotationSpeed": 300.0,
+        "coinScore": 50.0,
         "growthRate": 0.05
     },
     "Heart":{

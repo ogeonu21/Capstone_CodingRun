@@ -12,16 +12,6 @@ public enum ItemType
 public class UnifiedItem : MonoBehaviour
 {
     public ItemType itemType; // 인스펙터에서 유형 지정
-
-    // 코인용 파라미터
-    [Header("코인 설정")]
-    public float rotationSpeed = 30f;
-    public float coinScore = 100f;
-
-    // 하트용 파라미터
-    [Header("하트 설정")]
-    public int healAmount = 40;
-
     private Rigidbody rb;
     protected virtual void Awake()
     {
