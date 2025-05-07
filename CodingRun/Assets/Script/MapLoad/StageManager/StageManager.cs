@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -38,7 +39,10 @@ public class StageManager : MonoBehaviour
     //코루틴
     private Coroutine spawnCoroutine = null;
     private Coroutine quizCoroutine = null;
-    
+
+    [Range(1,10)]
+    public int heartPerCycle = 5;
+    public int cycleNum = 0;    
     public float adjustTime = 3f;
         
     void Awake()
@@ -121,7 +125,7 @@ public class StageManager : MonoBehaviour
         currentBehaviour?.UpdateState();
     }
 
-     private MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
+    public MonoBehaviour SpawnItem(ObjectType type, Vector3? location = null, Transform parent = null) {
     var obj = ObjectPoolManager.Instance.GetObject(type);
     if (location.HasValue)
         obj.transform.position = location.Value;

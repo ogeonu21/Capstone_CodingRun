@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31819486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.84, y: 2, z: 52.6}
+  m_LocalPosition: {x: 3.47, y: 2, z: 52.6}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1641,8 +1641,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  objectSpeed: 7
-  spawnPeriod: 1.5
+  objectSpeed: 14
+  spawnPeriod: 0.8
   items: {fileID: 1559587672}
   spawnPoint1: {fileID: 873692616}
   spawnPoint2: {fileID: 1122248006}
@@ -1653,6 +1653,8 @@ MonoBehaviour:
   - stageState: 1
     stateComponent: {fileID: 1670631027}
   nowState: 0
+  heartPerCycle: 1
+  cycleNum: 0
   adjustTime: 5
 --- !u!4 &827679460
 Transform:
@@ -1945,7 +1947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873692615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.84, y: 2, z: 52.6}
+  m_LocalPosition: {x: -3.47, y: 2, z: 52.6}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2474,9 +2476,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 190564876}
-  moveSpeed: 7
+  moveSpeed: 14
   mapPrefs:
-  - {fileID: 8108930348439635160, guid: ac142742be0aa1642aa8318c4444b5b2, type: 3}
+  - {fileID: 8108930348439635160, guid: 8f906754202c9e34894735ceabf1445c, type: 3}
   loadNum: 3
   delayDistance: 5
   startPos: {x: 0, y: 0, z: -2}
@@ -5319,6 +5321,10 @@ MonoBehaviour:
     prefab: {fileID: 1632046524339636817, guid: c900d3c18dc64fc4faa1f259934eafcf,
       type: 3}
     amount: 5
+  - type: 3
+    prefab: {fileID: 2244153454405662055, guid: 2856486894562014197fee4dd926daa3,
+      type: 3}
+    amount: 1
 --- !u!4 &2127920410
 Transform:
   m_ObjectHideFlags: 0

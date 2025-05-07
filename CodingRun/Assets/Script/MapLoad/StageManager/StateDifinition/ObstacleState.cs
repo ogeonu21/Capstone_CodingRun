@@ -35,6 +35,10 @@ public class ObstacleState : MonoBehaviour, IStageState
     public void Exit()
     {
         // StageManager에서 ChangeState를 실행할때 정리하는 로직
-        //manager.StopSpawn();
+        manager.cycleNum++;
+        
+        if (manager.cycleNum % manager.heartPerCycle == 0) {
+            manager.SpawnItem(ObjectType.HEART, manager.spawnPoints[1], manager.items);
+        }
     }
 }
