@@ -44,7 +44,9 @@ public class StageManager : MonoBehaviour
     public int heartPerCycle = 5;
     public int cycleNum = 0;    
     public float adjustTime = 3f;
-        
+    private List<int> remainingLines;
+    private bool isObstacleTurn = true;
+
     void Awake()
     {
         SetSpawnPoint();
@@ -96,25 +98,31 @@ public class StageManager : MonoBehaviour
 
     public void SpawnObject()
     {
-        // 1. 장애물 라인 랜덤 선택
-        int obstacleLine = Random.Range(0, 3);
+        remainingLines = new() { 0, 1, 2 }; // spawnPoints 인덱스 기준으로 설정
 
-        // 2. 장애물 종류 결정 (벽 90%, 구멍 10%)
-        float rand = Random.value; // 0~1
-        MonoBehaviour obstaclePrefab = rand <= 0.8f ? 
-        SpawnItem(ObjectType.WALL, spawnPoints[obstacleLine], items) : 
-        SpawnItem(ObjectType.HALL, spawnPoints[obstacleLine], items);
+        if (isObstacleTurn) {
+            int obstacleIndex = Random.Range(0, remainingLines.Count);
+            int obstacleLine = remainingLines[obstacleIndex];
+            
+            ObjectType objectType = GetSpawnObstacleType();
+            SpawnItem(objectType, spawnPoints[obstacleLine], items);
+            
+            remainingLines.RemoveAt(obstacleIndex); // 사용한 인덱스 제거
+        }
+        isObstacleTurn = !isObstacleTurn; // 상태 변경
 
-        // 3. 장애물 스폰
-        
-
-        // 4. 코인 라인 결정 (나머지 두 라인 중 하나)
-        List<int> remainingLines = new List<int> { 0, 1, 2 };
-        remainingLines.Remove(obstacleLine);
-        int coinLine = remainingLines[Random.Range(0, 2)];
-
-        // 5. 코인 스폰
+        int coinIndex = Random.Range(0, remainingLines.Count);
+        int coinLine = remainingLines[coinIndex];
         SpawnItem(ObjectType.COIN, spawnPoints[coinLine], items);
+
+    }
+
+    private ObjectType GetSpawnObstacleType() {
+        float rand = Random.value; 
+
+        ObjectType obstaclePrefab = rand <= 0.8f ? ObjectType.WALL : ObjectType.HALL;
+
+        return obstaclePrefab;
     }
 
     void Update()
