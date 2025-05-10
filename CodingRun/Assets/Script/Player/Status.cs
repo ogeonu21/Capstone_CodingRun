@@ -119,7 +119,10 @@ public class Status : MonoBehaviour
         // 데미지가 현재체력의 20% 이상, 절대값이 1이상이면 피격 애니메이션 실행
         if (amount >= currentHP * 0.2f && amount >= 1f && HitEffectManager.Instance != null)
         {
-        HitEffectManager.Instance.ShowHitEffect();
+            if (animator != null)
+                animator.SetTrigger("Hit");
+
+            HitEffectManager.Instance.ShowHitEffect();
         }
 
         OnHPChanged?.Invoke(currentHP, maxHP); //uiManager.UpdateHP(currentHP, maxHP) 실행                                             // 체력 변경 알림

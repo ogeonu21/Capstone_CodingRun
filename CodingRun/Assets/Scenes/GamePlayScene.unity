@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1237,14 +1237,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413371097}
-  m_LocalRotation: {x: 0.36650118, y: 0, z: 0, w: 0.9304176}
-  m_LocalPosition: {x: 0, y: 14.26, z: -6.12}
+  m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 8, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 43, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
 --- !u!114 &413371101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5109,11 +5109,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100012, guid: adc29cec84c3a154799af0a175fada52, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: adc29cec84c3a154799af0a175fada52, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 215492ebaa8ed2b4986653a3cf494098, type: 2}
+    - target: {fileID: 6203122649471941549, guid: adc29cec84c3a154799af0a175fada52,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'ear1'\n\tTransform 'ear6'\n\tTransform 'ear6'\n\tFrom
+        animation clip 'Die1'\n\tFrom animation clip 'Damage'"
+      objectReference: {fileID: 0}
     - target: {fileID: 6325825200203943432, guid: adc29cec84c3a154799af0a175fada52,
         type: 3}
       propertyPath: vignetteImage
       value: 
       objectReference: {fileID: 1635004799}
+    - target: {fileID: 6325825200203943440, guid: adc29cec84c3a154799af0a175fada52,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 215492ebaa8ed2b4986653a3cf494098, type: 2}
+    - target: {fileID: 6325825200203943441, guid: adc29cec84c3a154799af0a175fada52,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6325825200203943442, guid: adc29cec84c3a154799af0a175fada52,
         type: 3}
       propertyPath: m_Name
@@ -5173,6 +5199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325825200203943447, guid: adc29cec84c3a154799af0a175fada52,
+        type: 3}
+      propertyPath: laneDistance
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc29cec84c3a154799af0a175fada52, type: 3}
