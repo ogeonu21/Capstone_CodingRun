@@ -147,6 +147,9 @@ public class GameManager : MonoSingleton<GameManager>
             // 게임이 멈춰 있으면 timer 도 멈춥니다.
             timer = Time.time - startTime;
             //Debug.Log($"진행 시간: {timer:F2}초");
+            float pointPerSec = timer * 0.000314f;
+            Score += pointPerSec * Time.deltaTime;
+            //Debug.Log($"score : {Score:F10}");
         }
     }
 
@@ -170,8 +173,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Score += amount;
     }
-
-
 
     // 구글 로그인
 
