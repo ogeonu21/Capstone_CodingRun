@@ -79,8 +79,7 @@ public class Quiz : MonoBehaviour
         }
 
         UpdateTimer();
-        skipButton.gameObject.SetActive(true);
-        //CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
+        CheckSkipButtonVisibility();  // Skip 버튼 가시성 체크
     }
     #endregion
 
@@ -486,9 +485,10 @@ public class Quiz : MonoBehaviour
     {
         if (skipButton != null && currentQuestion != null && timer != null)
         {
-            // Easy 난이도이거나 타이머가 9.1초 이하로 남았을 때는 버튼 숨김
+            // Easy 난이도이거나 타이머가 2초 이하로 남았을 때, 또는 타이머가 끝났을 때는 버튼 숨김
             bool shouldHide = currentQuestion.Difficulty == QuestionDifficulty.Easy || 
-                            (timer.timerValue <= 2f && timer.timerValue > 0);
+                            timer.timerValue <= 2f ||
+                            timer.timeUp;
             
             skipButton.gameObject.SetActive(!shouldHide);
         }

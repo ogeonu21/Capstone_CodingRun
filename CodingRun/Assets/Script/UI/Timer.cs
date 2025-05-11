@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour
     public UnityEvent onTimeUp = new UnityEvent();
 
     private bool isPaused = false;  // 일시정지 상태를 나타내는 변수 추가
+    private bool isQuizTime = false; // 퀴즈 시간인지 여부를 나타내는 변수 추가
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class Timer : MonoBehaviour
     public void CancelTimer(){
         timerValue = 0;
         isAnsweringQuestion = false;
+        isQuizTime = false;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetQuizPanelByTimerState(false);
@@ -53,6 +55,7 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         isAnsweringQuestion = true;
+        isQuizTime = true;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetQuizPanelByTimerState(true);
@@ -83,7 +86,7 @@ public class Timer : MonoBehaviour
         {
             // 게임이 재개된 경우
             isPaused = false;
-            if (GameManager.Instance != null)
+            if (GameManager.Instance != null && isQuizTime)
             {
                 GameManager.Instance.SetQuizPanelByTimerState(true);
             }
@@ -103,6 +106,7 @@ public class Timer : MonoBehaviour
             else
             {
                 isAnsweringQuestion = false;
+                isQuizTime = false;
                 timeUp = true;
                 
                 // 타이머 종료 시 이벤트 발생
