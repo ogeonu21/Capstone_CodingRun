@@ -418,9 +418,9 @@ public class Quiz : MonoBehaviour
         }
 
         // 정답 확인
-        int selectedAnswer = answerIndex;
-        int correctAnswer = currentQuestion.GetCorrectIndex() + 1;
-        bool isCorrect = (selectedAnswer == correctAnswer);
+        int selectedAnswer = answerIndex;  // 사용자가 선택한 답변 (1, 2, 3 중 하나)
+        int correctAnswer = currentQuestion.GetCorrectIndex() + 1;  // 정답 인덱스 (0, 1, 2)에 1을 더해 1, 2, 3으로 변환
+        bool isCorrect = (selectedAnswer == correctAnswer);  // 선택한 답변과 정답 비교
         
         // 결과 로깅
         string resultMessage = isCorrect ? "정답" : "오답";
@@ -429,28 +429,60 @@ public class Quiz : MonoBehaviour
         // 정답/오답 처리
         if (isCorrect)
         {
-            if (gameManager != null)
+            // 정답일 경우: 난이도, 체력, 플레이타임에 따른 점수 계산
+            if (gameManager != null && playerStatus != null)
             {
-                gameManager.Score += 100;
-                Debug.Log($"현재 점수: {gameManager.Score}점");
+                // 난이도별 기본 점수
+                float baseScore = currentQuestion.Difficulty switch
+                {
+                    QuestionDifficulty.Easy => 800f,
+                    QuestionDifficulty.Medium => 1400f,
+                    QuestionDifficulty.Hard => 2100f,
+                    _ => 800f
+                };
+
+                // 체력 보너스 계산 (70% + 현재체력*0.3%)
+                float healthBonus = (70f + (playerStatus.currentHP * 0.3f)) / 100f;
+
+                // 플레이타임 보너스 계산 (게임 플레이타임 * 0.0314)
+                float timeBonus = gameManager.Timer * 0.0314f;
+
+                // 최종 점수 계산
+                float finalScore = baseScore * healthBonus * timeBonus;
+                gameManager.Score += finalScore;
+
+                Debug.Log($"정답! 획득 점수: {finalScore:F0}점 (기본: {baseScore}, 체력보너스: {healthBonus * 100:F1}%, 시간보너스: {timeBonus:F2})");
             }
         }
         else
         {
+            // 오답일 경우: 난이도에 따른 체력 감소
             if (playerStatus != null)
             {
-                playerStatus.TakeDamage(25);
-                Debug.Log($"오답으로 인한 체력 감소! 현재 체력: {playerStatus.currentHP}");
+                // 난이도별 체력 감소 비율
+                float healthReductionRatio = currentQuestion.Difficulty switch
+                {
+                    QuestionDifficulty.Easy => 0.92f,  // 92% 유지 (8% 감소)
+                    QuestionDifficulty.Medium => 0.85f, // 85% 유지 (15% 감소)
+                    QuestionDifficulty.Hard => 0.80f,   // 80% 유지 (20% 감소)
+                    _ => 0.92f
+                };
+
+                // 체력 감소 적용
+                float newHealth = playerStatus.currentHP * healthReductionRatio;
+                playerStatus.currentHP = newHealth;
+
+                Debug.Log($"오답! 체력 감소: {healthReductionRatio * 100}% (현재 체력: {newHealth:F0})");
             }
         }
 
-        // // 타이머 정지
+        // // 타이머 정지 (현재 주석 처리됨)
         // if (timer != null)
         // {
         //     timer.isAnsweringQuestion = false;
         // }
 
-        // GameManager에게 다음 문제 전환을 알림
+        // // GameManager에게 다음 문제 전환을 알림 (현재 주석 처리됨)
         // if (gameManager != null)
         // {
         //     gameManager.HandleQuizTransition();
