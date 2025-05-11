@@ -293,6 +293,10 @@ public class GameManager : MonoSingleton<GameManager>
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+
+        // 게임오버 ui 출력 (ui 담당 정헌용 작성)
+        FindObjectOfType<Gameover>().ShowGameOverUI(GameManager.Instance.Score, GameManager.Instance.TotalCoin);
+
     }
 
     // 퀴즈 전환 처리
