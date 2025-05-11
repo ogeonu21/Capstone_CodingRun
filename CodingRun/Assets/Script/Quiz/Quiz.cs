@@ -488,7 +488,8 @@ public class Quiz : MonoBehaviour
             // Easy 난이도이거나 타이머가 2초 이하로 남았을 때, 또는 타이머가 끝났을 때는 버튼 숨김
             bool shouldHide = currentQuestion.Difficulty == QuestionDifficulty.Easy || 
                             timer.timerValue <= 2f ||
-                            timer.timeUp;
+                            timer.timeUp ||
+                            !timer.isAnsweringQuestion;  // 타이머가 실행 중이 아닐 때도 숨김
             
             skipButton.gameObject.SetActive(!shouldHide);
         }
