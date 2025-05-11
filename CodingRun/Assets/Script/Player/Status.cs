@@ -88,7 +88,7 @@ public class Status : MonoBehaviour
                         float growthRate = ConfigManager.Instance.itemConfig.Coin.growthRate;
                         float elapsedTime = Time.timeSinceLevelLoad;
 
-                        float scaledScore = baseCoinScore * (1 + growthRate * elapsedTime);
+                        float scaledScore = baseCoinScore;
                         GameManager.Instance.Score += scaledScore;
                        //GameManager.Instance.SaveHighScore();
 
