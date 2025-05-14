@@ -22,11 +22,6 @@ public class Timer : MonoBehaviour
     private bool isPaused = false;  // 일시정지 상태를 나타내는 변수 추가
     private bool isQuizTime = false; // 퀴즈 시간인지 여부를 나타내는 변수 추가
 
-    void Start()
-    {
-        timeToCompleteQuestion = defaultTimeToCompleteQuestion;
-        ResetTimer();
-    }
 
     void Update()
     {
@@ -53,6 +48,9 @@ public class Timer : MonoBehaviour
     // 타이머를 시작합니다.
     public void StartTimer()
     {
+        timeToCompleteQuestion = defaultTimeToCompleteQuestion;
+        ResetTimer();
+
         isAnsweringQuestion = true;
         isQuizTime = true;
         if (GameManager.Instance != null)

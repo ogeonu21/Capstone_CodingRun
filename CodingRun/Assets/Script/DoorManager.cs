@@ -38,7 +38,7 @@ public class DoorManager : MonoBehaviour
 
         if (timer != null && timer.isAnsweringQuestion)
         {
-            if (timer.timerValue <= 1f && !doorsSpawned)
+            if (timer.timerValue <= 1f && !doorsSpawned && manager.getNowState() == StageState.QUESTION_STATE)
             {
                 SpawnDoors();
                 doorsSpawned = true;

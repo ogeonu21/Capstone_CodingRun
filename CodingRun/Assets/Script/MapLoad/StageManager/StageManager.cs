@@ -51,12 +51,14 @@ public class StageManager : MonoBehaviour
     {
         SetSpawnPoint();
     }
-
+    public StageState getNowState(){
+        return nowState;
+    }
     void Start()
     {
         stateDict = stateDatas.ToDictionary(data => data.stageState, data => data.stateComponent);
         
-        nowState = StageState.QUESTION_STATE;
+        nowState = StageState.OBSTACLE_STATE;
         ChangeState(nowState);
         //IncreaseSpeed(0.01f, 15f);
     }

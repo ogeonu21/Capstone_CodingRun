@@ -470,8 +470,8 @@ public class Quiz : MonoBehaviour
 
                 // 체력 감소 적용
                 float newHealth = playerStatus.currentHP * healthReductionRatio;
-                playerStatus.currentHP = newHealth;
-
+                
+                playerStatus.TakeDamage(playerStatus.currentHP - newHealth);
                 Debug.Log($"오답! 체력 감소: {healthReductionRatio * 100}% (현재 체력: {newHealth:F0})");
             }
         }
