@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("레인 이동")]
     public float laneDistance = 5.0f;       // 레인 간격
+    [SerializeField] private float laneChangeSpeed = 15f;
     private int currentLane = 1;            // 현재 레인 (0: 왼쪽, 1: 중앙, 2: 오른쪽)
 
     void Update()
@@ -25,8 +27,14 @@ public class Player : MonoBehaviour
 
     void MoveToLane()                                   // 현재 레인에 맞게 플레이어 위치 이동
     {
-        Vector3 targetPos = transform.position;         // 현재 위치를 타겟 위치로 설정
-        targetPos.x = (currentLane - 1) * laneDistance; // 현재 레인에 맞게 x좌표 설정
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 10f);// 현재 위치에서 타겟 위치로 부드럽게 이동
+         Vector3 targetPos = transform.position;
+        targetPos.x = (currentLane - 1) * laneDistance;
+
+        // 감쇠 보간으로 자연스럽고 빠르게 이동
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPos,
+            1 - Mathf.Exp(-laneChangeSpeed * Time.deltaTime)
+        );
     }
 }

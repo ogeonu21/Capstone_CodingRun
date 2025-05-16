@@ -77,7 +77,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private float quizTransitionDelay = 10f;  // 퀴즈 전환 딜레이 (초)
 
     // --- 게임 오버 플래그 ---
-    public bool IsGameOver { get; private set; } = false;
+    public bool IsGameOver { get; set; } = false;
 
     // --- HPUI 관련 ---
     [SerializeField] private Status playerStatus;

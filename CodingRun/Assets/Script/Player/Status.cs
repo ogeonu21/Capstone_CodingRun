@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class Status : MonoBehaviour
 {
     [Header("스탯 설정")]
     public float maxHP = 100f;
     public float currentHP;
-    
+
 
     [Header("체력 자연 감소")]
     public float hpDecreaseInterval = 1f;
@@ -52,7 +53,7 @@ public class Status : MonoBehaviour
     {
         decreaseTimer += Time.deltaTime;               // 타이머 증가
 
-        if (decreaseTimer >= hpDecreaseInterval)       
+        if (decreaseTimer >= hpDecreaseInterval)
         {
             TakeDamage(hpDecreaseAmount);
             decreaseTimer = 0f;
@@ -61,7 +62,7 @@ public class Status : MonoBehaviour
     }
 
     // 0.1초마다 주변 충돌 감지
-    void HandleCollisionDetection()             
+    void HandleCollisionDetection()
     {
         detectTimer += Time.deltaTime;                  // 타이머 증가
         if (detectTimer >= detectInterval)              // 0.1초가 지났다면
@@ -90,7 +91,7 @@ public class Status : MonoBehaviour
 
                         float scaledScore = baseCoinScore;
                         GameManager.Instance.Score += scaledScore;
-                       //GameManager.Instance.SaveHighScore();
+                        //GameManager.Instance.SaveHighScore();
 
                         GameManager.Instance.AddCoin();
                         GameManager.Instance.AddScore(scaledScore);
@@ -129,9 +130,9 @@ public class Status : MonoBehaviour
 
         if (currentHP <= 0f)
         {
-        isDead = true; // 죽음 처리
-        OnDie?.Invoke();
-        Die();
+            isDead = true; // 죽음 처리
+            OnDie?.Invoke();
+            Die();
         }
     }
 
@@ -146,18 +147,26 @@ public class Status : MonoBehaviour
     //사망 처리 (조작 정지 + GameManager 호출)
     private void Die()
     {
-        Debug.Log("플레이어 사망! 게임 오버 처리 진행");
-        // 게임 종료 처리
+        Debug.Log("플레이어 사망! Die 애니메이션 실행");
 
         if (animator != null)
-            Debug.Log("Animator에 Die Trigger 전달!");
             animator.SetTrigger("Die");
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.GameOver();
+        // 게임 정지용 플래그는 즉시 설정 → 맵, 오브젝트 정지
+        GameManager.Instance.IsGameOver = true;
 
+        // GameOver는 애니메이션 재생 후 지연 호출
+        StartCoroutine(WaitAndGameOver(2.18f)); // 애니메이션 길이에 맞게 조절
+
+        // 조작 정지
         if (TryGetComponent<Player>(out var player))
-            player.enabled = false;// 조작 정지
+            player.enabled = false;
+    }
+    
+    private IEnumerator WaitAndGameOver(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay); // TimeScale 영향 없음
+        GameManager.Instance.GameOver();
     }
 
     // 씬에서 감지 반경 시각화
