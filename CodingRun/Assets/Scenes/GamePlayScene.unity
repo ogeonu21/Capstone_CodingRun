@@ -3142,7 +3142,7 @@ RectTransform:
   m_GameObject: {fileID: 1020755308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2080826636}
@@ -4339,8 +4339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a12a8922a31d742a45c6b9b08a59ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameCoinText: {fileID: 1911713}
-  scoreText: {fileID: 1883942510}
+  inGameCoinText: {fileID: 1020755310}
+  scoreText: {fileID: 529704851}
   totalCoinText: {fileID: 0}
   hpFillImage: {fileID: 2066444169}
 --- !u!1 &1535147865
@@ -5576,7 +5576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 719.00006, y: 1544}
+  m_AnchoredPosition: {x: 718.99994, y: 1544.0001}
   m_SizeDelta: {x: 700, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1867263786
@@ -6610,7 +6610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 719, y: 1361}
+  m_AnchoredPosition: {x: 718.99994, y: 1361.0001}
   m_SizeDelta: {x: 700, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2080826637
