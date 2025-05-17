@@ -64,9 +64,10 @@ public class CanvasManager : MonoBehaviour
         pausedPanel.SetActive(false);
     }
 
-    public void OnClickRestart(){
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public void OnClickRestart()
+    {
+        
+        StartCoroutine(RestartSceneSafely());
     }
 
     public void OnClickGoToMain(){
@@ -77,21 +78,38 @@ public class CanvasManager : MonoBehaviour
     public void ExitGame(){
         Application.Quit();
     }
+    
+    private IEnumerator RestartSceneSafely()
+    {
+        Time.timeScale = 1f;
 
-    public void OverlayScene(string sceneName){
+        // GameManager 등 싱글톤이 파괴되지 않도록 관리하려면 필요 시 Destroy 해도 됨
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+        }
+
+        // 혹시 모르니 1 프레임 대기
+        yield return null;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OverlayScene(string sceneName)
+    {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         StartCoroutine(InitUI());
         IEnumerator InitUI()
         {
             // 씬 로딩이 완료될 때까지 더 오래 기다립니다
             yield return new WaitForSeconds(0.5f);
-            
+
             // 씬이 제대로 로드되었는지 확인
             Scene loadedScene = SceneManager.GetSceneByName(sceneName);
             if (loadedScene.isLoaded)
             {
                 Debug.Log($"Scene {sceneName} loaded successfully");
-                
+
                 // Quiz 컴포넌트를 찾아서 초기화 상태 확인
                 Quiz[] quizzes = FindObjectsOfType<Quiz>();
                 if (quizzes.Length > 0)

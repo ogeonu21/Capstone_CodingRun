@@ -124,8 +124,27 @@ public class GameManager : MonoSingleton<GameManager>
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
 
-        //HPUI
-        uiManager.Bind(playerStatus);
+        // UIManager 자동 연결
+        if (uiManager == null)
+        {
+            uiManager = FindObjectOfType<UIManager>();
+            if (uiManager == null)
+                Debug.LogError("UIManager를 찾을 수 없습니다!");
+        }
+
+        // Status 자동 연결
+        if (playerStatus == null)
+        {
+            playerStatus = FindObjectOfType<Status>();
+            if (playerStatus == null)
+                Debug.LogError("Status를 찾을 수 없습니다!");
+        }
+
+        // HP UI 바인딩
+        if (uiManager != null && playerStatus != null)
+        {
+            uiManager.Bind(playerStatus);
+        }
         //SignGooglePlayGames(true);
     }
 

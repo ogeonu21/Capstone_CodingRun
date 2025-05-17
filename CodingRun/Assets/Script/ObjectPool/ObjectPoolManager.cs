@@ -17,11 +17,13 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null){
+        if (Instance == null)
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else {
+        else
+        {
             Destroy(gameObject);
         }
     }
@@ -32,11 +34,12 @@ public class ObjectPoolManager : MonoBehaviour
 
         //테스트 예제 (obj를 받을때 MonoBehaviour로 받음음)
         //MonoBehaviour obj = GetObject(ObjectType.COIN);
-        
+
     }
 
-    
-    private void InitPoolsFromList() {
+
+    private void InitPoolsFromList()
+    {
         foreach (PoolData data in poolDataList)
         {
             if (!data.prefab.TryGetComponent(out MonoBehaviour component))
@@ -78,4 +81,5 @@ public class ObjectPoolManager : MonoBehaviour
         if (value == null) return;
         value.ReturnObject(obj);
     }
+    
 }
