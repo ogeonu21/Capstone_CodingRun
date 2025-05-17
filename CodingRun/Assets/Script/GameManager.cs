@@ -66,6 +66,9 @@ public class GameManager : MonoSingleton<GameManager>
 
     public float HighScore { get; private set; }
 
+    // --- 점수 관련 ---
+    private float pointPerSec = 3.1f;
+
     // --- 타이머 관련 ---
     private float startTime;
     private float timer;
@@ -166,7 +169,8 @@ public class GameManager : MonoSingleton<GameManager>
             // 게임이 멈춰 있으면 timer 도 멈춥니다.
             timer = Time.time - startTime;
             //Debug.Log($"진행 시간: {timer:F2}초");
-            float pointPerSec = timer * 0.000314f;
+            // 2025.05.18 : 오건우
+            // -> 기존 점수 증가 체계가 미미하여 점수 증가량을 고정값으로 변경. 
             Score += pointPerSec * Time.deltaTime;
             //Debug.Log($"score : {Score:F10}");
         }
@@ -297,9 +301,8 @@ public class GameManager : MonoSingleton<GameManager>
     
     public void GameOver()
     {
-        if (IsGameOver) return;
+        if (!IsGameOver) return;
 
-        IsGameOver = true;
         isTimerRunning = false;  // 타이머 정지
         Time.timeScale = 0f;     // 게임 시간 정지
 
@@ -314,7 +317,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
 
         // 게임오버 ui 출력 (ui 담당 정헌용 작성)
-        FindObjectOfType<Gameover>().ShowGameOverUI(GameManager.Instance.Score, GameManager.Instance.TotalCoin);
+        FindObjectOfType<Gameover>().ShowGameOverUI(GameManager.Instance.Score, GameManager.Instance.timer);
 
     }
 

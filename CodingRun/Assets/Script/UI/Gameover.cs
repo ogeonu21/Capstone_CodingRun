@@ -9,19 +9,15 @@ public class Gameover : MonoBehaviour
     [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI endCoinText;
 
-    private bool isGameOver = false;
 
-    public void ShowGameOverUI(float score, int coin)
+    public void ShowGameOverUI(float score, float time)
     {
-        if (isGameOver) return;
-
-        isGameOver = true;
 
         // UI 켜기
         endScreenCanvas.SetActive(true);
 
         // 텍스트 업데이트
         endScoreText.text = $"Score: {score:F1}";
-        endCoinText.text = $"Coin: {coin}";
+        endCoinText.text = $"Play Time: {time}";
     }
 }
