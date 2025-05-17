@@ -85,6 +85,9 @@ public class GameManager : MonoSingleton<GameManager>
     // --- HPUI 관련 ---
     [SerializeField] private Status playerStatus;
     [SerializeField] private UIManager uiManager;
+
+    // --- State 관련 ---
+    [SerializeField]private StageManager stageManager;
  
     // --- 구글 플레이 관련 ---
     [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
@@ -123,6 +126,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
+        GameStart();
+    }
+
+    private void GameStart()
+    {
         Debug.Log("Start 메소드 호출됨");
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
@@ -143,11 +151,19 @@ public class GameManager : MonoSingleton<GameManager>
                 Debug.LogError("Status를 찾을 수 없습니다!");
         }
 
+        if (stageManager == null)
+        {
+            stageManager = FindObjectOfType<StageManager>();
+            if (stageManager == null)
+                Debug.LogError("StageManager를 찾을 수 없습니다!");
+        }
+
         // HP UI 바인딩
         if (uiManager != null && playerStatus != null)
         {
             uiManager.Bind(playerStatus);
         }
+
         //SignGooglePlayGames(true);
     }
 
@@ -342,23 +358,27 @@ public class GameManager : MonoSingleton<GameManager>
 
     private IEnumerator HandleQuizTransitionWithDelay()
     {
-        // Panel 비활성화
-        quizManager.SetQuestionPanelActive(false);
-        
-        // 10초 대기
-        yield return new WaitForSeconds(3f); //3초 후 시작.
-        
-        // Panel 활성화 및 다음 문제 로드
-        quizManager.SetQuestionPanelActive(true);
-        quizManager.LoadNextQuestion();
-        
-        // 타이머 시작
-        Timer timer = FindObjectOfType<Timer>();
-        if (timer != null)
+        //Stage가 문제 Stage일때만 활성화
+        if (stageManager.getNowState() == StageState.QUESTION_STATE)
         {
-            timer.ResetTimer();
-            timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
-            timer.StartTimer();
+            // Panel 비활성화
+            quizManager.SetQuestionPanelActive(false);
+
+            // 10초 대기
+            yield return new WaitForSeconds(3f); //3초 후 시작.
+
+            // Panel 활성화 및 다음 문제 로드
+            quizManager.SetQuestionPanelActive(true);
+            quizManager.LoadNextQuestion();
+
+            // 타이머 시작
+            Timer timer = FindObjectOfType<Timer>();
+            if (timer != null)
+            {
+                timer.ResetTimer();
+                timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
+                timer.StartTimer();
+            }
         }
     }
 

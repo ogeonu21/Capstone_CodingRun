@@ -88,6 +88,16 @@ public class CanvasManager : MonoBehaviour
         {
             Destroy(GameManager.Instance.gameObject);
         }
+        if (ConfigManager.Instance != null)
+        {
+            Destroy(ConfigManager.Instance.gameObject);
+        }
+        if (ObjectPoolManager.Instance != null)
+        {
+            Destroy(ObjectPoolManager.Instance.gameObject);
+        }
+
+
 
         // 혹시 모르니 1 프레임 대기
         yield return null;
