@@ -298,19 +298,32 @@ public class GameManager : MonoSingleton<GameManager>
             Debug.LogError("리더보드 ID가 설정되지 않음");
             return;
         }
-        Debug.LogError("리더보드에 점수 제출 시도");
+        Debug.Log("리더보드에 점수 제출 시도");
 
         PlayGamesPlatform.Instance.ReportScore(score, leaderboardId, (success) => 
         {
             if (success)
             {
                 Debug.Log("점수 제출");
+                ShowLeaderboardUI();
             }
             else
             {
                 Debug.LogWarning("점수 제출 실패");
             }
         });
+    }
+
+    // 전체 리더보드 표시
+    public void ShowLeaderboardUI()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            Debug.LogWarning("로그인되지 않아 리더보드를 열 수 없습니다.");
+            return;
+        }
+
+        Social.ShowLeaderboardUI(); 
     }
 
     // 게임 종료 처리
