@@ -28,9 +28,16 @@ public class Status : MonoBehaviour
 
     private Animator animator;
 
+    private StageManager stageManager;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
+        stageManager = FindObjectOfType<StageManager>();
+        if (stageManager == null)
+        {
+            Debug.Log("Status: Scene에 StageManager가 없습니다. ");
+        }
     }
 
     void Start()
@@ -88,9 +95,11 @@ public class Status : MonoBehaviour
                         float baseCoinScore = ConfigManager.Instance.itemConfig.Coin.coinScore;
                         float growthRate = ConfigManager.Instance.itemConfig.Coin.growthRate;
                         float elapsedTime = Time.timeSinceLevelLoad;
-
-                        float scaledScore = baseCoinScore;
-                        GameManager.Instance.Score += scaledScore;
+                        int cycle = stageManager != null ? stageManager.cycleNum : 5;
+                        Debug.Log($"cycle = {cycle:F1}");
+                        float multiplier = Mathf.Min(1.0f + 0.1f * cycle, 2.0f);
+                        float scaledScore = Mathf.RoundToInt(baseCoinScore * multiplier);
+                        // GameManager.Instance.Score += scaledScore;
                         //GameManager.Instance.SaveHighScore();
 
                         GameManager.Instance.AddCoin();
@@ -162,7 +171,7 @@ public class Status : MonoBehaviour
         if (TryGetComponent<Player>(out var player))
             player.enabled = false;
     }
-    
+
     private IEnumerator WaitAndGameOver(float delay)
     {
         yield return new WaitForSecondsRealtime(delay); // TimeScale 영향 없음

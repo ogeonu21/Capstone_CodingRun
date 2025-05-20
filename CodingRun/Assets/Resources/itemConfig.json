@@ -5,6 +5,6 @@
         "growthRate": 0.05
     },
     "Heart":{
-        "healAmount": 40
+        "healAmount": 25
     }
 }
