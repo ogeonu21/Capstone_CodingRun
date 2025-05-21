@@ -2322,9 +2322,9 @@ MonoBehaviour:
   - stageState: 1
     stateComponent: {fileID: 1670631027}
   nowState: 0
-  heartPerCycle: 2
+  heartPerCycle: 1
   cycleNum: 0
-  adjustTime: 5
+  adjustTime: 2
 --- !u!4 &827679460
 Transform:
   m_ObjectHideFlags: 0
@@ -3423,7 +3423,7 @@ MonoBehaviour:
   - {fileID: 3740140645609830722, guid: b852fdef071f0f14e9fb7e668ba6a144, type: 3}
   loadNum: 6
   delayDistance: 5
-  startPos: {x: 0, y: 0, z: -2}
+  startPos: {x: 0, y: 0, z: -5}
   roads: {fileID: 627284742}
 --- !u!4 &1031756196
 Transform:
@@ -5401,7 +5401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1828077050
 Transform:
   m_ObjectHideFlags: 0

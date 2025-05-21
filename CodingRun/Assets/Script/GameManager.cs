@@ -361,37 +361,29 @@ public class GameManager : MonoSingleton<GameManager>
 
         if (quizManager != null)
         {
-            StartCoroutine(HandleQuizTransitionWithDelay());
+                //Stage가 문제 Stage일때만 활성화
+            if (stageManager.getNowState() == StageState.QUESTION_STATE)
+            {
+                // Panel 비활성화
+                quizManager.SetQuestionPanelActive(false);
+
+                // Panel 활성화 및 다음 문제 로드
+                quizManager.SetQuestionPanelActive(true);
+                quizManager.LoadNextQuestion();
+
+                // 타이머 시작
+                Timer timer = FindObjectOfType<Timer>();
+                if (timer != null)
+                {
+                    timer.ResetTimer();
+                    timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
+                    timer.StartTimer();
+                }
+            }
         }
         else
         {
             Debug.LogError("퀴즈 매니저가 없어서 전환을 처리할 수 없습니다!");
-        }
-    }
-
-    private IEnumerator HandleQuizTransitionWithDelay()
-    {
-        //Stage가 문제 Stage일때만 활성화
-        if (stageManager.getNowState() == StageState.QUESTION_STATE)
-        {
-            // Panel 비활성화
-            quizManager.SetQuestionPanelActive(false);
-
-            // 10초 대기
-            yield return new WaitForSeconds(3f); //3초 후 시작.
-
-            // Panel 활성화 및 다음 문제 로드
-            quizManager.SetQuestionPanelActive(true);
-            quizManager.LoadNextQuestion();
-
-            // 타이머 시작
-            Timer timer = FindObjectOfType<Timer>();
-            if (timer != null)
-            {
-                timer.ResetTimer();
-                timer.SetQuestionTime(quizManager.GetCurrentQuestionTimeLimit());
-                timer.StartTimer();
-            }
         }
     }
 

@@ -161,21 +161,33 @@ public class StageManager : MonoBehaviour
         nowState = state;
         currentBehaviour?.Exit();    // 이전 상태 마무리
         currentBehaviour = nextState; // 새 상태로 변경
-        currentBehaviour.Enter();     // 새 상태 진입
+
+        TimerExtension.StartTimer(adjustTime, () => currentBehaviour.Enter());     // 새 상태 진입
     }
 
-    private void IncreaseSpeed(float amount, float maxSpeed) {
+    public void SpawnHeart()
+    {
+        if (cycleNum % heartPerCycle == 0)
+        {
+            SpawnItem(ObjectType.HEART, spawnPoints[Random.Range(0,3)]+new Vector3(0,0,-5), items);
+        }
+    }
+
+    private void IncreaseSpeed(float amount, float maxSpeed)
+    {
         //속도 증가함수
         StartCoroutine(IncreaseSpeed(amount, maxSpeed));
 
-        IEnumerator IncreaseSpeed(float amount, float maxSpeed) {
-            while (true /*이 부분 GameManager와 합의의*/) {
+        IEnumerator IncreaseSpeed(float amount, float maxSpeed)
+        {
+            while (true /*이 부분 GameManager와 합의의*/)
+            {
                 if (objectSpeed >= maxSpeed) yield break;
 
-            objectSpeed += amount;
-            MapLoader.instance.moveSpeed += amount;
-            
-            yield return new WaitForSeconds(0.5f);
+                objectSpeed += amount;
+                MapLoader.instance.moveSpeed += amount;
+
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
