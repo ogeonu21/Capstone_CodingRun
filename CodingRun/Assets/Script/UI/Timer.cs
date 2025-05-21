@@ -22,9 +22,12 @@ public class Timer : MonoBehaviour
     private bool isPaused = false;  // 일시정지 상태를 나타내는 변수 추가
     private bool isQuizTime = false; // 퀴즈 시간인지 여부를 나타내는 변수 추가
 
-
     void Update()
     {
+        // 게임 오버 상태이거나 퀴즈 시간이 아닐 때는 타이머 업데이트 하지 않음
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+        if (!isQuizTime) return;
+
         UpdateTimer();
         CheckTimeScale();  // Time.timeScale 체크
     }
@@ -43,6 +46,7 @@ public class Timer : MonoBehaviour
     public void ResetTimer()
     {
         timerValue = timeToCompleteQuestion;  // 타이머 값을 초기화
+        timeUp = false;
     }
 
     // 타이머를 시작합니다.
