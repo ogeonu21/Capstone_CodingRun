@@ -28,6 +28,7 @@ public class Status : MonoBehaviour
 
     private Animator animator;
 
+    private StageManager stageManager;
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -93,9 +94,11 @@ public class Status : MonoBehaviour
                         float baseCoinScore = ConfigManager.Instance.itemConfig.Coin.coinScore;
                         float growthRate = ConfigManager.Instance.itemConfig.Coin.growthRate;
                         float elapsedTime = Time.timeSinceLevelLoad;
-
-                        float scaledScore = baseCoinScore;
-                        GameManager.Instance.Score += scaledScore;
+                        int cycle = stageManager != null ? stageManager.cycleNum : 0;
+                        Debug.Log($"cycle = {cycle:F1}");
+                        float multiplier = Mathf.Min(1.0f + 0.1f * cycle, 2.5f);
+                        float scaledScore = Mathf.RoundToInt(baseCoinScore*multiplier);
+                        // GameManager.Instance.Score += scaledScore;
                         //GameManager.Instance.SaveHighScore();
 
                         GameManager.Instance.AddCoin();
