@@ -10,7 +10,7 @@ public class QuestionState : MonoBehaviour, IStageState
     private Timer timer = null;
     private StageManager manager = null;
 
-    private void Awake() {
+    private void Start() {
         timer = FindObjectOfType<Timer>();
         manager = FindAnyObjectByType<StageManager>();
     }

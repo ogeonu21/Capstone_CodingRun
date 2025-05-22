@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class ObjectPoolManager : MonoBehaviour
     private Dictionary<ObjectType, IObjectPool> pools = new();
 
     public static ObjectPoolManager Instance;
+
+    private ObjectPool<MonoBehaviour> pool;
 
     private void Awake()
     {
@@ -30,15 +33,13 @@ public class ObjectPoolManager : MonoBehaviour
 
     void Start()
     {
-        InitPoolsFromList();
-
         //테스트 예제 (obj를 받을때 MonoBehaviour로 받음음)
         //MonoBehaviour obj = GetObject(ObjectType.COIN);
 
     }
 
 
-    private void InitPoolsFromList()
+    public void InitPoolsFromList()
     {
         foreach (PoolData data in poolDataList)
         {
@@ -52,7 +53,7 @@ public class ObjectPoolManager : MonoBehaviour
             MonoBehaviour comp = data.prefab.GetComponent<MonoBehaviour>();
 
             // ObjectPool<MonoBehaviour>로 처리
-            var pool = new ObjectPool<MonoBehaviour>(comp);
+            pool = new ObjectPool<MonoBehaviour>(comp);
             pool.InitObjectPool(data.amount, comp);
 
             if (!pools.ContainsKey(type))
@@ -60,6 +61,14 @@ public class ObjectPoolManager : MonoBehaviour
                 pools.Add(type, pool);
             }
         }
+    }
+
+    public void ClearPool()
+    {
+        if (pool == null) return;
+        Debug.Log("ClearPool 실행됨 !!!!!!!!!!!!!!!!!!!! Count : "+pool.objectPool.Count);
+        while (pool.objectPool.Count > 0) pool.objectPool.Dequeue();
+        Debug.Log("ClearPool 다 실행됨!!!!!!!!!!!!!!!!!! Count : "+pool.objectPool.Count);
     }
 
     public MonoBehaviour GetObject(ObjectType type)

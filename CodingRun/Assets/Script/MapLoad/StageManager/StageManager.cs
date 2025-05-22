@@ -57,14 +57,28 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         stateDict = stateDatas.ToDictionary(data => data.stageState, data => data.stateComponent);
-        
+
+        InitObjectPool();
+
         nowState = StageState.OBSTACLE_STATE;
         ChangeState(nowState);
         //IncreaseSpeed(0.01f, 15f);
     }
 
-    private void SetSpawnPoint() {
-        if (!(spawnPoint1&spawnPoint2&spawnPoint3)) {Debug.LogError("SpawnPoint is not assigned!"); return;}
+    void OnDestroy()
+    {
+        if (spawnCoroutine != null) StopSpawn();
+    }
+
+    private void InitObjectPool()
+    {
+        ObjectPoolManager.Instance.ClearPool();
+        ObjectPoolManager.Instance.InitPoolsFromList();
+    }   
+
+    private void SetSpawnPoint()
+    {
+        if (!(spawnPoint1 & spawnPoint2 & spawnPoint3)) { Debug.LogError("SpawnPoint is not assigned!"); return; }
         spawnPoints[0] = spawnPoint1.position;
         spawnPoints[1] = spawnPoint2.position;
         spawnPoints[2] = spawnPoint3.position;

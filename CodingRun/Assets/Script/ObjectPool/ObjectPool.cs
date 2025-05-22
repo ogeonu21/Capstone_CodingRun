@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectPool<T> : IObjectPool where T : MonoBehaviour
 {
-    private readonly Queue<T> objectPool = new Queue<T>();
+    public readonly Queue<T> objectPool = new Queue<T>();
     private readonly T prefab;
 
     public ObjectPool(T prefab)
@@ -22,16 +22,23 @@ public class ObjectPool<T> : IObjectPool where T : MonoBehaviour
     }
 
     public MonoBehaviour GetObject()
+{
+    while (objectPool.Count > 0)
     {
-        if (objectPool.Count > 0)
+        T obj = objectPool.Dequeue();
+        if (obj != null && !obj.Equals(null))
         {
-            T obj = objectPool.Dequeue();
             obj.gameObject.SetActive(true);
             return obj;
         }
-
-        return Object.Instantiate(prefab);
+        
+        Debug.LogWarning($"[ObjectPool<{typeof(T).Name}>] Destroy된 오브젝트가 큐에 있었음. 제거됨.");
     }
+
+    T newObj = Object.Instantiate(prefab);
+    return newObj;
+}
+
 
     public void ReturnObject(MonoBehaviour obj)
     {

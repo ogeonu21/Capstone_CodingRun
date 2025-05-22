@@ -11,7 +11,7 @@ public class ObstacleState : MonoBehaviour, IStageState
     [Range(1f, 30f)]
     public float obstacleDuration = 10f;
 
-    private void Awake() {
+    private void Start() {
         manager = FindObjectOfType<StageManager>();
     }
 
