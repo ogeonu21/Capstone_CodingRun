@@ -66,7 +66,18 @@ public class CanvasManager : MonoBehaviour
 
     public void OnClickRestart()
     {
-        
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+        }
+        if (ConfigManager.Instance != null)
+        {
+            Destroy(ConfigManager.Instance.gameObject);
+        }
+        if (ObjectPoolManager.Instance != null)
+        {
+            Destroy(ObjectPoolManager.Instance.gameObject);
+        }
         StartCoroutine(RestartSceneSafely());
     }
 

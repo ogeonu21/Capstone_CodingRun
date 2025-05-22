@@ -335,7 +335,7 @@ public class GameManager : MonoSingleton<GameManager>
         isTimerRunning = false;  // 타이머 정지
         Time.timeScale = 0f;     // 게임 시간 정지
 
-        //SaveHighScore();
+        SaveHighScore();
         Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
 
         // 모든 Rigidbody 일시정지
