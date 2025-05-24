@@ -22,7 +22,7 @@ public class Gameover : MonoBehaviour
 
         // 텍스트 업데이트
         endScoreText.text = $"Score: {score:F1}";
-        endCoinText.text = $"Play Time: {time}";//(코인 출력하실때 이 코드 주석 처리하면 됩니다)
+        endCoinText.text = $"Playtime: {Mathf.RoundToInt(time)}s";//(코인 출력하실때 이 코드 주석 처리하면 됩니다)
      //endCoinText.text = $"Coin: {coin}"; //코인 출력하게 싶다면 이 코드 주석 해제하고 위 코드도 주석 해제하면 됩니다 (5월18일 ui 정헌용 작성)
 
       
