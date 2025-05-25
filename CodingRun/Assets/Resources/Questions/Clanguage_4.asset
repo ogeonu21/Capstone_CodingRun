@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 0
   question: "\uBE44\uD2B8 \uC5F0\uC0B0\uC790 | \uC758 \uC758\uBBF8\uB294?"
   answers:
-  - 1. AND
-  - 2. OR
-  - 3. XOR
+  - AND
+  - OR
+  - XOR
   correctAnswerIndex: 1

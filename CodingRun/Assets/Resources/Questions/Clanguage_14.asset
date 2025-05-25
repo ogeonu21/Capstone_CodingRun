@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "C\uC5B8\uC5B4\uC5D0\uC11C \uBCC0\uC218\uC758 \uAC12\uC744 \uC800\uC7A5\uD558\uB294
     \uACF5\uAC04\uC744 \uC694\uCCAD\uD560 \uB54C \uC0AC\uC6A9\uD558\uB294 \uD568\uC218\uB294?"
   answers:
-  - 1. printf
-  - 2. malloc
-  - 3. scanf
+  - printf
+  - malloc
+  - scanf
   correctAnswerIndex: 1

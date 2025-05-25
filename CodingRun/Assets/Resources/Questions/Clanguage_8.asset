@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "\uB2E4\uC74C \uC911 \uC870\uAC74\uBB38\uC5D0 \uD574\uB2F9\uD558\uC9C0
     \uC54A\uB294 \uAC83\uC740?"
   answers:
-  - 1. if
-  - 2. while
-  - 3. switch
+  - if
+  - while
+  - switch
   correctAnswerIndex: 1

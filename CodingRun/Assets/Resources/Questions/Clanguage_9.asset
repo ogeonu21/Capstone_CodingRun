@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 0
   question: "\uB2E4\uC74C \uC911 \uBC18\uBCF5\uBB38\uC774 \uC544\uB2CC \uAC83\uC740?"
   answers:
-  - 1. for
-  - 2. do-while
-  - 3. goto
+  - for
+  - do-while
+  - goto
   correctAnswerIndex: 2

@@ -18,7 +18,7 @@ MonoBehaviour:
     \uBC0F \uB808\uC774\uBE14\uC5D0 \uC81C\uACF5\uD558\uB294 \uC774\uB984\uC744 \uC758\uBBF8\uD558\uB294
     \uC6A9\uC5B4\uB294?"
   answers:
-  - "1. \uC0C1\uC218"
-  - "2. \uC2DD\uBCC4\uC790"
-  - "3. \uC608\uC57D\uC5B4"
+  - "\uC0C1\uC218"
+  - "\uC2DD\uBCC4\uC790"
+  - "\uC608\uC57D\uC5B4"
   correctAnswerIndex: 1

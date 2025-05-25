@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "\uB2E4\uC74C \uC911 \uC2E4\uC218 \uC790\uB8CC\uD615\uC774 \uC544\uB2CC
     \uAC83\uC740?"
   answers:
-  - 1. int
-  - 2. float
-  - 3. double
+  - int
+  - float
+  - double
   correctAnswerIndex: 0

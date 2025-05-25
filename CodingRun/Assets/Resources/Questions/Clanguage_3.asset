@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionNumber: 3
   difficulty: 0
-  question: "\uB2E4\uC74C \uC911 \uC0B0\uC220 \uC5F0\uC0B0\uC790\uAC00 \uC544\uB2CC
+  question: "\uB2E4\uC74C \uC911 \uC0B0\uC218 \uC5F0\uC0B0\uC790\uAC00 \uC544\uB2CC
     \uAC83\uC740?"
   answers:
-  - 1. +
-  - 2. %
-  - 3. =
+  - +
+  - %
+  - =
   correctAnswerIndex: 2

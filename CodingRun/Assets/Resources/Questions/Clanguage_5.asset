@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "\uB2E4\uC74C \uC911 C\uC5B8\uC5B4\uC758 \uC778\uCF54\uB529 \uBC29\uC2DD\uC774
     \uC544\uB2CC \uAC83\uC740?"
   answers:
-  - 1. ASCII
-  - 2. UTF-8
-  - 3. Base64
+  - ASCII
+  - UTF-8
+  - Base64
   correctAnswerIndex: 2

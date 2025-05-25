@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "\uB2E4\uC74C \uC911 int \uD3EC\uC778\uD130\uAC00 \uAC00\uB9AC\uD0A4\uB294
     \uAC12\uC744 1 \uC99D\uAC00\uC2DC\uD0A4\uB294 \uBB38\uC7A5\uC740?"
   answers:
-  - 1. *p++;
-  - 2. (*p)++;
-  - 3. *++p;
+  - *p++;
+  - (*p)++;
+  - *++p;
   correctAnswerIndex: 1

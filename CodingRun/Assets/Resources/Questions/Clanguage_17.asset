@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 1
   question: "int arr[5] = {1,2,3,4,5}; \uC5D0\uC11C arr[1]\uC758 \uAC12\uC740?"
   answers:
-  - 1. 1
-  - 2. 2
-  - 3. 3
+  - 1
+  - 2
+  - 3
   correctAnswerIndex: 1

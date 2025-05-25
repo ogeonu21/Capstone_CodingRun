@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "\uB2E4\uC74C \uC911 \uD3EC\uC778\uD130 \uC120\uC5B8\uC73C\uB85C \uC62C\uBC14\uB978
     \uAC83\uC740?"
   answers:
-  - 1. int *p;
-  - 2. int p;
-  - 3. int &p;
+  - int *p;
+  - int p;
+  - int &p;
   correctAnswerIndex: 0

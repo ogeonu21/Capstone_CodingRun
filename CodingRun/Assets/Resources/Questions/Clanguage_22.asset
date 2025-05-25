@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 2
   question: "int arr[5] = {1}; \uC120\uC5B8 \uD6C4 arr[2]\uC758 \uAC12\uC740?"
   answers:
-  - 1. 0
-  - 2. 1
-  - "3. \uC4F0\uB808\uAE30\uAC12"
+  - 0
+  - 1
+  - "\uC4F0\uB808\uAE30\uAC12"
   correctAnswerIndex: 0

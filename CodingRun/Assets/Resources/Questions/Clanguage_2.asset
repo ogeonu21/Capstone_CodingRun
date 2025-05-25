@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 0
   question: "\uB2E4\uC74C \uC911 \uC608\uC57D\uC5B4\uAC00 \uC544\uB2CC \uAC83\uC740?"
   answers:
-  - 1. const
-  - 2. function
-  - 3. void
+  - const
+  - function
+  - void
   correctAnswerIndex: 1

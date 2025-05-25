@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionNumber: 27
   difficulty: 2
-  question: "#define PI 3.14\uC5D0\uC11C PI\uB294 \uC5B4\uB5A4 \uC885\uB958\uC758
-    \uC2DD\uBCC4\uC790\uC778\uAC00?"
+  question: "\uB2E4\uC74C \uC911 \uC815\uC218\uD615 \uBCC0\uC218\uC758 \uC0C1\uC218\uB97C
+    \uC0AC\uC6A9\uD558\uB294 \uC5F0\uC0B0\uC790\uB294?"
   answers:
-  - "1. \uC0C1\uC218 \uBCC0\uC218"
-  - "2. \uB9E4\uD06C\uB85C \uC0C1\uC218"
-  - "3. \uC804\uC5ED \uBCC0\uC218"
+  - /
+  - %
+  - &
   correctAnswerIndex: 1

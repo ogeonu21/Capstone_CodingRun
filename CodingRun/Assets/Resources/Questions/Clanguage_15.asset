@@ -17,7 +17,7 @@ MonoBehaviour:
   question: "scanf \uD568\uC218\uC5D0\uC11C \uAC12\uC744 \uC785\uB825\uBC1B\uC744
     \uB54C \uC0AC\uC6A9\uD558\uB294 \uC5F0\uC0B0\uC790\uB294?"
   answers:
-  - 1. &
-  - 2. *
-  - 3. %
+  - &
+  - *
+  - %
   correctAnswerIndex: 0

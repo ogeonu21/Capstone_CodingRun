@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 0
   question: "float \uC790\uB8CC\uD615\uC758 \uAE30\uBCF8 \uBC14\uC774\uD2B8 \uD06C\uAE30\uB294?"
   answers:
-  - "1. 2\uBC14\uC774\uD2B8"
-  - "2. 4\uBC14\uC774\uD2B8"
-  - "3. 8\uBC14\uC774\uD2B8"
+  - "2\uBC14\uC774\uD2B8"
+  - "4\uBC14\uC774\uD2B8"
+  - "8\uBC14\uC774\uD2B8"
   correctAnswerIndex: 1

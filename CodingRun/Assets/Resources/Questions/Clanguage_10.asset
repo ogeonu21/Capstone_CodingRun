@@ -16,7 +16,7 @@ MonoBehaviour:
   difficulty: 0
   question: "#include <stdio.h>\uC758 \uC758\uBBF8\uB294?"
   answers:
-  - "1. \uC0AC\uC6A9\uC790 \uD568\uC218 \uC815\uC758"
-  - "2. \uD5E4\uB354 \uD30C\uC77C \uD3EC\uD568"
-  - "3. \uBA54\uBAA8\uB9AC \uB3D9\uC801 \uD560\uB2F9"
+  - "\uC0AC\uC6A9\uC790 \uD568\uC218 \uC815\uC758"
+  - "\uD5E4\uB354 \uD30C\uC77C \uD3EC\uD568"
+  - "\uBA54\uBAA8\uB9AC \uB3D9\uC801 \uD560\uB2F9"
   correctAnswerIndex: 1
