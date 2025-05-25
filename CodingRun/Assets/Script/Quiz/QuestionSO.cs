@@ -98,6 +98,19 @@ public class QuestionSO : ScriptableObject
         return correctAnswerIndex;
     }
 
+    // 정답 인덱스를 설정합니다.
+    public void SetCorrectIndex(int newIndex)
+    {
+        if (newIndex >= 0 && newIndex < answers.Length)
+        {
+            correctAnswerIndex = newIndex;
+        }
+        else
+        {
+            Debug.LogWarning($"정답 인덱스 설정 실패: 유효하지 않은 인덱스 ({newIndex})");
+        }
+    }
+
     // 문제 난이도를 반환합니다.
     public QuestionDifficulty GetDifficulty()
     {

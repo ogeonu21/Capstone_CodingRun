@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;  // LINQ 사용을 위한 네임스페이스 추가
 
 // 퀴즈 시스템 관리자
 // 문제 출제, 타이머 관리, UI 표시 담당
@@ -329,19 +330,45 @@ public class Quiz : MonoBehaviour
         if (currentQuestion == null || answerTexts == null) return;
         
         string[] answers = currentQuestion.GetAnswers();
-        Debug.Log("선택지 : "+answers[0]+", "+answers[1]+", "+answers[2]);
+        int correctIndex = currentQuestion.GetCorrectIndex();
+        
+        // 답안과 인덱스를 함께 저장할 리스트 생성
+        List<(string answer, int originalIndex)> answerList = new List<(string, int)>();
+        for (int i = 0; i < answers.Length; i++)
+        {
+            answerList.Add((answers[i], i));
+        }
+        
+        // 답안 순서 섞기
+        for (int i = answerList.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            var temp = answerList[i];
+            answerList[i] = answerList[randomIndex];
+            answerList[randomIndex] = temp;
+        }
+        
+        // 섞인 순서로 답안 표시
         for (int i = 0; i < answerTexts.Length; i++)
         {
-            if (i < answers.Length)
+            if (i < answerList.Count)
             {
-                answerTexts[i].text = answers[i];
+                answerTexts[i].text = answerList[i].answer;
                 answerTexts[i].gameObject.SetActive(true);
+                
+                // 정답 인덱스 업데이트
+                if (answerList[i].originalIndex == correctIndex)
+                {
+                    currentQuestion.SetCorrectIndex(i);
+                }
             }
             else
             {
                 answerTexts[i].gameObject.SetActive(false);
             }
         }
+        
+        Debug.Log($"섞인 선택지: {string.Join(", ", answerList.Select(x => x.answer))}");
     }
 
     // 퀴즈 종료
