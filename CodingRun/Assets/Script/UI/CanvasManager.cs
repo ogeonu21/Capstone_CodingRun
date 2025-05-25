@@ -56,12 +56,36 @@ public class CanvasManager : MonoBehaviour
         pausedPanel.SetActive(true);
         canvasStack.Push(pausedPanel);
 
+        // 문제 스테이지이고 게임 오버가 아닐 때만 문제 패널 비활성화
+        if (GameManager.Instance != null && GameManager.Instance.stageManager != null && !GameManager.Instance.IsGameOver)
+        {
+            if (GameManager.Instance.stageManager.getNowState() == StageState.QUESTION_STATE)
+            {
+                Quiz quiz = FindObjectOfType<Quiz>();
+                if (quiz != null)
+                {
+                    quiz.SetQuestionPanelActive(false);
+                }
+            }
+        }
     }
-
 
     public void OnclickResume(GameObject pausedPanel){
         Time.timeScale = 1f;
         pausedPanel.SetActive(false);
+
+        // 문제 스테이지이고 게임 오버가 아닐 때만 문제 패널 다시 활성화
+        if (GameManager.Instance != null && GameManager.Instance.stageManager != null && !GameManager.Instance.IsGameOver)
+        {
+            if (GameManager.Instance.stageManager.getNowState() == StageState.QUESTION_STATE)
+            {
+                Quiz quiz = FindObjectOfType<Quiz>();
+                if (quiz != null)
+                {
+                    quiz.SetQuestionPanelActive(true);
+                }
+            }
+        }
     }
 
     public void OnClickRestart()
