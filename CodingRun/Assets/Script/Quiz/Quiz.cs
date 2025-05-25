@@ -378,9 +378,9 @@ public class Quiz : MonoBehaviour
     {
         if (skipButton != null && currentQuestion != null)
         {
-            // Easy 난이도일 때는 버튼을 완전히 숨김
-            skipButton.gameObject.SetActive(currentQuestion.Difficulty != QuestionDifficulty.Easy);
-            Debug.Log($"Skip 버튼 {(skipButton.gameObject.activeSelf ? "표시" : "숨김")} (난이도: {currentQuestion.Difficulty})");
+            // 모든 난이도에서 Skip 버튼 표시
+            skipButton.gameObject.SetActive(true);
+            Debug.Log($"Skip 버튼 표시 (난이도: {currentQuestion.Difficulty})");
         }
         else
         {
@@ -526,9 +526,8 @@ public class Quiz : MonoBehaviour
     {
         if (skipButton != null && currentQuestion != null && timer != null)
         {
-            // Easy 난이도이거나 타이머가 2초 이하로 남았을 때, 또는 타이머가 끝났을 때는 버튼 숨김
-            bool shouldHide = currentQuestion.Difficulty == QuestionDifficulty.Easy || 
-                            timer.timerValue <= 2f ||
+            // 타이머가 2초 이하로 남았을 때, 또는 타이머가 끝났을 때는 버튼 숨김
+            bool shouldHide = timer.timerValue <= 2f ||
                             timer.timeUp ||
                             !timer.isAnsweringQuestion;  // 타이머가 실행 중이 아닐 때도 숨김
             
