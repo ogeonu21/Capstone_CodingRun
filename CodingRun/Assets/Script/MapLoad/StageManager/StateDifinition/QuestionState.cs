@@ -36,6 +36,11 @@ public class QuestionState : MonoBehaviour, IStageState
         }
     }
     private void StartQuiz() {
-        FindAnyObjectByType<GameManager>().HandleQuizTransition();
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager 인스턴스가 없습니다!");
+            return;
+        }
+        GameManager.Instance.HandleQuizTransition();
     }
 }

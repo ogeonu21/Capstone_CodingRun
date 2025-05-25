@@ -19,23 +19,17 @@ public class Timer : MonoBehaviour
     // 타이머 이벤트 추가
     public UnityEvent onTimeUp = new UnityEvent();
 
-    private bool isPaused = false;  // 일시정지 상태를 나타내는 변수 추가
-    private bool isQuizTime = false; // 퀴즈 시간인지 여부를 나타내는 변수 추가
-
     void Update()
     {
-        // 게임 오버 상태이거나 퀴즈 시간이 아닐 때는 타이머 업데이트 하지 않음
+        // 게임 오버 상태일 때는 타이머 업데이트 하지 않음
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
-        if (!isQuizTime) return;
 
         UpdateTimer();
-        CheckTimeScale();  // Time.timeScale 체크
     }
 
     public void CancelTimer(){
         timerValue = 0;
         isAnsweringQuestion = false;
-        isQuizTime = false;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetQuizPanelByTimerState(false);
@@ -56,7 +50,6 @@ public class Timer : MonoBehaviour
         ResetTimer();
 
         isAnsweringQuestion = true;
-        isQuizTime = true;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetQuizPanelByTimerState(true);
@@ -70,34 +63,9 @@ public class Timer : MonoBehaviour
         ResetTimer();
     }
 
-    // Time.timeScale 체크
-    private void CheckTimeScale()
-    {
-        if (Time.timeScale == 0f && !isPaused)
-        {
-            // 게임이 일시정지된 경우
-            isPaused = true;
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.SetQuizPanelByTimerState(false);
-            }
-            Debug.Log("게임 일시정지로 인한 타이머 일시정지");
-        }
-        else if (Time.timeScale == 1f && isPaused)
-        {
-            // 게임이 재개된 경우
-            isPaused = false;
-            if (GameManager.Instance != null && isQuizTime)
-            {
-                GameManager.Instance.SetQuizPanelByTimerState(true);
-            }
-            Debug.Log("게임 재개로 인한 타이머 재개");
-        }
-    }
-
     void UpdateTimer()
     {
-        if (isAnsweringQuestion && !isPaused)  // 일시정지 상태가 아닐 때만 타이머 감소
+        if (isAnsweringQuestion)  // 일시정지 상태가 아닐 때만 타이머 감소
         {
             timerValue -= Time.deltaTime;
             if (timerValue > 0)
@@ -107,12 +75,10 @@ public class Timer : MonoBehaviour
             else
             {
                 isAnsweringQuestion = false;
-                isQuizTime = false;
                 timeUp = true;
                 
                 // 타이머 종료 시 이벤트 발생
                 onTimeUp.Invoke();
-                Debug.Log("타이머 종료 이벤트 발생");
             }
         }
     }

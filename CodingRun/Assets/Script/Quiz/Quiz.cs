@@ -32,17 +32,8 @@ public class Quiz : MonoBehaviour
     {
         InitializeComponents();
         LoadQuestions();
-        ActivateQuestionCanvas();
-        ShowQuizUI();
-        // LoadNextQuestion();  // 첫 문제 로드
-
-        // 첫 문제 로드 후 타이머 시작
-        if (timer != null)
-        {
-            timer.ResetTimer();
-            timer.SetQuestionTime(GetCurrentQuestionTimeLimit());
-            timer.StartTimer();
-        }
+        // ActivateQuestionCanvas();  // 초기화 시점에는 캔버스를 활성화하지 않음
+        // ShowQuizUI();  // 초기화 시점에는 UI를 표시하지 않음
 
         // Skip 버튼 클릭 이벤트 연결
         if (skipButton != null)
@@ -54,6 +45,24 @@ public class Quiz : MonoBehaviour
     private void Start()
     {
         SubscribeToTimerEvents();
+        
+        // StageManager가 QUESTION_STATE일 때만 UI를 활성화
+        if (gameManager != null && gameManager.stageManager != null)
+        {
+            if (gameManager.stageManager.getNowState() == StageState.QUESTION_STATE)
+            {
+                ActivateQuestionCanvas();
+                ShowQuizUI();
+                
+                // 첫 문제 로드 후 타이머 시작
+                if (timer != null)
+                {
+                    timer.ResetTimer();
+                    timer.SetQuestionTime(GetCurrentQuestionTimeLimit());
+                    timer.StartTimer();
+                }
+            }
+        }
     }
 
     private void OnEnable()

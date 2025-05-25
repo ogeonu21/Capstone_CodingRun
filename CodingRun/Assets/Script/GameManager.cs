@@ -87,7 +87,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private UIManager uiManager;
 
     // --- State 관련 ---
-    [SerializeField]private StageManager stageManager;
+    [SerializeField] public StageManager stageManager;
  
     // --- 구글 플레이 관련 ---
     [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
@@ -361,7 +361,18 @@ public class GameManager : MonoSingleton<GameManager>
 
         if (quizManager != null)
         {
-                //Stage가 문제 Stage일때만 활성화
+            // StageManager가 없으면 찾아보기
+            if (stageManager == null)
+            {
+                stageManager = FindObjectOfType<StageManager>();
+                if (stageManager == null)
+                {
+                    Debug.LogError("StageManager를 찾을 수 없습니다!");
+                    return;
+                }
+            }
+
+            //Stage가 문제 Stage일때만 활성화
             if (stageManager.getNowState() == StageState.QUESTION_STATE)
             {
                 // Panel 비활성화
