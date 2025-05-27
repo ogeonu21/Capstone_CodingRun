@@ -32,15 +32,18 @@ public class Status : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
-        stageManager = FindObjectOfType<StageManager>();
-        if (stageManager == null)
-        {
-            Debug.Log("Status: Scene에 StageManager가 없습니다. ");
-        }
     }
 
     void Start()
     {
+        if (stageManager == null)
+        {
+            stageManager = FindAnyObjectByType<StageManager>();
+            if (stageManager == null)
+            {
+                Debug.Log("Status: Scene에 StageManager가 없습니다. ");
+            }
+        }
         currentHP = maxHP;
         OnHPChanged?.Invoke(currentHP, maxHP); // 초기 체력 상태 알림
     }
