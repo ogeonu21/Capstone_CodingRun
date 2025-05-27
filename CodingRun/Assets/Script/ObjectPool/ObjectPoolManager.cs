@@ -4,7 +4,7 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObjectPoolManager : MonoBehaviour
+public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 {
     [Header("Instant Amounts")]
     [Range(0, 100)] public int coinAmount = 30;
@@ -14,22 +14,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     private Dictionary<ObjectType, IObjectPool> pools = new();
 
-    public static ObjectPoolManager Instance;
-
     private ObjectPool<MonoBehaviour> pool;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Start()
     {
