@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
 
 // 1) 제네릭 MonoSingleton<T> 구현
@@ -90,7 +91,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] public StageManager stageManager;
  
     // --- 구글 플레이 관련 ---
-    [SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
+    //[SerializeField] private string leaderboardId = "CgkIvrSJ8r8EEAIQAA";
     
     // MonoSingleton 의 Awake 호출
     protected override void Awake()
@@ -132,6 +133,14 @@ public class GameManager : MonoSingleton<GameManager>
     private void GameStart()
     {
         Debug.Log("Start 메소드 호출됨");
+        
+        // 구글 플레이 게임즈 플랫폼 초기화
+        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
+
+        // 로그인 시도 (silent = 자동 로그인 시도)
+        SignGooglePlayGames(silent: true);
+
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
 
@@ -280,36 +289,17 @@ public class GameManager : MonoSingleton<GameManager>
             PlayerPrefs.Save();
             Debug.Log("새로운 최고 점수 저장: " + HighScore);
 
-            SubmitScoreToLeaderboard((long)HighScore);
+            RecordScore((long)HighScore, false);
         }
     }
 
-    // 구글 리더보드에 점수 제출
-    private void SubmitScoreToLeaderboard(long score)
+    // 점수 등록
+    public void RecordScore(long HighScore, bool UI = false)
     {
-        if(!IsSignedInToGooglePlayGames())
-        {
-            Debug.LogWarning("로그인 안됨");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(leaderboardId) || leaderboardId == "CgkIvrSJ8r8EEAIQAA")
-        {
-            Debug.LogError("리더보드 ID가 설정되지 않음");
-            return;
-        }
-        Debug.Log("리더보드에 점수 제출 시도");
-
-        PlayGamesPlatform.Instance.ReportScore(score, leaderboardId, (success) => 
-        {
+        PlayGamesPlatform.Instance.ReportScore(HighScore, GPGSIds.leaderboard_score, (bool success) => {
             if (success)
             {
-                Debug.Log("점수 제출");
-                ShowLeaderboardUI();
-            }
-            else
-            {
-                Debug.LogWarning("점수 제출 실패");
+                Debug.Log("Leader Good");
             }
         });
     }
@@ -323,7 +313,7 @@ public class GameManager : MonoSingleton<GameManager>
             return;
         }
 
-        Social.ShowLeaderboardUI(); 
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_score);
     }
 
     // 게임 종료 처리
