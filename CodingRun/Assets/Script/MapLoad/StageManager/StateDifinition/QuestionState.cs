@@ -27,13 +27,9 @@ public class QuestionState : MonoBehaviour, IStageState
 
     public void Exit()
     {
-        Debug.Log("문제 Stage Finished!!");
-        //State 전환될때 처리 로직
         FindAnyObjectByType<Quiz>().SetQuestionPanelActive(false);
-        if (manager.cycleNum % manager.heartPerCycle == 0)
-        {
-            manager.SpawnHeart();
-        }
+        manager.cycleNum++;
+        if (manager.cycleNum % manager.heartPerCycle == 0) manager.SpawnHeart();
     }
     private void StartQuiz() {
         if (GameManager.Instance == null)
