@@ -32,13 +32,13 @@ public class UIManager : MonoBehaviour
     void UpdateScore(float newScore)
     {
         if (scoreText != null)
-            scoreText.text = $"Score: {newScore:F1}";
+            scoreText.text = $"{newScore:F1}";
     }
 
     void UpdateInGameCoin(int newCoin)
     {
         if (inGameCoinText != null)
-            inGameCoinText.text = $"Coin: {newCoin}";
+            inGameCoinText.text = $"{newCoin}";
     }
 
     public void UpdateTotalCoin(int totalCoin)
