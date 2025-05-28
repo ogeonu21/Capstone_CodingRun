@@ -509,20 +509,34 @@ public class Quiz : MonoBehaviour
                 
                 playerStatus.TakeDamage(playerStatus.currentHP - newHealth);
                 Debug.Log($"오답! 체력 감소: {healthReductionRatio * 100}% (현재 체력: {newHealth:F0})");
+
+                // 체력이 5보다 클 경우에만 3초 지연 적용
+                if (newHealth > 5)
+                {
+                    // 3초 후에 상태 변경
+                    if (gameManager != null)
+                    {
+                        TimerExtension.StartTimer(3f, () => {
+                            gameManager.stageManager.ChangeState(StageState.OBSTACLE_STATE);
+                        });
+                    }
+                }
+                else
+                {
+                    // 체력이 5 이하일 경우 즉시 상태 변경
+                    if (gameManager != null)
+                    {
+                        gameManager.stageManager.ChangeState(StageState.OBSTACLE_STATE);
+                    }
+                }
             }
         }
 
-        // // 타이머 정지 (현재 주석 처리됨)
-        // if (timer != null)
-        // {
-        //     timer.isAnsweringQuestion = false;
-        // }
-
-        // // GameManager에게 다음 문제 전환을 알림 (현재 주석 처리됨)
-        // if (gameManager != null)
-        // {
-        //     gameManager.HandleQuizTransition();
-        // }
+        // 정답일 경우 즉시 상태 변경
+        if (isCorrect && gameManager != null)
+        {
+            gameManager.stageManager.ChangeState(StageState.OBSTACLE_STATE);
+        }
     }
     #endregion
 
@@ -545,6 +559,12 @@ public class Quiz : MonoBehaviour
     public float GetCurrentQuestionTimeLimit()
     {
         return currentQuestion?.GetTimeLimit() ?? 15f;  // 문제가 없으면 기본값 15초 반환
+    }
+
+    // 현재 문제의 정답 인덱스를 반환합니다.
+    public int GetCurrentQuestionCorrectIndex()
+    {
+        return currentQuestion?.GetCorrectIndex() ?? 0;  // 문제가 없으면 기본값 0 반환
     }
     #endregion
 
