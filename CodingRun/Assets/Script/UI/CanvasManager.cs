@@ -90,6 +90,12 @@ public class CanvasManager : MonoBehaviour
 
     public void OnClickRestart()
     {
+        
+        StartCoroutine(RestartSceneSafely());
+    }
+
+    public void OnClickGoToMain(){
+        Time.timeScale = 1f;
         if (GameManager.Instance != null)
         {
             Destroy(GameManager.Instance.gameObject);
@@ -102,11 +108,6 @@ public class CanvasManager : MonoBehaviour
         {
             Destroy(ObjectPoolManager.Instance.gameObject);
         }
-        StartCoroutine(RestartSceneSafely());
-    }
-
-    public void OnClickGoToMain(){
-        Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
     }
     
