@@ -11,7 +11,7 @@ public class Status : MonoBehaviour
 
     [Header("체력 자연 감소")]
     public float hpDecreaseInterval = 1f;
-    public float hpDecreaseAmount = 0.5f;
+    public float hpDecreaseAmount = 1f;
 
     [Header("충돌 판정")]
     public float detectRadius = 1.5f;
