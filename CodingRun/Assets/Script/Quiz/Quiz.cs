@@ -18,6 +18,8 @@ public class Quiz : MonoBehaviour
     [SerializeField]private GameObject questionPanel;                        // 문제 패널
     [SerializeField] private TextMeshProUGUI[] answerTexts;  // 답안 선택지 텍스트
     [SerializeField] private Button skipButton;              // Skip 버튼
+    [SerializeField] private TextMeshProUGUI feedbackText;   // 피드백 텍스트 UI
+    [SerializeField] private TextMeshProUGUI qText;          // Q 텍스트 UI
     #endregion
 
     #region 프라이빗 필드
@@ -513,10 +515,73 @@ public class Quiz : MonoBehaviour
                 // 체력이 5보다 클 경우에만 3초 지연 적용
                 if (newHealth > 5)
                 {
+                    // 문제 텍스트, 타이머, 답안 선택지, Q 텍스트 숨기고 피드백 텍스트 표시
+                    if (questionText != null && feedbackText != null)
+                    {
+                        // 문제 텍스트와 피드백 텍스트 전환
+                        questionText.gameObject.SetActive(false);
+                        feedbackText.gameObject.SetActive(true);
+                        feedbackText.text = $"오답입니다! 체력이 {healthReductionRatio * 100:F0}% 감소했습니다.";
+
+                        // 타이머 이미지 비활성화
+                        if (timerImage != null)
+                        {
+                            timerImage.gameObject.SetActive(false);
+                        }
+
+                        // 답안 선택지들 비활성화
+                        if (answerTexts != null)
+                        {
+                            foreach (var answerText in answerTexts)
+                            {
+                                if (answerText != null)
+                                {
+                                    answerText.gameObject.SetActive(false);
+                                }
+                            }
+                        }
+
+                        // Q 텍스트 비활성화
+                        if (qText != null)
+                        {
+                            qText.gameObject.SetActive(false);
+                        }
+                    }
+
                     // 3초 후에 상태 변경
                     if (gameManager != null)
                     {
                         TimerExtension.StartTimer(3f, () => {
+                            // 피드백 텍스트 숨기고 문제 텍스트, 타이머, 답안 선택지, Q 텍스트 다시 표시
+                            if (questionText != null && feedbackText != null)
+                            {
+                                feedbackText.gameObject.SetActive(false);
+                                questionText.gameObject.SetActive(true);
+
+                                // 타이머 이미지 활성화
+                                if (timerImage != null)
+                                {
+                                    timerImage.gameObject.SetActive(true);
+                                }
+
+                                // 답안 선택지들 활성화
+                                if (answerTexts != null)
+                                {
+                                    foreach (var answerText in answerTexts)
+                                    {
+                                        if (answerText != null)
+                                        {
+                                            answerText.gameObject.SetActive(true);
+                                        }
+                                    }
+                                }
+
+                                // Q 텍스트 활성화
+                                if (qText != null)
+                                {
+                                    qText.gameObject.SetActive(true);
+                                }
+                            }
                             gameManager.stageManager.ChangeState(StageState.OBSTACLE_STATE);
                         });
                     }
