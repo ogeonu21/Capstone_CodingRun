@@ -296,7 +296,7 @@ public class GameManager : MonoSingleton<GameManager>
     // 점수 등록
     public void RecordScore(long HighScore, bool UI = false)
     {
-        PlayGamesPlatform.Instance.ReportScore(HighScore, GPGSIds.leaderboard_score, (bool success) => {
+        Social.ReportScore(HighScore, GPGSIds.leaderboard_score, (bool success) => {
             if (success)
             {
                 Debug.Log("Leader Good");
@@ -313,7 +313,7 @@ public class GameManager : MonoSingleton<GameManager>
             return;
         }
 
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_score);
+        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(GPGSIds.leaderboard_score);
     }
 
     // 게임 종료 처리
