@@ -128,6 +128,8 @@ public class GameManager : MonoSingleton<GameManager>
     private void Start()
     {
         GameStart();
+        Application.targetFrameRate = 60;
+
     }
 
     private void GameStart()
