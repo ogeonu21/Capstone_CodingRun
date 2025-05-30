@@ -348,7 +348,7 @@ public class Quiz : MonoBehaviour
         // 답안 순서 섞기
         for (int i = answerList.Count - 1; i > 0; i--)
         {
-            int randomIndex = Random.Range(0, answerList.Count);
+            int randomIndex = Random.Range(0, i+1);
             var temp = answerList[i];
             answerList[i] = answerList[randomIndex];
             answerList[randomIndex] = temp;
