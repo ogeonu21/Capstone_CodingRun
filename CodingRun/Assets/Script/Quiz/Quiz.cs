@@ -28,7 +28,7 @@ public class Quiz : MonoBehaviour
     private Timer timer;                                          // 타이머
     private GameManager gameManager;                              // 게임 매니저
     private Status playerStatus;                                  // 플레이어 상태
-    private string[] answers;                                     // random하게 섞인 문제 배열.
+    private string answer;                                     // 랜덤하게 섞기 전, 정답을 저장할 String
     #endregion
 
     #region Unity 라이프사이클
@@ -333,8 +333,10 @@ public class Quiz : MonoBehaviour
         if (currentQuestion == null || answerTexts == null) return;
 
 
-        answers = currentQuestion.GetAnswers();
+        string[] answers = currentQuestion.GetAnswers();
         int correctIndex = currentQuestion.GetCorrectIndex();
+
+        answer = answers[correctIndex];
         
         // 답안과 인덱스를 함께 저장할 리스트 생성
         List<(string answer, int originalIndex)> answerList = new List<(string, int)>();
@@ -346,7 +348,7 @@ public class Quiz : MonoBehaviour
         // 답안 순서 섞기
         for (int i = answerList.Count - 1; i > 0; i--)
         {
-            int randomIndex = Random.Range(0, i + 1);
+            int randomIndex = Random.Range(0, answerList.Count);
             var temp = answerList[i];
             answerList[i] = answerList[randomIndex];
             answerList[randomIndex] = temp;
@@ -522,7 +524,7 @@ public class Quiz : MonoBehaviour
                         // 문제 텍스트와 피드백 텍스트 전환
                         questionText.gameObject.SetActive(false);
                         feedbackText.gameObject.SetActive(true);
-                        feedbackText.text = $"오답입니다! 체력이 {(damageHealth):F0}만큼 감소했습니다. \n\n 정답은 \"{answers[currentQuestion.GetCorrectIndex()]}\"였습니다.";
+                        feedbackText.text = $"오답입니다! 체력이 {(damageHealth):F0}만큼 감소했습니다. \n\n 정답은 \"{answer}\"였습니다.";
 
                         // 타이머 이미지 비활성화
                         if (timerImage != null)
