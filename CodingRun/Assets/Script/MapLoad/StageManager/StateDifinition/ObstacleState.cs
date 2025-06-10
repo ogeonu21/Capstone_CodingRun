@@ -20,7 +20,10 @@ public class ObstacleState : MonoBehaviour, IStageState
         Debug.Log("Obstacle Stage 진입");
         manager.StartSpawn();
         TimerExtension.StartTimer(obstacleDuration, () => {
-            manager.ChangeState(StageState.QUESTION_STATE);
+            // 장애물이 지나갈 시간을 주기 위해 4초 대기 후 상태 전환
+            TimerExtension.StartTimer(4f, () => {
+                manager.ChangeState(StageState.QUESTION_STATE);
+            });
         });
         TimerExtension.StartTimer(obstacleDuration-manager.adjustTime, () => {
             manager.StopSpawn();
