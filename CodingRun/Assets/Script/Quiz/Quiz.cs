@@ -29,6 +29,7 @@ public class Quiz : MonoBehaviour
     private GameManager gameManager;                              // 게임 매니저
     private Status playerStatus;                                  // 플레이어 상태
     private string answer;                                     // 랜덤하게 섞기 전, 정답을 저장할 String
+    [SerializeField] private FireworkManager fireworkManager;
     #endregion
 
     #region Unity 라이프사이클
@@ -468,9 +469,18 @@ public class Quiz : MonoBehaviour
         string resultMessage = isCorrect ? "정답" : "오답";
         Debug.Log($"선택한 답변: {selectedAnswer}, 정답: {correctAnswer}, 결과: {resultMessage}");
 
-        // 정답/오답 처리
+        // 정답일 때 폭죽 실행
         if (isCorrect)
         {
+            if (fireworkManager == null)
+            {
+                fireworkManager = FindObjectOfType<FireworkManager>();
+            }
+            if (fireworkManager != null)
+            {
+                fireworkManager.PlayFireworks();
+            }
+
             // 정답일 경우: 난이도, 체력, 플레이타임에 따른 점수 계산
             if (gameManager != null && playerStatus != null)
             {
