@@ -40,7 +40,7 @@ public class FireworkManager : MonoBehaviour
             }
         }
         // 2초 후 자동 비활성화
-        StartCoroutine(DisableFireworksAfterDelay(2f));
+        StartCoroutine(DisableFireworksAfterDelay(3f));
     }
 
     private IEnumerator DisableFireworksAfterDelay(float delay)
