@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2846d7204268e4290dcb265f48313d, type: 3}
   m_Name: Clanguage_17
   m_EditorClassIdentifier: 
-  questionNumber: 17
-  difficulty: 1
   question: "int arr[5] = {1,2,3,4,5}; \uC5D0\uC11C arr[1]\uC758 \uAC12\uC740?"
+  questionNumber: 17
   answers:
   - 1
   - 2
   - 3
   correctAnswerIndex: 1
+  difficulty: 1
+  timeLimit: 15

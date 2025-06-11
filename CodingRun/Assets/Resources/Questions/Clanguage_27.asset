@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2846d7204268e4290dcb265f48313d, type: 3}
   m_Name: Clanguage_27
   m_EditorClassIdentifier: 
+  question: "\uB2E4\uC74C \uC911 \uC2E4\uD589 \uACB0\uACFC\uAC00 \uBCC0\uC218 a\uC758
+    \uAC12\uC744 1 \uC99D\uAC00\uC2DC\uD0A8 \uD6C4 \uC774\uB97C \uD3EC\uC778\uD130\uAC00
+    \uAC00\uB9AC\uD0A4\uB294 \uAC12\uC73C\uB85C \uC0AC\uC6A9\uD558\uB294 \uC5F0\uC0B0\uC790\uB294?"
   questionNumber: 27
-  difficulty: 2
-  question: "\uB2E4\uC74C \uC911 \uC815\uC218\uD615 \uBCC0\uC218\uC758 \uC0C1\uC218\uB97C
-    \uC0AC\uC6A9\uD558\uB294 \uC5F0\uC0B0\uC790\uB294?"
   answers:
-  - /
-  - %
-  - &
+  - '*p = a++'
+  - '*p = ++a'
+  - '*p++ = a'
   correctAnswerIndex: 1
+  difficulty: 2
+  timeLimit: 20
