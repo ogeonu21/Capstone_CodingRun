@@ -98,7 +98,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         base.Awake();
 
-        Debug.Log("구글 게임 서비스 초기화 완료");
+        //Debug.Log("구글 게임 서비스 초기화 완료");
     }
 
     private void FindQuizManager()
@@ -137,11 +137,11 @@ public class GameManager : MonoSingleton<GameManager>
         Debug.Log("Start 메소드 호출됨");
         
         // 구글 플레이 게임즈 플랫폼 초기화
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.Activate();
 
         // 로그인 시도 (silent = 자동 로그인 시도)
-        SignGooglePlayGames(silent: true);
+        //SignGooglePlayGames(silent: true);
 
         // 저장된 최고 점수 로드
         HighScore = PlayerPrefs.GetFloat("HighScore", 0f);
