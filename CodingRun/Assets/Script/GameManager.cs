@@ -319,13 +319,26 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     // 게임 종료 처리
-    
     public void GameOver()
     {
         if (!IsGameOver) return;
 
         isTimerRunning = false;  // 타이머 정지
         Time.timeScale = 0f;     // 게임 시간 정지
+
+        // 문제 패널 비활성화
+        if (quizManager != null)
+        {
+            quizManager.SetQuestionPanelActive(false);
+        }
+        else
+        {
+            FindQuizManager();
+            if (quizManager != null)
+            {
+                quizManager.SetQuestionPanelActive(false);
+            }
+        }
 
         SaveHighScore();
         Debug.Log($"GameOver() 호출됨 — 플레이 시간: {timer:F2}초");
@@ -339,7 +352,6 @@ public class GameManager : MonoSingleton<GameManager>
 
         // 게임오버 ui 출력 (ui 담당 정헌용 작성)
         FindObjectOfType<Gameover>().ShowGameOverUI(GameManager.Instance.Score, GameManager.Instance.timer);
-
     }
 
     // 퀴즈 전환 처리

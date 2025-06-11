@@ -6,12 +6,6 @@ public class FireworkManager : MonoBehaviour
     // Effect 오브젝트의 자식 폭죽 이펙트들을 Inspector에서 할당
     public GameObject[] fireworks;
 
-    private void Start()
-    {
-        // 게임 시작 후 1초 뒤에 테스트용 폭죽 자동 실행
-        // StartCoroutine(TestFireworkAfterDelay());
-    }
-
     private void OnEnable()
     {
         // 시작 시 모든 폭죽 이펙트 비활성화
@@ -39,8 +33,8 @@ public class FireworkManager : MonoBehaviour
                 ps.Play();
             }
         }
-        // 2초 후 자동 비활성화
-        StartCoroutine(DisableFireworksAfterDelay(2f));
+        // 3초 후 자동 비활성화
+        StartCoroutine(DisableFireworksAfterDelay(3f));
     }
 
     private IEnumerator DisableFireworksAfterDelay(float delay)
