@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06431813, g: 0.60123694, b: 0.9721222, a: 1}
+  m_IndirectSpecularColor: {r: 0.064030975, g: 0.6009398, b: 0.97159153, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1797,7 +1797,7 @@ PrefabInstance:
     - target: {fileID: 3731424010798891294, guid: ee0a1df7b72e444b2819778d31b076d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 171.5
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 3731424010798891294, guid: ee0a1df7b72e444b2819778d31b076d5,
         type: 3}
@@ -3990,7 +3990,7 @@ PrefabInstance:
     - target: {fileID: 3424464726854789937, guid: d9d9b06c58aec4c73b196853e3e039f4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 125.7
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3424464726854789937, guid: d9d9b06c58aec4c73b196853e3e039f4,
         type: 3}
@@ -4450,10 +4450,10 @@ RectTransform:
   m_Father: {fileID: 1485621148}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -2783.4263}
+  m_AnchoredPosition: {x: 0, y: -204}
+  m_SizeDelta: {x: 0, y: 628.5737}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1380443116
 GameObject:
@@ -4854,7 +4854,7 @@ PrefabInstance:
     - target: {fileID: 1375149833394528536, guid: 9a19b108bfb1d439ab6adcec861e88c1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 138.6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1375149833394528536, guid: 9a19b108bfb1d439ab6adcec861e88c1,
         type: 3}
@@ -7458,7 +7458,7 @@ PrefabInstance:
     - target: {fileID: 3875420203868342149, guid: 4cfbdf2d8e08644ff8b92600bcff1571,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 138.8
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3875420203868342149, guid: 4cfbdf2d8e08644ff8b92600bcff1571,
         type: 3}
